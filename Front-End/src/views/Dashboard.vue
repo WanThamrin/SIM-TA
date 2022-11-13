@@ -1,6 +1,9 @@
 <template>
   <div class="py-4 container-fluid">
     <div class="row mb-4">
+      <h4 class="mb-4"> Selamat Datang di SIM-TA ,
+        <span>{{ profiles.name }}</span>
+      </h4>
       <div class="col-lg-12 position-relative z-index-2">
         <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6">
@@ -28,7 +31,7 @@
               }" />
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
-            <mini-statistics-card :title="{ text: 'Yudisium', value: '20 Mahasiswa' }"
+            <mini-statistics-card :title="{ text: 'Wisuda', value: '20 Mahasiswa' }"
               detail="<span class='text-success text-sm font-weight-bolder'>+5%</span> Just updated" :icon="{
                 name: 'school',
                 color: 'text-white',
@@ -122,68 +125,33 @@
             <h5 class="text-black text-capitalize ps-3">Pengumuman</h5>
           </div>
         </div>
-        <div class="table-responsive p-0 my-4">
-          <table class="table align-items-center mb-0">
-            <thead>
-              <tr>
-                <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                  Judul Pengumuman
-                </th>
-                <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                  Keyword Pengumuman
-                </th>
-                <!-- <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                  Status
-                </th> -->
-                <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+        <div class="card-body pt-4">
+          <ul class="list-group">
+            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
+              v-for="(Info, index) in Infos.data" :key="index">
+              <div class="d-flex flex-column">
+                <h6 class="mb-3 text-md">{{ Info.judul }}</h6>
+                <span class="mb-2 text-md">
+                  <span class="text-dark font-weight-bold ms-sm-2">{{ Info.keyword }}</span>
+                </span>
+                <span class="mb-2 text-md">
                   Waktu
-                </th>
-                <!-- <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Info
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Penguji II
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Jadwal
-                    </th> -->
-                <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-5"> File </th>
-                <!-- <th class="text-dark opacity-2"></th> -->
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <!-- <td class="align-middle text-center">
-                  <span class="text-sm font-weight-medium">{{ Info.id }}</span>
-                </td> -->
-                <td>
-                  <div class="text-center px-2 py-1">
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="mb-0 text-sm">Jadwal Pembukaan Seminar Hasil</h6>
-                      <!-- <p class="text-sm text-secondary mb-0">
-                            
-                          </p> -->
-                    </div>
-                  </div>
-                </td>
-                <td class="align-middle text-center">
-                  <span class="text-sm font-weight-medium">Seminar Hasil</span>
-                </td>
-                <!-- <td class="align-middle text-center">
-                  <span class="badge badge-sm bg-gradient-success">{{ Info.status }}</span>
-                </td> -->
-                <td class="align-middle text-center">
-                  <span class="text-secondary text-sm font-weight-medium">Jumat (16.00)</span>
-                </td>
-                <td class="align-middle text-center">
-                  <button class="btn btn-link text-danger text-sm mb-0 px-0 ms-4">
-                    <i class="fas fa-file-pdf text-lg me-1" aria-hidden="true"></i>
-                    pdf
+                  <span class="text-dark ms-sm-2 font-weight-bold">{{ Info.hari }} ({{ Info.jam }})</span>
+                </span>
+                <span class="text-md">
+                  Note:
+                  <span class="text-dark ms-sm-2 font-weight-bold">{{ Info.note }}</span>
+                </span>
+                <span class="text-md">
+                  File:
+                  <button class="btn btn-link text-sm mb-0" onclick="window.open({{ Info.file }})">
+                    <i class="fas fa-file-pdf text-lg me-1" aria-hidden="true"> PDF</i>
+                    {{ Info.file? Info.file.name:'' }}
                   </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </span>
+              </div>
+            </li>
+          </ul>
         </div>
         <!-- <project-card
           title="Pengumuman"
@@ -256,11 +224,10 @@
   </div>
 </template>
 <script>
-// import ChartHolderCard from "./components/ChartHolderCard.vue";
-// import ReportsBarChart from "@/examples/Charts/ReportsBarChart.vue";
-// import ReportsLineChart from "@/examples/Charts/ReportsLineChart.vue";
+import axios from 'axios';
+// import { onMounted, ref } from "vue";
+
 import MiniStatisticsCard from "./components/MiniStatisticsCard.vue";
-// import ProjectCard from "./components/ProjectCard.vue";
 import TimelineList from "@/examples/Cards/TimelineList.vue";
 import TimelineItem from "@/examples/Cards/TimelineItem.vue";
 import logoXD from "@/assets/img/small-logos/logo-xd.svg";
@@ -287,14 +254,40 @@ export default {
       logoSpotify,
       logoJira,
       logoInvision,
+      profiles: {},
+      Infos: {}
     };
   },
+
+  methods: {
+    getNama() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/me',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.profiles = result.data.data
+          console.log(this.profiles)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+    getInfo() {
+      axios.get('http://127.0.0.1:8000/api/info')
+        .then((result) => {
+          this.Infos = result.data
+          console.log(this.Infos)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    }
+  },
+  mounted() {
+    this.getNama()
+    this.getInfo()
+  },
+
   components: {
-    // ChartHolderCard,
-    // ReportsBarChart,
-    // ReportsLineChart,
     MiniStatisticsCard,
-    // ProjectCard,
     TimelineList,
     TimelineItem,
   },

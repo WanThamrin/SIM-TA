@@ -98,7 +98,7 @@ export default {
   methods: {
     store() {
       axios.post(
-        'http://127.0.0.1:8000/api/Riset',
+        'http://127.0.0.1:8000/api/riset',
         this.Riset
       )
         .then(() => {

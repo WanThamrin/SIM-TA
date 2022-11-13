@@ -563,7 +563,7 @@ export default {
         })
 
 
-      axios.get('http://127.0.0.1:8000/api/Riset')
+      axios.get('http://127.0.0.1:8000/api/riset')
         .then((result) => {
           Risets.value = result.data
 

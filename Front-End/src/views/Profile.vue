@@ -1,13 +1,15 @@
 <template>
   <div class="container-fluid">
-    <div class="page-header min-height-200 border-radius-xl mt-4" style="
-          background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg');">
+    <div class="page-header min-height-200 border-radius-xl mt-4"
+      style="
+          background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg')"
+          >
       <span class="mask bg-gradient-info opacity-2"></span>
       <!-- <router-link :to="{name:'Bimbingan'}" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link> -->
     </div>
-    <div class="card card-body mx-3 mx-md-4 mt-n6" v-for="(profile, index) in profiles.data" :key="index">
-      <div class="row gx-4" >
+    <div class="card card-body mx-3 mx-md-4 mt-n6">
+      <div class="row gx-4">
         <div class="col-auto">
           <div class="position-relative" style="width: 200px">
             <img src="@/assets/img/bruce-mars.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" />
@@ -15,7 +17,7 @@
         </div>
         <div class="col-auto my-auto">
           <div class="h-100">
-            <h5 class="mb-1">{{ profiles.data.name }}</h5>
+            <h5 class="mb-1">{{ profiles.name }}</h5>
             <p class="mb-0 font-weight-normal text-sm"> Mahasiswa Informatika</p>
           </div>
         </div>
@@ -67,13 +69,13 @@
           <div class="p-3 card-body">
             <ul class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">NIM :</strong> {{ profiles.data.number}}
+                <strong class="text-dark">NIM :</strong> {{ profiles.number }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Mobile :</strong> 084128141410
+                <strong class="text-dark">Mobile :</strong> {{ profiles.telp }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Email :</strong> {{ profiles.data.email }}
+                <strong class="text-dark">Email :</strong> {{ profiles.email }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Status : </strong>
@@ -194,44 +196,44 @@
             </div>
             <div class="\card-body">
               <div class="card-body pt-4 p-3">
-                  <ul class="list-group">
-                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                      <div class="d-flex flex-column">
-                        <span class="mb-2 text-md">
-                          Judul Tugas Akhir:
-                          <span class="text-dark font-weight-bold ms-sm-2">Sistem Informasi Manajemen Tugas Akhir [Studi
-                            Kasus:ITK]</span>
-                        </span>
-                        <span class="mb-2 text-md">
-                          Keyword:
-                          <span class="text-dark ms-sm-2 font-weight-bold">SIM-TA</span>
-                        </span>
-                        <span class="text-md">
-                          Abstrak:
-                          <span class="text-dark font-weight-bold ms-sm-2">Sistem Informasi Manajemen Tugas Akhir [Studi
-                            Kasus:ITK]Sistem Informasi Manajemen Tugas Akhir [Studi
-                            Kasus:ITK]</span>
-                            </span>
-                            <span class="mb-2 text-md">
-                          Dosen Pembimbing Utama :
-                          <span class="text-dark font-weight-bold ms-sm-2">John Michael S.Kom,M.Kom</span>
-                        </span>
-                        <span class="mb-2 text-md">
-                          Dosen Pembimbing Pendamping :
-                          <span class="text-dark font-weight-bold ms-sm-2">John Michael S.Kom,M.Kom</span>
-                        </span>
-                        <span class="mb-2 text-md">
-                          Dosen Penguji I :
-                          <span class="badge badge-sm bg-gradient-light text-dark">Menunggu Konfirmasi</span>
-                        </span>
-                        <span class="mb-2 text-md">
-                          Dosen Penguji II :
-                          <span class="badge badge-sm bg-gradient-light text-dark">Menunggu Konfirmasi</span>
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+                <ul class="list-group">
+                  <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <div class="d-flex flex-column">
+                      <span class="mb-2 text-md">
+                        Judul Tugas Akhir:
+                        <span class="text-dark font-weight-bold ms-sm-2">Sistem Informasi Manajemen Tugas Akhir [Studi
+                          Kasus:ITK]</span>
+                      </span>
+                      <span class="mb-2 text-md">
+                        Keyword:
+                        <span class="text-dark ms-sm-2 font-weight-bold">SIM-TA</span>
+                      </span>
+                      <span class="text-md">
+                        Abstrak:
+                        <span class="text-dark font-weight-bold ms-sm-2">Sistem Informasi Manajemen Tugas Akhir [Studi
+                          Kasus:ITK]Sistem Informasi Manajemen Tugas Akhir [Studi
+                          Kasus:ITK]</span>
+                      </span>
+                      <span class="mb-2 text-md">
+                        Dosen Pembimbing Utama :
+                        <span class="text-dark font-weight-bold ms-sm-2">John Michael S.Kom,M.Kom</span>
+                      </span>
+                      <span class="mb-2 text-md">
+                        Dosen Pembimbing Pendamping :
+                        <span class="text-dark font-weight-bold ms-sm-2">John Michael S.Kom,M.Kom</span>
+                      </span>
+                      <span class="mb-2 text-md">
+                        Dosen Penguji I :
+                        <span class="badge badge-sm bg-gradient-light text-dark">Menunggu Konfirmasi</span>
+                      </span>
+                      <span class="mb-2 text-md">
+                        Dosen Penguji II :
+                        <span class="badge badge-sm bg-gradient-light text-dark">Menunggu Konfirmasi</span>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -245,7 +247,7 @@
 <script>
 //   import DefaultProjectCard from "./components/DefaultProjectCard.vue";
 import axios from 'axios';
-import { onMounted, ref } from "vue";
+// import { onMounted, ref } from "vue";
 
 
 import setNavPills from "@/assets/js/nav-pills.js";
@@ -254,34 +256,32 @@ import setTooltip from "@/assets/js/tooltip.js";
 
 export default {
   name: "profile-overview",
-
-  components: {
+  data() {
+    return {
+      profiles: {}
+    };
   },
-  setup() {
-    let profiles = ref([]);
 
-    onMounted(() => {
+  methods: {
+    getNama() {
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/me',
-       { headers: {"Authorization" : `Bearer ${token}`} })
+        { headers: { "Authorization": `Bearer ${token}` } })
         .then((result) => {
-          profiles.value = result.data
-          console.log(profiles.value)
+          this.profiles = result.data.data
+          console.log(this.profiles)
         }).catch((err) => {
           console.log(err.response)
 
         })
+    },
+  },
 
-      setNavPills();
-      setTooltip();
-    });
-
-    return {
-      profiles
-    };
+  components: {
   },
 
   mounted() {
+    this.getNama()
     this.$store.state.isAbsolute = true;
     setNavPills();
     setTooltip();

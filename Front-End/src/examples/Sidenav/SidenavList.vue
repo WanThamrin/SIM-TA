@@ -1,88 +1,69 @@
 <template>
-  <div
-    class="w-auto h-auto collapse navbar-collapse max-height-vh-100 h-100"
-    id="sidenav-collapse-main"
-  >
+  <div class="w-auto h-auto collapse navbar-collapse max-height-vh-100 h-100" id="sidenav-collapse-main">
     <ul class="navbar-nav">
+      <li class="mt-3 nav-item">
+        <h6 class="text-xs ps-4 text-uppercase font-weight-bolder text-white">
+          _______________
+        </h6>
+      </li>
       <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="dashboard"
-          navText="Dashboard"
-        >
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="dashboard"
+          navText="Dashboard">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">dashboard</i>
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="bimbingan"
-          navText="Bimbingan"
-        >
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="bimbingan"
+          navText="Bimbingan">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">collections_bookmark</i>
           </template>
         </sidenav-collapse>
       </li>
+      <!-- <li class="nav-item dropdown">
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="Other"
+          navText="Other">
+          <template v-slot:icon>
+            <i class="material-icons-round opacity-10 fs-5">collections_bookmark</i>
+      
+          </template>
+          
+        </sidenav-collapse>
+      </li> -->
       <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="sempro"
-          navText="Seminar Proposal"
-        >
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="sempro"
+          navText="Seminar Proposal">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">cast_for_education</i>
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="semhas"
-          navText="Seminar Hasil"
-        >
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="semhas"
+          navText="Seminar Hasil">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">cast_for_education</i>
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="penilaian"
-          navText="Penilaian"
-        >
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="penilaian"
+          navText="Penilaian">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">assignment_turned_in</i>
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="relasi"
-          navText="Relasi"
-        >
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="relasi" navText="Relasi">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">groups_3</i>
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <sidenav-collapse
           url="#"
           :aria-controls="''"
@@ -94,7 +75,7 @@
             <i class="material-icons-round opacity-10 fs-5">school</i>
           </template>
         </sidenav-collapse>
-      </li>
+      </li> -->
       <!-- <li class="nav-item">
         <sidenav-collapse
           url="/"
@@ -124,48 +105,29 @@
         </sidenav-collapse>
       </li> -->
       <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="notifications"
-          navText="Pengumuman"
-        >
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="notifications"
+          navText="Pengumuman">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">notifications</i>
           </template>
         </sidenav-collapse>
       </li>
       <li class="mt-3 nav-item">
-        <h6
-          class="text-xs ps-4 text-uppercase font-weight-bolder text-white"
-        >
+        <h6 class="text-xs ps-4 text-uppercase font-weight-bolder text-white">
           ACCOUNT PAGES
         </h6>
       </li>
       <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="profile"
-          navText="Profil"
-        >
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="profile" navText="Profil">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">person</i>
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="sign-in"
-          navText="Keluar"
-        >
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="sign-in" navText="Keluar">
           <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5">logout</i>
+            <i class="material-icons-round opacity-10 fs-5" @click="logout">logout</i>
           </template>
         </sidenav-collapse>
       </li>
@@ -183,7 +145,7 @@
         </sidenav-collapse>
       </li> -->
     </ul>
-    </div>
+  </div>
 </template>
 <script>
 import SidenavCollapse from "./SidenavCollapse.vue";
@@ -200,6 +162,14 @@ export default {
       isActive: "active"
     };
   },
+
+  methods: {
+    logout() {
+      this.getData()
+      this.$router.push('/')
+    }
+  },
+
   components: {
     SidenavCollapse
   }

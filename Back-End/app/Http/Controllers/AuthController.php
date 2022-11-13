@@ -24,6 +24,7 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'number' => $request->number,
+                'telp' => $request->telp,
                 'password' => "psswrd"
             ]);
         

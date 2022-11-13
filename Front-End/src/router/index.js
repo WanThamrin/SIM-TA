@@ -25,13 +25,12 @@ import Billing from "../views/Billing.vue";
 import Notifications from "../views/Notifications.vue";
 import Profile from "../views/Profile.vue"; 
 import SignIn from "../views/SignIn.vue";
-import SignUp from "../views/SignUp.vue";
 
 const routes = [
   {
     path: "/",
     name: "/",
-    redirect: "/dashboard",
+    redirect: "/sign-in",
   },
   {
     path: "/dashboard",
@@ -163,12 +162,7 @@ const routes = [
     path: "/sign-in",
     name: "SignIn",
     component: SignIn,
-  },
-  {
-    path: "/sign-up",
-    name: "SignUp",
-    component: SignUp,
-  },
+  }
 
 ];
 

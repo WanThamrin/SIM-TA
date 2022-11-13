@@ -119,10 +119,10 @@
               <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="" role="tab" aria-selected="false">Seminar
                 Hasil</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="" role="tab"
                 aria-selected="false">Yudisium</a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>

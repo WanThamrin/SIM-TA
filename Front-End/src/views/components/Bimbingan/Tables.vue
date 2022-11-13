@@ -22,17 +22,16 @@
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Nama Mahasiswa</label>
                   </div>
-                  <div class="col-lg-9 my-1">
-                    <input id="name" type="text" placeholder="Masukkan Nama Mahasiswa" class="input-group border border-info rounded py-2 px-2 text-sm" name="name" size="md"
-                      Required />
+                  <div class="text-info col-lg-9 my-1  py-2 px-2 font-weight-bolder">
+                    {{ profiles.name }}
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">NIM</label>
                   </div>
-                  <div class="col-lg-9 my-1">
-                    <input id="nim" type="text" placeholder="Masukkan NIM" class="input-group border border-info rounded py-2 px-2 text-sm" name="nim" size="md" />
+                  <div class="text-info col-lg-9 my-1 py-2 px-2 font-weight-bolder">
+                    {{ profiles.number }}
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -95,17 +94,39 @@
 </template>
 
 <script>
-// import MaterialInput from "@/components/MaterialInput.vue";
+import axios from 'axios';
+
 import MaterialButton from "@/components/MaterialButton.vue";
-// import MaterialTextarea from "../../../components/MaterialTextarea.vue";
-// import { mapMutations } from "vuex";
 
 export default {
   name: "tables",
+  data(){
+    return{
+      profiles:{}
+    };
+  },
+  
   components: {
-    // MaterialInput,
     MaterialButton,
-    // MaterialTextarea
+  },
+
+  methods: {
+    getNama() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/me',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.profiles = result.data.data
+          console.log(this.profiles)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+  },
+
+  mounted() {
+    this.getNama()
+  },
   // },
   // beforeMount() {
   //     this.toggleEveryDisplay();
@@ -120,5 +141,5 @@ export default {
   // methods: {
   //     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
   // },
-}};
+};
 </script>

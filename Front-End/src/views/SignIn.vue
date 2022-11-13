@@ -11,7 +11,7 @@
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-light shadow-success border-radius-lg py-3 pe-1">
                 <div class="row">
-                  <div class=" text-center ml-2">
+                  <div class=" text-center ml-4 mb-4 mt-4">
                     <a href="/">
                       <img :src="
                         sidebarType === 'bg-white' ||
@@ -26,17 +26,21 @@
                   SIM-TA JMTI
                 </h4> -->
                 <h6 class="text-dark font-weight-normal text-center mt-2 mb-0">
-                  Sistem Informasi Manajemen Tugas Akhir - JMTI
+                  Sistem Informasi Manajemen Tugas Akhir Informatika
                 </h6>
               </div>
             </div>
             <div class="card-body">
+              <!-- <material-alert></material-alert> -->
               <form role="form" class="text-start mt-3" @submit.prevent="store()">
                 <div class="mb-3">
-                  <input v-model="login.email" id="username" type="username" label="Username" name="username" />
+                  <input placeholder="Masukkan E-Mail" class="input-group border border-info rounded py-2 px-2 text-sm"
+                    v-model="login.email" id="username" type="username" label="Username" name="username" />
                 </div>
                 <div class="mb-3">
-                  <input v-model="login.password" id="password" type="password" label="Password" name="password" />
+                  <input placeholder="Masukkan Password"
+                    class="input-group border border-info rounded py-2 px-2 text-sm" v-model="login.password"
+                    id="password" type="password" label="Password" name="password" />
                 </div>
                 <material-switch id="rememberMe" name="rememberMe">Remember me</material-switch>
                 <div class="text-center">
@@ -113,14 +117,15 @@
 </template>
 
 <script>
-import logo from "@/assets/img/Logo SIM-TA.png";
-import logoDark from "@/assets/img/Logo SIM-TA.png";
+import logo from "@/assets/img/SIM-TA.png";
+import logoDark from "@/assets/img/SIM-TA.png";
 
 import axios from 'axios';
 // import Vue from 'vue';
 // import Vuex from 'vuex';
 
 import Navbar from "@/examples/PageLayout/Navbar.vue";
+// import MaterialAlert from "@/components/MaterialAlert.vue";
 import MaterialSwitch from "@/components/MaterialSwitch.vue";
 import MaterialButton from "@/components/MaterialButton.vue";
 import { mapMutations } from "vuex";
@@ -131,14 +136,13 @@ export default {
     Navbar,
     MaterialSwitch,
     MaterialButton,
+    // MaterialAlert,
   },
   data() {
     return {
       logo,
       logoDark,
-      login: {
-        email: ""
-      }
+      login: {}
     };
   },
   beforeMount() {
@@ -157,20 +161,20 @@ export default {
       )
         .then((res) => {
           let email = ""
-          if(res.data.data.biodata.MA_Email){
+          if (res.data.data.biodata.MA_Email) {
             email = res.data.data.biodata.MA_Email
-          } else{
+          } else {
             email = res.data.data.biodata.PE_Email
           }
           let request = {
-              email:email,
-              number:res.data.data.XNAMA,
-              name:res.data.data.USERDESC
-            }
+            email: email,
+            number: res.data.data.XNAMA,
+            name: res.data.data.USERDESC
+          }
           axios.post(
             'http://127.0.0.1:8000/api/login',
             request
-          ) .then((ress) => { 
+          ).then((ress) => {
             // console.log(ress)
             localStorage.setItem('token', ress.data.token);
             this.$router.push({

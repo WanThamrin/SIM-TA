@@ -17,25 +17,25 @@
                       <div class="col-6 d-flex align-items-center">
                         <h6 class="text-secondary mb-0">Dokumen</h6>
                       </div>
-                      <div class="col-6 text-end">
+                      <!-- <div class="col-6 text-end">
                         <material-button color="primary" size="sm" variant="outline">View All</material-button>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <div class="card-body p-3 mb-0">
-                    <ul class="list-group">
+                    <ul class="list-group bg-gray-100 border-radius-lg">
                       <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg"
                         v-for="(DocSempro, index) in DocSempros.data" :key="index">
                         <div class="d-flex flex-column">
-                          <h6 class="mb-1 text-dark font-weight-bold text-sm">
+                          <h6 class="mb-2 text-dark font-weight-bold text-sm">
                             {{ DocSempro.judul }}
                           </h6>
                           <span class="text-xs">{{ DocSempro.keyword }}</span>
                         </div>
-                        <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4">
-                          <i class="fas fa-file-pdf text-lg me-1" aria-hidden="true"></i>
-                          {{ DocSempro.file }}
-                        </button>
+                          <button class="btn btn-link" onclick="window.open({{ DocSempro.file }})">
+                            <span><i class="fas fa-file-pdf text-md me-2" aria-hidden="true"><br/>PDF</i></span>
+                            {{ DocSempro.file ? DocSempro.file.name : '' }}
+                          </button>
                       </li>
                     </ul>
                   </div>
@@ -44,10 +44,10 @@
             </div>
           </div>
           <div class="col-lg-8">
-            <router-link :to="{name:'Tambah'}" class="btn btn-dark mx-3" type="button">
+            <router-link :to="{ name: 'Tambah' }" class="btn btn-dark mx-3" type="button">
               <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Sempro
             </router-link>
-            <router-link :to="{name:'Tambah'}" class="btn btn-dark mx-3 disabled ">
+            <router-link :to="{ name: 'Tambah' }" class="btn btn-dark mx-3 disabled ">
               <i class="fas fa-duotone fa-hashtag m-0 p-0 me-2"></i>Lihat Nilai
             </router-link>
             <div class="col-lg-12 me-4">
@@ -280,7 +280,7 @@
                     </td>
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                        <router-link :to="{name:'Edit'}"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
+                        <router-link :to="{ name: 'Edit' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
                             aria-hidden="true"></i>
                         </router-link>
                       </a>
@@ -324,7 +324,7 @@
                     </td>
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                        <router-link :to="{name:'Edit'}"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
+                        <router-link :to="{ name: 'Edit' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
                             aria-hidden="true"></i>
                         </router-link>
                       </a>
@@ -347,11 +347,11 @@
 import axios from 'axios';
 import { onMounted, ref } from "vue";
 
-import MaterialButton from "@/components/MaterialButton.vue";
+// import MaterialButton from "@/components/MaterialButton.vue";
 export default {
   name: "sempro",
   components: {
-    MaterialButton,
+    // MaterialButton,
   },
 
   setup() {
@@ -359,7 +359,7 @@ export default {
 
     onMounted(() => {
 
-        axios.get('http://127.0.0.1:8000/api/DocSempro')
+      axios.get('http://127.0.0.1:8000/api/doc-sempro')
         .then((result) => {
           DocSempros.value = result.data
 

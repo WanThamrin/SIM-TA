@@ -20,7 +20,7 @@
               ? logoDark
               : logo
           "
-          class="navbar-logo-img h-100 p-2 mx-auto d-block "
+          class="navbar-logo-img h-100 m-4 mx-auto d-block "
           alt="main_logo"
         />
         <!-- <span class="ms-2 font-weight-bold text-white"
@@ -34,8 +34,8 @@
 </template>
 <script>
 import SidenavList from "./SidenavList.vue";
-import logo from "@/assets/img/Logo SIM-TA.png";
-import logoDark from "@/assets/img/Logo SIM-TA.png";
+import logo from "@/assets/img/SIM-TA.png";
+import logoDark from "@/assets/img/SIM-TA.png";
 import { mapState } from "vuex";
 
 export default {
