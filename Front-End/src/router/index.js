@@ -4,18 +4,22 @@ import Tables from "../views/components/Bimbingan/Tables.vue";
 import Bimbingan from "../views/components/Bimbingan/Bimbingan.vue";
 import EditMatkul from "../views/components/Bimbingan/Matkul/edit.vue";
 import EditRiset from "../views/components/Bimbingan/Riset/edit.vue";
-import Detail from "../views/components/Bimbingan/Dosen/Detail.vue";
+import DetailDosen from "../views/components/Bimbingan/Dosen/Detail.vue";
+import TambahDosen from "../views/components/Bimbingan/Dosen/Tambah.vue";
+import DetailMhs from "../views/components/Bimbingan/Mahasiswa/Detail.vue";
+import TambahMhs from "../views/components/Bimbingan/Mahasiswa/Tambah.vue";
 import Info from "../views/components/Pengumuman/Info/Info.vue";
 import EditInfo from "../views/components/Pengumuman/Info/edit.vue";
 import EyeInfo from "../views/components/Pengumuman/Info/EyeInfo.vue";
 import Doc from "../views/components/Pengumuman/Dokumen/Doc.vue";
 import EyeDoc from "../views/components/Pengumuman/Dokumen/EyeDoc.vue";
 import Sempro from "../views/components/Sempro/Sempro.vue";
-import Tambah from "../views/components/Sempro/Tambah.vue";
-import Edit from "../views/components/Sempro/Edit.vue";
+import TambahSempro from "../views/components/Sempro/Tambah.vue";
+import Create from "../views/components/Sempro/Jadwal/Create.vue";
 import Matkul from "../views/components/Bimbingan/Matkul/Matkul.vue";
 import Riset from "../views/components/Bimbingan/Riset/Riset.vue";
 import Semhas from "../views/components/Semhas/Semhas.vue";
+import TambahSemhas from "../views/components/Semhas/Tambah.vue";
 import Penilaian from "../views/components/Penilaian/Penilaian.vue";
 import Nilai from "../views/components/Penilaian/Nilai.vue";
 import Relasi from "../views/components/Relasi/Relasi.vue";
@@ -63,9 +67,24 @@ const routes = [
     component: Matkul,
   },
   {
-    path: "/detail",
-    name: "Detail",
-    component: Detail,
+    path: "/detail-dosen",
+    name: "Detail-Dosen",
+    component: DetailDosen,
+  },
+  {
+    path: "/tambah-dosen",
+    name: "Tambah-Dosen",
+    component: TambahDosen,
+  },
+  {
+    path: "/detail-mahasiswa",
+    name: "Detail-Mahasiswa",
+    component: DetailMhs,
+  },
+  {
+    path: "/tambah-mahasiswa",
+    name: "Tambah-Mahasiswa",
+    component: TambahMhs,
   },
   {
     path: "/riset",
@@ -78,7 +97,7 @@ const routes = [
     component: Info,
   },
   {
-    path: "/edit-Info/:id",
+    path: "/edit-Info",
     name: "Edit-Info",
     component: EditInfo,
   },
@@ -103,19 +122,24 @@ const routes = [
     component: Sempro,
   },
   {
-    path: "/tambah",
-    name: "Tambah",
-    component: Tambah,
+    path: "/tambah-sempro",
+    name: "Tambah-Sempro",
+    component: TambahSempro,
   },
   {
-    path: "/edit",
-    name: "Edit",
-    component: Edit,
+    path: "/create",
+    name: "Create",
+    component: Create,
   },
   {
     path: "/semhas",
     name: "Semhas",
     component: Semhas,
+  },
+  {
+    path: "/tambah-semhas",
+    name: "Tambah-Semhas",
+    component: TambahSemhas,
   },
   {
     path: "/penilaian",

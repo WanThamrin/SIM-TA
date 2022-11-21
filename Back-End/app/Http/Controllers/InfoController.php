@@ -76,7 +76,7 @@ class InfoController extends Controller
             $Info = Info::create([
                 'judul' => $request->judul,
                 'keyword' => $request->keyword,
-                'status' => $request->status,
+                // 'status' => $request->status,
                 // 'hari' => $request->hari,
                 // 'jam' => $request->jam,
                 'note' => $request->note,
@@ -168,7 +168,7 @@ class InfoController extends Controller
             $Info = Info::create([
                 'judul' => $request->judul,
                 'keyword' => $request->keyword,
-                'status' => $request->status,
+                // 'status' => $request->status,
                 // 'hari' => $request->hari,
                 // 'jam' => $request->jam,
                 'note' => $request->note,

@@ -97,7 +97,7 @@ export default {
   methods: {
     getMatkul() {
       axios.get(
-        'http://127.0.0.1:8000/api/Riset/' + this.$route.params.id
+        'http://127.0.0.1:8000/api/riset/' + this.$route.params.id
       )
         .then((result) => {
           this.Riset = result.data.data
@@ -109,7 +109,7 @@ export default {
     },
     update() {
       axios.put(
-        'http://127.0.0.1:8000/api/Riset/' + this.$route.params.id,
+        'http://127.0.0.1:8000/api/riset/' + this.$route.params.id,
         this.Riset
       )
         .then(() => {

@@ -15,8 +15,8 @@ class Info extends Model
         'keyword',
         'file',
         'note',
-        'status',
-        'hari',
-        'jam',
+        // 'status',
+        // 'hari',
+        // 'jam',
     ];
 }

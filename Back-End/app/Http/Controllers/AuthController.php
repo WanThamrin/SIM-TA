@@ -18,16 +18,17 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $user = User::where('email',$request->email)->first(); 
+        $user = User::where('email',$request->email)->first();
         if (!$user) {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'number' => $request->number,
-                'telp' => $request->telp,
+                'phone' => $request->phone,
+                'role' => $request->role,
                 'password' => "psswrd"
             ]);
-        
+
             return response()->json([
                 "token" => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
@@ -36,8 +37,8 @@ class AuthController extends Controller
                 "token" => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
         }
-        
-        return response()->json($response, Response::HTTP_OK); 
+
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -52,6 +53,24 @@ class AuthController extends Controller
         ], 200);
     }
 
+    public function admin(Request $request)
+    {
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'number' => '0000',
+
+            'role' => 'admin',
+            'password' => $request->password,
+        ]);
+
+        return response()->json([
+            "token" => $user->createToken("API TOKEN")->plainTextToken
+        ], 200);
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -60,7 +79,7 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -71,7 +90,7 @@ class AuthController extends Controller
      */
     public function show($id)
     {
-       
+
     }
 
     /**
@@ -94,7 +113,7 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+
     }
 
     /**
@@ -105,6 +124,6 @@ class AuthController extends Controller
      */
     public function destroy($id)
     {
-        
+
     }
 }

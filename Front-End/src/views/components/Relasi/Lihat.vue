@@ -26,7 +26,7 @@
     <div class="row align-items-center mt-4">
       <div class="col-lg-4 col-sm-8">
         <div class="nav-wrapper position-relative end-0">
-          <ul class="p-1 bg-transparent nav nav-pills nav-fill" role="tablist">
+          <ul class="p-1 nav nav-pills nav-fill" role="tablist">
             <li class="nav-item">
               <a class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="javascript:;" role="tab"
                 aria-selected="true">

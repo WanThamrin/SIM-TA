@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class semhas extends Model
+class NilaiSemhas extends Model
 {
     use HasFactory;
-    protected $table = 'semhas';
+    protected $table = 'nilai_semhas';
 
 
     protected $fillable = [
@@ -17,12 +17,12 @@ class semhas extends Model
         // 'nim',
         // 'niph',
         'users_id',
-        'laporan',
-        'bimbingan',
-        'validasi_sidang1',
-        'validasi_sidang2',
-        'validasi_sempro',
-        'bukti',
+        'nilai1',
+        'nilai2',
+        'nilai3',
+        'nilai4',
+        'nilai5',
+        'note',
 
     ];
 
@@ -36,3 +36,4 @@ class semhas extends Model
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
 }
+

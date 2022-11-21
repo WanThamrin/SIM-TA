@@ -1,9 +1,8 @@
 <template>
   <div class="container-fluid">
     <div class="page-header min-height-250 border-radius-xl mt-4" style="
-          background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg');
-        ">
-      <span class="mask bg-gradient-info opacity-2"></span>
+        background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg')">
+        <span class="mask bg-gradient-info opacity-2"></span>
       <router-link :to="{name:'Bimbingan'}" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
     </div>
@@ -16,22 +15,22 @@
         </div>
         <div class="col-auto my-auto">
           <div class="h-100">
-            <h5 class="mb-1">Richard Davis S.Kom,M.Kom</h5>
+            <h5 class="mb-1">{{dosens.name}}</h5>
             <p class="mb-0 font-weight-normal text-sm"> Dosen Informatika</p>
           </div>
         </div>
         <div class="mx-auto mt-8 col-lg-6 col-md-6">
           <div class="nav-wrapper position-relative end-0">
-            <ul class="p-1 bg-transparent nav nav-pills nav-fill" role="tablist">
+            <ul class="p-1 nav nav-pills nav-fill" role="tablist">
               <li class="nav-item">
-                <a class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="javascript:;" role="tab"
-                  aria-selected="true">
+                <a @click="getRiset()" class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="#riset" role="tab"
+                  aria-selected="false">
 
                   <span class="ms-1">Topik Penelitian</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="px-0 py-1 mb-0 nav-link" data-bs-toggle="tab" href="javascript:;" role="tab"
+              <li @click="getBimbingan()" class="nav-item">
+                <a class="px-0 py-1 mb-0 nav-link" data-bs-toggle="tab" href="#bimbingan" role="tab"
                   aria-selected="false">
                   <span class="ms-1">Beban Mata Kuliah</span>
                 </a>
@@ -66,7 +65,7 @@
             </div>
           </div>
           <div class="p-3 card-body">
-            <p class="text-md font-weight-normal font-italic">Academic Carrer</p>
+            <p class="text-md font-weight-normal font-italic">{{dosens}}</p>
             <p class="text-sm font-italic">
               Bachelor Degree (Computer Science)
               Universitas Brawijaya, Indonesia 2014
@@ -75,13 +74,13 @@
             <hr class="my-4 horizontal gray-light" />
             <ul class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">NIP/NIPH :</strong> 2516166265215215123
+                <strong class="text-dark">NIP/NIPH :</strong> {{dosens.number}}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Mobile:</strong> 084128141410
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Email:</strong> Richard_Davis@lecturer.itk.ac.id
+                <strong class="text-dark">Email:</strong> {{dosens.email}}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Kapasitas Pembimbing Utama: </strong>
@@ -110,8 +109,9 @@
 
           <hr class="vertical dark" />
         </div>
-        <div class="ml-4 mt-4 col-8 col-xl-8 mt-xl-0">
-          <div class="card card-plain h-100 ">
+        <div class="tab-content row my-4 ml-4 mt-4 col-8 col-xl-8 mt-xl-0">
+          <div class="tab-pane fade show  card card-plain h-100 " id="riset" role="tabpanel"
+            aria-labelledby="riset">
             <div class="p-3 pb-0 card-header">
               <h6 class="mb-0">Daftar Topik Penelitian</h6>
             </div>
@@ -129,35 +129,53 @@
                       <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                         Keterangan
                       </th>
-                      <!-- <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Status
-                    </th> -->
-                      <!-- <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      
-                    </th> -->
                       <th class="text-center text-dark opacity-2"></th>
                     </tr>
                   </thead>
                   <tbody>
+                    <tr v-for="(Riset, index) in Risets.data" :key="index">
+                      <td class="align-middle text-center">
+                        <span class="text-sm font-weight-normal">{{ Riset.keyword }}</span>
+                      </td>
+                      <td class="align-middle text-center">
+                        <span class="text-sm font-weight-normal">{{ Riset.bidang_riset }}</span>
+                      </td>
+                      <td class="align-middle text-center">
+                        <span class="text-sm font-weight-normal">{{ Riset.note }}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade show  card card-plain h-100 " id="bimbingan" role="tabpanel"
+            aria-labelledby="bimbingan">
+            <div class="p-3 pb-0 card-header">
+              <h6 class="mb-0">Daftar Beban Mata Kuliah</h6>
+            </div>
+            <div class="p-3 card-body">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
                     <tr>
+                      <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                        Nama Mata Kuliah
+                      </th>
+                      <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                        Keterangan
+                      </th>
+                      <th class="text-center text-dark opacity-2"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(bebanBimbingan, index) in bebanBimbingans.data" :key="index">
                       <td class="align-middle text-center">
-                        <span class="text-sm font-weight-normal">SIM-TA</span>
+                        <span class="text-sm font-weight-normal">{{ bebanBimbingan.mata_kuliah }}</span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-sm font-weight-normal">software Developing</span>
+                        <span class="text-sm font-weight-normal">{{ bebanBimbingan.catatan }}</span>
                       </td>
-                      <td class="align-middle text-center">
-                        <span class="text-sm font-weight-normal">Pembangunan Sistem Manajemen Tugas Akhir</span>
-                      </td>
-                      <!-- <td class="align-middle text-center">
-                      <span class="text-info text-sm font-weight-medium">23/08/2022</span>
-                    </td> -->
-                      <!-- <td class="align-middle opacity-8">
-                      <a href="javascript:;" class="text-dark font-weight-bold text-sm" data-toggle="tooltip"
-                        data-original-title="Detail user">
-                        Details
-                      </a>
-                    </td> -->
                     </tr>
                   </tbody>
                 </table>
@@ -174,6 +192,7 @@
   
 <script>
 //   import DefaultProjectCard from "./components/DefaultProjectCard.vue";
+import axios from 'axios';
 
 
 
@@ -182,12 +201,60 @@ import setTooltip from "@/assets/js/tooltip.js";
 // import ProfileInfoCard1 from "../../ProfileInfoCard.vue";
 
 export default {
-  name: "detail",
+  name: "Detail-Dosen",
+  data(){
+    return{
+      bebanBimbingans: {},
+      Risets:{},
+      dosens:{}
+    }
+    
+  },
 
   components: {
   },
 
+  methods: {
+
+    getDosen() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/get-dosen',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.dosens = result.data.data
+          console.log(this.dosens)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+
+    getBimbingan(){
+      axios.get('http://127.0.0.1:8000/api/beban-bimbingan')
+        .then((result) => {
+          this.bebanBimbingans = result.data
+          console.log(this.bebanBimbingans)
+        }).catch((err) => {
+          console.log(err.response)
+
+        })
+    },
+
+    getRiset(){
+      axios.get('http://127.0.0.1:8000/api/riset')
+        .then((result) => {
+          this.Risets = result.data
+          console.log(this.Risets)
+        }).catch((err) => {
+          console.log(err.response)
+
+        })
+    }
+  },
+
   mounted() {
+    this.getBimbingan()
+    this.getRiset()
+    this.getDosen()
     this.$store.state.isAbsolute = true;
     setNavPills();
     setTooltip();

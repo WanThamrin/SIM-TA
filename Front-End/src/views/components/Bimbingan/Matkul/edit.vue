@@ -24,8 +24,8 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="mata_kuliah" type="text" label="Masukkan Nama Mata Kuliah" name="mata_kuliah" size="md"
-                      :isRequired="true" v-model="bebanBimbingan.mata_kuliah" />
-
+                    class="input-group border border-info rounded py-2 px-2 text-sm"  :isRequired="true"
+                    v-model="bebanBimbingan.mata_kuliah"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -33,7 +33,8 @@
                     <label for="nameInput" class="form-label">Catatan (Sesi/Praktikum/dll)</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="catatan" type="textarea" placeholder="Masukkan Catatan" name="catatan" size="md"
+                    <input id="catatan" type="textarea" name="catatan" size="md"
+                    class="input-group border border-info rounded py-2 px-2 text-sm" 
                       v-model="bebanBimbingan.catatan" />
                   </div>
                 </div>
@@ -74,7 +75,7 @@ export default {
   methods: {
     getMatkul() {
       axios.get(
-        'http://127.0.0.1:8000/api/bebanBimbingan/' + this.$route.params.id
+        'http://127.0.0.1:8000/api/beban-bimbingan/' + this.$route.params.id
       )
         .then((result) => {
           this.bebanBimbingan = result.data.data
@@ -86,7 +87,7 @@ export default {
     },
     update() {
       axios.put(
-        'http://127.0.0.1:8000/api/bebanBimbingan/' + this.$route.params.id,
+        'http://127.0.0.1:8000/api/beban-bimbingan/' + this.$route.params.id,
         this.bebanBimbingan
       )
         .then(() => {

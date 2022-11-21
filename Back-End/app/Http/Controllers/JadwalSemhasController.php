@@ -17,13 +17,13 @@ class JadwalSemhasController extends Controller
      */
     public function index()
     {
-        $JadwalSemhas = JadwalSemhas::orderBy('time', 'DESC')->get();
+        $JadwalSemhas = JadwalSemhas::join('users','jadwal_semhas.users_id','users.id')->where('users_id',auth()->id())->get();;
         $response =[
             'message' => 'List Jadwal Semhas',
             'data'=> $JadwalSemhas
         ];
 
-        return response()->json($response, Response::HTTP_OK); 
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -45,9 +45,9 @@ class JadwalSemhasController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama_mhs'=>['required'],
-            'nim'=>['required'],
-            'niph'=>['required'],
+            // 'nama_mhs'=>['required'],
+            // 'nim'=>['required'],
+            // 'niph'=>['required'],
             'hari'=>['required'],
             'jam_mulai'=>['required'],
             'jam_akhir'=>['required'],
@@ -58,12 +58,12 @@ class JadwalSemhasController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try {
-            $JadwalSemhas = JadwalSemhas::create($request->all());
+            $JadwalSemhas = JadwalSemhas::create($request->all()+['users_id'=>auth()->id()]);
             $response=[
                 'message' => 'Jadwal Semhas telah dibuat',
                 'data'=> $JadwalSemhas
@@ -118,9 +118,9 @@ class JadwalSemhasController extends Controller
         $JadwalSemhas = JadwalSemhas::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'nama_mhs'=>['required'],
-            'nim'=>['required'],
-            'niph'=>['required'],
+            // 'nama_mhs'=>['required'],
+            // 'nim'=>['required'],
+            // 'niph'=>['required'],
             'hari'=>['required'],
             'jam_mulai'=>['required'],
             'jam_akhir'=>['required'],
@@ -131,7 +131,7 @@ class JadwalSemhasController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

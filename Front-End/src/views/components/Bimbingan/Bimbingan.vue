@@ -1,11 +1,12 @@
 <template>
   <!-- POV Mahasiswa -->
+  <!-- v-if="profiles.role == 'user'" -->
   <div class="container-fluid">
-    <div class="page-header min-height-200 border-radius-xl mt-4" style="
-      background-image: url('https://media.istockphoto.com/photos/businessman-working-modern-compter-document-management-system-virtual-picture-id1368237807?k=20&m=1368237807&s=612x612&w=0&h=9lEc3lJFgkrCTO1aHcSHYO2Z22PFKX53YYUDy9Rsaqc=');
-      ">
+    <div class="page-header min-height-200 border-radius-xl mt-4" 
+      style="background-image: url('https://media.istockphoto.com/photos/businessman-working-modern-compter-document-management-system-virtual-picture-id1368237807?k=20&m=1368237807&s=612x612&w=0&h=9lEc3lJFgkrCTO1aHcSHYO2Z22PFKX53YYUDy9Rsaqc=')
+     ">
       <span class="mask bg-gradient-info opacity-2"></span>
-      <router-link :to="{name:'Tables'}" class="btn btn-light mx-4 mt-8" type="button">
+      <router-link :to="{ name: 'Tables' }" class="btn btn-light mx-4 mt-8" type="button">
         <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Tugas Akhir
       </router-link>
     </div>
@@ -41,7 +42,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(dosen, index) in dosens" :key="index">
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
@@ -49,64 +50,30 @@
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">John Michael</h6>
+                          <h6 class="mb-0 text-sm">{{ dosen.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            john@lecturer.co.id
+                            {{ dosen.email }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">123141511671</span>
+                      <span class="text-sm font-weight-normal">{{ dosen.number }}</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-sm font-weight-medium">Alpro,IPPL,dll</span>
                     </td>
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm bg-gradient-success">2/10</span>
+                      <span class="badge badge-sm bg-gradient-secondary">10/10</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-sm font-weight-medium">Software Engineering</span>
                     </td>
                     <td class="align-middle">
                       <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                        <router-link :to="{name:'Detail'}"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
-                            aria-hidden="true"></i>
-                        </router-link>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="@/assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Sisca Khol</h6>
-                          <p class="text-sm text-secondary mb-0">
-                            sisca@lecturer.itk.ac.id
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">123141511671</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-medium">Alpro,IPPL,dll</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-secondary">10/10</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-medium">Big Data</span>
-                    </td>
-                    <td class="align-middle">
-                      <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                        <router-link :to="{name:'Detail'}"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
-                            aria-hidden="true"></i>
+                        <router-link :to="{ name: 'Detail-Dosen' }"><i
+                            class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
                     </td>
@@ -118,142 +85,144 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- POV Dosen -->
-    <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-16">
-          <div class="row mt-4">
-            <div class="card my-4 col-lg-4">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-                  <h6 class="text-white text-center text-capitalize ps-3">Beban Mata Kuliah</h6>
-                </div>
-              </div>
-              <div class="card-body px-0 pb-2">
-                <div class="table-responsive p-0">
-                  <div class="card ">
-                    <div class="card-header pb-0 p-3">
-                      <div class="row">
-                        <div class="col-4 d-flex align-items-center ">
-                          <h6 class="mb-0">Mata Kuliah</h6>
-                        </div>
-                        <div class="col-2">
-                          <router-link :to="{name:'Matkul'}" class="btn btn-dark my-0 me-4 py-1 px-2" type="button">
-                            <i class="fas fa-plus m-0 p-0"></i>
-                          </router-link>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body p-3 mb-0 overflow-auto">
-                      <ul class="list-group">
-                        <li v-for="(bebanBimbingan, index) in bebanBimbingans.data" :key="index"
-                          class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                          <div class="d-flex flex-column">
-                            <h6 class="mb-1 text-dark font-weight-bold text-sm">
-                              {{ bebanBimbingan.mata_kuliah }}
-                            </h6>
-                            <span class="text-xs">{{ bebanBimbingan.catatan }}</span>
-                          </div>
-                          <div ms-auto text-end>
-                            <a class="btn btn-link text-dark px-1 mb-0" href="javascript:;">
-                              <router-link :to="{name:'Edit-Matkul', params: { id: bebanBimbingan.id }}">
-                                <i class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
-                              </router-link>
-                            </a>
-                            <a class="btn btn-link mb-0 px-0 ms-4" href="javascript:;"
-                              @click.prevent="destroy(bebanBimbingan.id)">
-                              <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
-                            </a>
-                          </div>
-                        </li>
-                      </ul>
-                      <div>
-                        <ul class="pagination pagination-info">
-                          <li class="page-item" >
-                            <a class="page-link"  href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                          </li>
-                          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+  <!-- POV Dosen -->
+  <!-- v-if="profiles.role == 'dosen'" -->
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-16">
+        <div class="row mt-4">
+          <div class="card col-4 h-100">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-center text-capitalize ps-3">Beban Mata Kuliah</h6>
               </div>
             </div>
-            <div class="col-lg-8">
-              <div class="col-lg-12 me-4">
-                <div class="card">
-                  <div class="card-header mb-0 pb-0">
-                    <h5 class="text-center">Topik Riset</h5>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive p-0">
+                <div class="card ">
+                  <div class="card-header pb-0 p-3">
+                    <div class="row">
+                      <div class="col-4 align-items-center ">
+                        <h6 class="mb-0">Mata Kuliah</h6>
+                      </div>
+                      <div class="col-2">
+                        <router-link :to="{ name: 'Matkul' }" class="btn btn-dark my-0 me-4 py-1 px-2" type="button">
+                          <i class="fas fa-plus m-0 p-0"></i>
+                        </router-link>
+                      </div>
+                    </div>
                   </div>
-                  <div class="text-end me-4 my-4">
-                    <router-link :to="{name:'Riset'}" class="btn btn-dark " type="button">
-                      <i class="fas fa-plus m-0 p-0 me-2"></i>Tambah
-                    </router-link>
-                  </div>
-                  <div class="card-body pt-4">
+                  <div class="card-body p-3 mb-0 overflow-auto">
                     <ul class="list-group">
-                      <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
-                        v-for="(Riset, index) in Risets.data" :key="index">
+                      <li v-for="(bebanBimbingan, index) in bebanBimbingans.data" :key="index"
+                        class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                         <div class="d-flex flex-column">
-                          <h6 class="mb-3 text-md">{{ Riset.bidang_riset }}</h6>
-                          <span class="mb-2 text-md">
-                            Nama Topik Riset:
-                            <span class="text-dark font-weight-bold ms-sm-2">{{ Riset.nama_riset }}</span>
-                          </span>
-                          <span class="mb-2 text-md">
-                            Keyword:
-                            <span class="text-dark ms-sm-2 font-weight-bold">{{ Riset.keyword }}</span>
-                          </span>
-                          <span class="text-md">
-                            Note:
-                            <span class="text-dark ms-sm-2 font-weight-bold">{{ Riset.note }}</span>
-                          </span>
+                          <h6 class="mb-1 text-dark font-weight-bold text-sm">
+                            {{ bebanBimbingan.mata_kuliah }}
+                          </h6>
+                          <span class="text-xs">{{ bebanBimbingan.catatan }}</span>
                         </div>
-                        <div class="ms-auto text-end">
-                          <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;">
-                            <router-link :to="{name:'Edit-Riset', params: { id: Riset.id }}">
+                        <div ms-auto text-end>
+                          <a class="btn btn-link text-dark px-1 mb-0" href="javascript:;">
+                            <router-link :to="{ name: 'Edit-Matkul', params: { id: bebanBimbingan.id } }">
                               <i class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                             </router-link>
                           </a>
-                          <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:"
-                            @click.prevent="drop(Riset.id)">
+                          <a class="btn btn-link mb-0 px-0 ms-4" href="javascript:;"
+                            @click.prevent="destroy(bebanBimbingan.id)">
                             <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
                           </a>
-
-                        </div>
-
-                      </li>
-                      <li
-                        class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
-                        <div class="d-flex flex-column">
-                          <h6 class="col-md-auto text-danger text-md"> Belum memiliki Topik Riset ?</h6>
-                          <router-link :to="{ name: 'Riset' }"
-                            class="text-dark text-gradient font-weight-light text-sm">Masukkan Topik Riset</router-link>
                         </div>
                       </li>
                     </ul>
+                    <div>
+                      <ul class="pagination pagination-info">
+                        <li class="page-item">
+                          <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                          <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
+          <div class="col-lg-8">
+            <div class="col-lg-12 me-4">
+              <div class="card">
+                <div class="card-header mb-0 pb-0">
+                  <h5 class="text-center">Topik Riset</h5>
+                </div>
+                <div class="text-end me-4 my-4">
+                  <router-link :to="{ name: 'Riset' }" class="btn btn-dark " type="button">
+                    <i class="fas fa-plus m-0 p-0 me-2"></i>Tambah
+                  </router-link>
+                </div>
+                <div class="card-body pt-4">
+                  <ul class="list-group">
+                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
+                      v-for="(Riset, index) in Risets.data" :key="index">
+                      <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-md">{{ Riset.bidang_riset }}</h6>
+                        <span class="mb-2 text-md">
+                          Nama Topik Riset:
+                          <span class="text-dark font-weight-bold ms-sm-2">{{ Riset.nama_riset }}</span>
+                        </span>
+                        <span class="mb-2 text-md">
+                          Keyword:
+                          <span class="text-dark ms-sm-2 font-weight-bold">{{ Riset.keyword }}</span>
+                        </span>
+                        <span class="text-md">
+                          Note:
+                          <span class="text-dark ms-sm-2 font-weight-bold">{{ Riset.note }}</span>
+                        </span>
+                      </div>
+                      <div class="ms-auto text-end">
+                        <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;">
+                          <router-link :to="{ name: 'Edit-Riset', params: { id: Riset.id } }">
+                            <i class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
+                          </router-link>
+                        </a>
+                        <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:"
+                          @click.prevent="drop(Riset.id)">
+                          <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
+                        </a>
+
+                      </div>
+
+                    </li>
+                    <li
+                      class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
+                      <div class="d-flex flex-column">
+                        <h6 class="col-md-auto text-danger text-md"> Belum memiliki Topik Riset ?</h6>
+                        <router-link :to="{ name: 'Riset' }" class="text-dark text-gradient font-weight-light text-sm">
+                          Masukkan Topik Riset</router-link>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
+
 
     <div class="row">
       <div class="col-12 py-2">
@@ -278,11 +247,12 @@
                       Judul TA
                     </th>
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Status
+                      Pengajuan
                     </th>
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Pengajuan 
+                      Status
                     </th>
+
                     <!-- <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       
                     </th> -->
@@ -290,7 +260,47 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <!-- v-for="(RegisTA, index) in RegisTAs.data" :key="index" -->
+                  <tr v-for="(RegisTA, index) in RegisTAs.dospem1" :key="index" >
+                    <td>  
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                            alt="user1" />
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ RegisTA.name }}</h6>
+                          <p class="text-sm text-secondary mb-0">
+                            {{ RegisTA.email }}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">{{ RegisTA.number }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">{{ RegisTA.keyword }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">Pembimbing Utama</span>
+                    </td>
+                    <td class="align-middle text-center ">
+                      <a class="btn btn-sm bg-gradient-success  mb-0 me-2" href="javascript:;" @click="updateStatus(RegisTA.id,1)">Terima
+                      </a>
+                      <a class="btn btn-sm bg-gradient-danger  mb-0 me-2" href="javascript:;" @click="updateStatus(RegisTA.id,2)">Tolak
+                      </a>
+                    </td>
+
+                    <td class="align-middle">
+                      <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
+                        <router-link :to="{ name: 'Detail-Mahasiswa' }"><i
+                            class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
+                        </router-link>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr v-for="(RegisTA, index) in RegisTAs.dospem2" :key="index">
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
@@ -298,68 +308,35 @@
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">John Michael</h6>
+                          <h6 class="mb-0 text-sm">{{ RegisTA.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            john@lecturer.co.id
+                            {{ RegisTA.email }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">11181074</span>
+                      <span class="text-sm font-weight-normal">{{ RegisTA.number }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">SIM-TA</span>
+                      <span class="text-sm font-weight-normal">{{ RegisTA.keyword }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">Menunggu Konfirmasi</span>
+                      <span class="text-sm font-weight-normal">Pembimbing Pendamping</span>
                     </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">Pembimbing Utama</span>
+                    <td class="align-middle text-center ">
+                      <a class="btn btn-sm bg-gradient-success  mb-0 me-2" href="javascript:;" @click="updateStatus2(RegisTA.id,1)">Terima
+                      </a>
+                      <a class="btn btn-sm bg-gradient-danger  mb-0 me-2" href="javascript:;" @click="updateStatus2(RegisTA.id,2)">Tolak
+                      </a>
                     </td>
                     <!-- <td class="align-middle text-center">
                       <span class="text-info text-sm font-weight-medium">23/08/2022</span>
                     </td> -->
                     <td class="align-middle">
                       <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                        <router-link :to="{name:'/'}"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
-                            aria-hidden="true"></i>
-                        </router-link>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="@/assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Sisca Khol</h6>
-                          <p class="text-sm text-secondary mb-0">
-                            sisca@lecturer.itk.ac.id
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">11181090</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">Cyber Security</span>
-                    </td>
-                    
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">Menunggu Konfirmasi</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">Pembimbing Pendamping</span>
-                    </td>
-                    <td class="align-middle">
-                      <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                        <router-link :to="{name:'/'}"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
-                            aria-hidden="true"></i>
+                        <router-link :to="{ name: 'Detail-Mahasiswa' }"><i
+                            class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
                     </td>
@@ -375,7 +352,7 @@
       <div class="nav-wrapper position-relative end-0">
         <ul class="p-1 bg-transparent nav nav-pills nav-fill" role="tablist">
           <li class="nav-item">
-            <a class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="javascript:;" role="tab"
+            <a class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="#Utama" role="tab"
               aria-selected="true">
               <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 42" version="1.1"
                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -401,8 +378,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="px-0 py-1 mb-0 nav-link" data-bs-toggle="tab" href="javascript:;" role="tab"
-              aria-selected="false">
+            <a class="px-0 py-1 mb-0 nav-link" data-bs-toggle="tab" href="#Pendamping" role="tab" aria-selected="false">
               <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44" version="1.1"
                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>document</title>
@@ -427,10 +403,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 py-2">
-        <div class="card my-4">
+      <div class="tab-content col-12 py-2">
+        <div class="tab-pane card active card my-4" id="Utama" role="tabpanel">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-            <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
+            <div class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
               <h6 class="text-white text-capitalize ps-3">Daftar Bimbingan</h6>
             </div>
           </div>
@@ -487,7 +463,7 @@
                     </td>
                     <td class="align-middle">
                       <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                        <router-link :to="{name:'/'}"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
+                        <router-link :to="{ name: 'Detail-Mahasiswa' }"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
                             aria-hidden="true"></i>
                         </router-link>
                       </a>
@@ -522,7 +498,112 @@
                     </td>
                     <td class="align-middle">
                       <a class="btn btn-link mb-0 px-0" href="javascript:;">
-                        <router-link :to="{name:'/'}"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
+                        <router-link :to="{ name: 'Profile' }"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
+                            aria-hidden="true"></i>
+                        </router-link>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane card card my-4" id="Pendamping" role="tabpanel">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Daftar Bimbingan</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Nama Mahasiswa
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      NIM
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Judul TA
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Seminar Proposal
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Seminar Hasil
+                    </th>
+                    <th class="text-center text-dark opacity-2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                            alt="user1" />
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">AWWWW</h6>
+                          <p class="text-sm text-secondary mb-0">
+                            john@lecturer.co.id
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">11181074</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">SIM-TA</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-info text-sm font-weight-medium">23/04/2022</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-info text-sm font-weight-medium">23/08/2022</span>
+                    </td>
+                    <td class="align-middle">
+                      <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
+                        <router-link :to="{ name: 'Profile' }"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
+                            aria-hidden="true"></i>
+                        </router-link>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="@/assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                            alt="user2" />
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">UWWWW</h6>
+                          <p class="text-sm text-secondary mb-0">
+                            sisca@lecturer.itk.ac.id
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">11181090</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">Cyber Security</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="badge badge-sm bg-gradient-light text-dark">-</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="badge badge-sm bg-gradient-light text-dark">-</span>
+                    </td>
+                    <td class="align-middle">
+                      <a class="btn btn-link mb-0 px-0" href="javascript:;">
+                        <router-link :to="{ name: 'Profile' }"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
                             aria-hidden="true"></i>
                         </router-link>
                       </a>
@@ -547,10 +628,77 @@ import setTooltip from "@/assets/js/tooltip.js";
 
 export default {
   name: "Bimbingan",
+  data() {
+    return {
+      RegisTAs: {
+        dospem1: {},
+        dospem2: {}
+      },
+      dosens: {}
+      
+    };
+  },
+
+  methods: {
+
+    getTugas() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/get-dospem',
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then((result) => {
+          this.RegisTAs = result.data.data,
+            console.log(this.RegisTAs)
+        }).catch((err) => {
+          console.log(err.response)
+
+        })
+    },
+
+    getDosen() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/get-dosen',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.dosens = result.data.data
+          console.log(this.dosens)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+
+    updateStatus(id,status) {
+      console.log(id,status)
+      let token = localStorage.getItem("token")
+      axios.post('http://127.0.0.1:8000/api/update-status1/' + id,
+      { status: status},  
+      { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          // this.dosens = result.data.data
+          console.log(result)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+    updateStatus2(id,status) {
+      console.log(id,status)
+      let token = localStorage.getItem("token")
+      axios.post('http://127.0.0.1:8000/api/update-status2/' + id,
+      { status: status},  
+      { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          // this.dosens = result.data.data
+          console.log(result)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+  },
 
   setup() {
     let bebanBimbingans = ref([]);
     let Risets = ref([]);
+    // let RegisTAs = ref([]);
+
 
     onMounted(() => {
       axios.get('http://127.0.0.1:8000/api/beban-bimbingan')
@@ -562,6 +710,15 @@ export default {
 
         })
 
+      // axios.get('http://127.0.0.1:8000/api/regis-ta')
+      // .then((result) => {
+      //   RegisTAs.value = result.data
+      //   console.log(RegisTAs)
+      // }).catch((err) => {
+      //   console.log(err.response)
+
+      // })
+
 
       axios.get('http://127.0.0.1:8000/api/riset')
         .then((result) => {
@@ -572,32 +729,39 @@ export default {
 
         })
 
+
       setNavPills();
       setTooltip();
     });
 
     function destroy(id) {
-      axios.delete(
-        'http://127.0.0.1:8000/api/beban-bimbingan/' + id
-      )
-        .then(() => {
-          bebanBimbingans.value.splice(bebanBimbingans.value.indexOf(id), 1);
+      if (confirm('Apakah anda yakin?'))
+        axios.delete(
+          'http://127.0.0.1:8000/api/beban-bimbingan/' + id
+        )
+          .then(() => {
+            bebanBimbingans.value.splice(bebanBimbingans.value.indexOf(id), 1);
+            this.$router.push({
+              name: 'Bimbingan'
+            })
 
-        }).catch((err) => {
-          console.log(err.response.data);
-        });
+          }).catch((err) => {
+            console.log(err.response.data);
+          });
     }
 
     function drop(id) {
-      axios.delete(
-        'http://127.0.0.1:8000/api/Riset/' + id
-      )
-        .then(() => {
-          Risets.value.splice(Risets.value.indexOf(id), 1);
+      if (confirm('Apakah anda yakin?'))
+        axios.delete(
+          'http://127.0.0.1:8000/api/riset/' + id
+        )
+          .then(() => {
+            Risets.value.splice(Risets.value.indexOf(id), 1);
+            this.drop()
 
-        }).catch((err) => {
-          console.log(err.response.data);
-        });
+          }).catch((err) => {
+            console.log(err.response.data);
+          });
     }
 
     return {
@@ -607,14 +771,14 @@ export default {
       drop
     };
 
-    // mounted() {
-    //   setNavPills();
-    //   setTooltip();
-    // };
 
     // beforeUnmount() {
     //   this.$store.state.isAbsolute = false;
     // };
+  },
+  mounted() {
+    this.getTugas();
+    this.getDosen();
   }
 };
 </script>

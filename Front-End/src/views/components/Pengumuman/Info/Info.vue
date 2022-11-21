@@ -62,7 +62,7 @@
                       v-model="Info.note" />
                   </div>
                 </div>
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Status Pengumuman</label>
                     <h2 class="text-danger text-sm">ex. Pilih Salah Satu</h2>
@@ -85,7 +85,7 @@
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="text-end">
                   <MaterialButton class="mx-3" variant="outline" size="md" type="cancel">Cancel</MaterialButton>
                   <MaterialButton size="md" type="submit">Submit</MaterialButton>

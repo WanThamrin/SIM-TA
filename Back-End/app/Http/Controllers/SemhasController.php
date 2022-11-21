@@ -17,13 +17,13 @@ class SemhasController extends Controller
      */
     public function index()
     {
-        $semhas = Semhas::orderBy('time', 'DESC')->get();
+        $semhas = Semhas::join('users','semhas.users_id','users.id')->where('users_id',auth()->id())->get();
         $response =[
             'message' => 'List Semhas',
             'data'=> $semhas
         ];
 
-        return response()->json($response, Response::HTTP_OK); 
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -44,23 +44,70 @@ class SemhasController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nama_mhs'=>['required'],
-            'nim'=>['required'],
-            'niph'=>['required'],
-            'proposal'=>['required'],
-            'slide'=>['required'],
-            'validasi_dospem1'=>['required'],
-            'validasi_dospem2'=>['required']
-        ]);
+//         $validator = Validator::make($request->all(), [
+//             // 'nama_mhs'=>['required'],
+//             // 'nim'=>['required'],
+//             // 'niph'=>['required'],
+//             'proposal'=>['required'],
+//             'slide'=>['required'],
+//             'validasi_dospem1'=>['required'],
+//             'validasi_dospem2'=>['required']
+//         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 
-            Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+//         if ($validator->fails()) {
+//             return response()->json($validator->errors(),
+//             Response::HTTP_UNPROCESSABLE_ENTITY);
+//         }
 
+//         try {
+//             $semhas = Semhas::create($request->all()+['users_id'=>auth()->id()]);;
+//             $response=[
+//                 'message' => ' Form Semhas telah dibuat',
+//                 'data'=> $semhas
+//             ];
+// +
+//         $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'seminar hasil']);
+
+//             return response()->json($response, Response::HTTP_CREATED);
+
+
+//         } catch (QueryException $e) {
+//             return response()->json([
+//                 'message' => "Gagal" . $e->errorInfo
+//             ]);
+//         }
+        $laporan = $request->file('laporan')->getClientOriginalName();
+        $laporan = $request->file('laporan')->store('public/Semhas/laporan');
+
+        $bimbingan = $request->file('bimbingan')->getClientOriginalName();
+        $bimbingan = $request->file('bimbingan')->store('public/Semhas/bimbingan');
+
+        $validasi_sidang1 = $request->file('validasi_sidang1')->getClientOriginalName();
+        $validasi_sidang1 = $request->file('validasi_sidang1')->store('public/Semhas/validasi_sidang1');
+
+        $validasi_sidang2 = $request->file('validasi_sidang2')->getClientOriginalName();
+        $validasi_sidang2 = $request->file('validasi_sidang2')->store('public/Semhas/validasi_sidang2');
+
+        $validasi_sempro = $request->file('validasi_sempro')->getClientOriginalName();
+        $validasi_sempro = $request->file('validasi_sempro')->store('public/Semhas/validasi_sempro');
+
+        $bukti = $request->file('bukti')->getClientOriginalName();
+        $bukti = $request->file('bukti')->store('public/Semhas/bukti');
+            // dd($request->all()) ;
         try {
-            $semhas = Semhas::create($request->all());
+            $semhas = Semhas::create([
+                'laporan'=>$laporan,
+                'bimbingan'=>$bimbingan,
+                'validasi_sidang1$validasi_sidang1'=>$validasi_sidang1,
+                'validasi_sidang2' => $validasi_sidang2,
+                'validasi_sempro' => $validasi_sempro,
+                'bukti' => $bukti
+
+
+
+                ]+['users_id'=>auth()->id()
+        //         'ta_id'=>$TA->id
+            ]);
             $response=[
                 'message' => ' Form Semhas telah dibuat',
                 'data'=> $semhas
@@ -74,6 +121,7 @@ class SemhasController extends Controller
             ]);
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -115,9 +163,9 @@ class SemhasController extends Controller
         $semhas = Semhas::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'nama_mhs'=>['required'],
-            'nim'=>['required'],
-            'niph'=>['required'],
+            // 'nama_mhs'=>['required'],
+            // 'nim'=>['required'],
+            // 'niph'=>['required'],
             'proposal'=>['required'],
             'slide'=>['required'],
             'validasi_dospem1'=>['required'],
@@ -125,7 +173,7 @@ class SemhasController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

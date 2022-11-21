@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mahasiswa;
+use App\Models\NilaiSempro;
 use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class MahasiswaController extends Controller
+
+class NilaiSemproController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +19,11 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $Mahasiswa = Mahasiswa::join('users','mahasiswas.users_id','users.id')->where('users_id',auth()->id())->get();
+
+        $NilaiSempro = NilaiSempro::join('users','nilai_sempros.users_id','users.id')->where('users_id',auth()->id())->get();
         $response =[
-            'message' => 'List Mahasiswa',
-            'data'=> $Mahasiswa
+            'message' => 'List NilaiSempro Mahasiswa',
+            'data'=> $NilaiSempro
         ];
 
         return response()->json($response, Response::HTTP_OK);
@@ -32,10 +34,26 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function updateStatus1($id,Request $request)
+    // {
+    //     $updateStatus=NilaiSempro::where('id',$id)->update(['status1'=>$request->status]);
+    //     $response=[
+    //         'message' => 'Status telah di update',
+    //         'data'=> $updateStatus
+    //     ];
+    //     return response()->json($response, Response::HTTP_CREATED);
+    // }
+
+    // public function updateStatus2($id,Request $request)
+    // {
+    //     $updateStatus=NilaiSempro::where('id',$id)->update(['status2'=>$request->status]);
+    //     $response=[
+    //         'message' => 'Status telah di update',
+    //         'data'=> $updateStatus
+    //     ];
+    //     return response()->json($response, Response::HTTP_CREATED);
+    // }
+
 
     /**
      * Store a newly created resource in storage.
@@ -47,33 +65,37 @@ class MahasiswaController extends Controller
     {
         $number=Auth::user()->number;
         $validator = Validator::make($request->all(), [
+            // 'nama_mhs'=>['required'],
             // 'nim'=>['required'],
-            'foto'=>['required'],
-            'status'=>['required'],
-            // 'waktu'=>['required'],
-            // 'judul'=>['required'],
-            // 'abstrak'=>['required'],
-            // 'keyword'=>['required'],
-
+            // 'niph'=>['required'],
+            // 'laporan'=>['required'],
+            'nilai1'=>['required'],
+            'nilai2'=>['required'],
+            'nilai3'=>['required'],
+            'nilai4'=>['required'],
+            'nilai5'=>['required'],
+            'note'=>['required']
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
+        // dd($request->all()+['users_id'=>auth()->id()]);
         try {
-            $Mahasiswa = Mahasiswa::create($request->all()+[
-                'users_id'=>auth()->id()
+            $NilaiSempro = NilaiSempro::create($request->all()+[
+                'users_id'=>auth()->id(),
             ]);
+
             $response=[
-                'message' => 'Data Mahasiswa telah dibuat',
-                'data'=> $Mahasiswa
+                'message' => 'Form NilaiSempro telah dibuat',
+                'data'=> $NilaiSempro
             ];
 
             return response()->json($response, Response::HTTP_CREATED);
 
         } catch (QueryException $e) {
+        //   dd($e);
             return response()->json([
                 'message' => "Gagal" . $e->errorInfo
             ]);
@@ -88,10 +110,10 @@ class MahasiswaController extends Controller
      */
     public function show($id)
     {
-        $Mahasiswa = Mahasiswa::findOrFail($id);
+        $NilaiSempro = NilaiSempro::findOrFail($id);
         $response=[
-            'message' => 'Daftar Mahasiswa',
-            'data'=> $Mahasiswa
+            'message' => 'Daftar NilaiSempro',
+            'data'=> $NilaiSempro
         ];
 
         return response()->json($response, Response::HTTP_OK);
@@ -103,10 +125,6 @@ class MahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -117,15 +135,19 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $Mahasiswa = Mahasiswa::findOrFail($id);
+        $NilaiSempro = NilaiSempro::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
+            // 'nama_mhs'=>['required'],
             // 'nim'=>['required'],
-            'status'=>['required'],
-            'waktu'=>['required'],
-            // 'judul'=>['required'],
-            // 'abstrak'=>['required'],
-            // 'keyword'=>['required'],
+            // 'niph'=>['required'],
+            'laporan'=>['required'],
+            'nilai1'=>['required'],
+            'nilai2'=>['required'],
+            'nilai3'=>['required'],
+            'nilai4'=>['required'],
+            'nilai5'=>['required'],
+            'note'=>['required']
         ]);
 
         if ($validator->fails()) {
@@ -134,10 +156,10 @@ class MahasiswaController extends Controller
         }
 
         try {
-            $Mahasiswa -> update($request->all());
+            $NilaiSempro -> update($request->all());
             $response=[
-                'message' => 'Data Mahasiswa telah diubah',
-                'data'=> $Mahasiswa
+                'message' => 'NilaiSempro telah diubah',
+                'data'=> $NilaiSempro
             ];
 
             return response()->json($response, Response::HTTP_OK);
@@ -157,13 +179,13 @@ class MahasiswaController extends Controller
      */
     public function destroy($id)
     {
-        $Mahasiswa = Mahasiswa::findOrFail($id);
+        $NilaiSempro = NilaiSempro::findOrFail($id);
 
         try {
-            $Mahasiswa -> delete();
+            $NilaiSempro -> delete();
             $response=[
-                'message' => 'Data Mahasiswa telah dihapus',
-                'data'=> $Mahasiswa
+                'message' => 'Form TA telah dihapus',
+                'data'=> $NilaiSempro
             ];
 
             return response()->json($response, Response::HTTP_OK);

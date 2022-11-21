@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RegisTA;
+use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,13 +19,14 @@ class regisTAController extends Controller
      */
     public function index()
     {
-        $RegisTA = RegisTA::orderBy('time', 'DESC')->get();
+
+        $RegisTA = RegisTA::join('users','regis_t_a_s.users_id','users.id')->where('users_id',auth()->id())->get();
         $response =[
             'message' => 'List Form TA',
             'data'=> $RegisTA
         ];
 
-        return response()->json($response, Response::HTTP_OK); 
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -32,10 +34,26 @@ class regisTAController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function updateStatus1($id,Request $request)
     {
-        //
+        $updateStatus=RegisTA::where('id',$id)->update(['status1'=>$request->status]);
+        $response=[
+            'message' => 'Status telah di update',
+            'data'=> $updateStatus
+        ];
+        return response()->json($response, Response::HTTP_CREATED);
     }
+
+    public function updateStatus2($id,Request $request)
+    {
+        $updateStatus=RegisTA::where('id',$id)->update(['status2'=>$request->status]);
+        $response=[
+            'message' => 'Status telah di update',
+            'data'=> $updateStatus
+        ];
+        return response()->json($response, Response::HTTP_CREATED);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -45,24 +63,30 @@ class regisTAController extends Controller
      */
     public function store(Request $request)
     {
+        $number=Auth::user()->number;
         $validator = Validator::make($request->all(), [
-            'nama_mhs'=>['required'],
-            'nim'=>['required'],
-            'niph'=>['required'],
+            // 'nama_mhs'=>['required'],
+            // 'nim'=>['required'],
+            // 'niph'=>['required'],
             'judul'=>['required'],
             'abstrak'=>['required'],
+            // 'status1'=>['required'],
+            // 'status2'=>['required'],
             'keyword'=>['required'],
-            // 'dospem1'=>['required'],
-            // 'dospem2'=>['required']
+            'dospem1'=>['required'],
+            'dospem2'=>['required']
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
+        // dd($request->all()+['users_id'=>auth()->id()]);
         try {
-            $RegisTA = RegisTA::create($request->all());
+            $RegisTA = RegisTA::create($request->all()+[
+                'users_id'=>auth()->id(),
+            ]);
+
             $response=[
                 'message' => 'Form telah dibuat',
                 'data'=> $RegisTA
@@ -71,6 +95,7 @@ class regisTAController extends Controller
             return response()->json($response, Response::HTTP_CREATED);
 
         } catch (QueryException $e) {
+        //   dd($e);
             return response()->json([
                 'message' => "Gagal" . $e->errorInfo
             ]);
@@ -100,9 +125,17 @@ class regisTAController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function getDospem()
     {
-        //
+        // dd(Auth::id());
+        $regis1['dospem1'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')->where('dospem1',Auth::id())->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
+        $regis1['dospem2'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')->where('dospem2',Auth::id())->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
+        $response=[
+            'message' => 'Daftar RegisTA',
+            'data'=> $regis1
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -117,9 +150,9 @@ class regisTAController extends Controller
         $RegisTA = RegisTA::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'nama_mhs'=>['required'],
-            'nim'=>['required'],
-            'niph'=>['required'],
+            // 'nama_mhs'=>['required'],
+            // 'nim'=>['required'],
+            // 'niph'=>['required'],
             'judul'=>['required'],
             'abstrak'=>['required'],
             'keyword'=>['required'],
@@ -128,7 +161,7 @@ class regisTAController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -139,7 +172,10 @@ class regisTAController extends Controller
                 'data'=> $RegisTA
             ];
 
+            $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'Daftar Tugas Akhir']);
+
             return response()->json($response, Response::HTTP_OK);
+
 
         } catch (QueryException $e) {
             return response()->json([

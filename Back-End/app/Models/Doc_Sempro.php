@@ -14,8 +14,8 @@ class Doc_Sempro extends Model
         'judul',
         'keyword',
         'file',
-        'status',
-        'hari',
-        'jam',
+        // 'status',
+        // 'hari',?
+        // 'jam',
     ];
 }

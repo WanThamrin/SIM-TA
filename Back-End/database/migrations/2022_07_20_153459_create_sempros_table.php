@@ -16,13 +16,17 @@ class CreateSemprosTable extends Migration
         Schema::create('sempros', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('nama_mhs');
-            $table->string('nim',50);
-            $table->string('niph',250);
-            $table->string('proposal');
-            $table->string('slide');
-            $table->string('validasi_dospem1');
-            $table->string('validasi_dospem2');
+            // $table->string('nama_mhs');
+            // $table->string('nim',50);
+            // $table->string('niph',250);
+            $table->string('proposal')->nullable();
+            $table->string('slide')->nullable();
+            $table->string('validasi_dospem1')->nullable();
+            $table->string('validasi_dospem2')->nullable();
+            $table->unsignedBigInteger('users_id');
+            $table->foreign ('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            // $table->unsignedBigInteger('ta_id');
+            // $table->foreign ('ta_id')->references('id')->on('regis_t_a_s')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('time')->default(now());
         });
     }

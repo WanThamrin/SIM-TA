@@ -75,7 +75,7 @@ class DocSemproController extends Controller
          $DocSempro = Doc_Sempro::create([
              'judul' => $request->judul,
              'keyword' => $request->keyword,
-             'status' => $request->status,
+            //  'status' => $request->status,
              // 'hari' => $request->hari,
              // 'jam' => $request->jam,
              'file' => $path
@@ -138,9 +138,9 @@ class DocSemproController extends Controller
             'judul'=>['required'],
             'keyword'=>['required'],
             'file'=>['required'],
-            'status'=>['required'],
-            'hari'=>['required'],
-            'jam'=>['required'],
+            // 'status'=>['required'],
+            // 'hari'=>['required'],
+            // 'jam'=>['required'],
         ]);
 
         if ($validator->fails()) {

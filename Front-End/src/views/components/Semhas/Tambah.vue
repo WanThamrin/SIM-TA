@@ -4,18 +4,18 @@
       background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
      ">
       <span class="mask bg-gradient-success opacity-6"></span>
-      <router-link :to="{name:'Sempro'}" class="btn btn-light mx-4 material-icons me-2" type="button">
+      <router-link :to="{name:'Semhas'}" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
     </div>
     <div class="row">
       <div class="col-xxl-12">
         <div class="card card-body mx-3 mx-md-4 mt-n6">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Daftar Sempro</h4>
+            <h4 class="card-title mb-0 flex-grow-1">Daftar Semhas</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
-            <p class="text-muted">Form Daftar Sempro</p>
+            <p class="text-muted">Form Daftar Semhas</p>
             <div class="live-preview">
               <form @submit.prevent="store()">
                 <div class="row mb-3 ">
@@ -36,38 +36,66 @@
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label" >Proposal</label>
+                    <label for="nameInput" class="form-label" >Laporan Tugas Akhir</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="name" type="file" label="" name="proposal" @change="fileChange($event, 'proposal')"
+                    <input id="laporan" type="file" label="" name="laporan" @change="fileChange($event, 'laporan')"
                       class="input-group border border-info rounded py-2 px-2 text-sm" size="md" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">Slide Presentasi / Poster</label>
+                    <label for="nameInput" class="form-label">Lembar Konsultasi Bimbingan
+                      <h2 class="text-danger text-sm">Form. TA-006</h2>
+                    </label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="slide" type="file" label="" name="slide" @change="fileChange1($event, 'slide')"
+                    <input id="bimbingan" type="file" label="" name="bimbingan" @change="fileChange1($event, 'bimbingan')"
                       class="input-group border border-info rounded py-2 px-2 text-sm" size="md" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2"> 
-                    <label for="nameInput" class="form-label">Persetujuan Dosen Pembimbing Utama</label>
+                    <label for="nameInput" class="form-label">Formulir Persetujuan Sidang
+                      <h2 class="text-danger text-sm">Form. TA-007</h2>
+                    </label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="berkas1" type="file" label="" @change="fileChange2($event, 'validasi_dospem1')"
+                    <input id="berkas1" type="file" label="" @change="fileChange2($event, 'validasi_sidang1')"
                       class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas1" size="md" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">Persetujuan Dosen Pembimbing Pendamping</label>
+                    <label for="nameInput" class="form-label">Formulir Permohonan Sidang
+                      <h2 class="text-danger text-sm">Form. TA-008</h2>
+                    </label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="berkas2" type="file" label=""  @change="fileChange3($event, 'validasi_dospem2')"
+                    <input id="berkas2" type="file" label=""  @change="fileChange3($event, 'validasi_sidang2')"
                       class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas2" size="md" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-3 my-2">
+                    <label for="nameInput" class="form-label">Formulir Kehadiran Seminar Proposal
+                      <h2 class="text-danger text-sm">Form. TA-012</h2>
+                    </label>
+                  </div>
+                  <div class="col-lg-9 my-1">
+                    <input id="berkas2" type="file" label=""  @change="fileChange4($event, 'validasi_sempro')"
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas3" size="md" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-3 my-2">
+                    <label for="nameInput" class="form-label">BUKTI TANDA TERIMA PENDAFTARAN SIDANG
+                      <h2 class="text-danger text-sm">Form. TA-009</h2>
+                    </label>
+                  </div>
+                  <div class="col-lg-9 my-1">
+                    <input id="berkas2" type="file" label=""  @change="fileChange5($event, 'bukti')"
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas4" size="md" />
                   </div>
                 </div>
                 <div class="text-end">
@@ -94,11 +122,11 @@ import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
 
 export default {
-  name: "tambah-sempro",
+  name: "tambah-semhas",
   data(){
     return{
       profiles:{},
-      Sempro:{}
+      Semhas:{}
     };
   },
 
@@ -126,12 +154,12 @@ export default {
     store() {
       let token = localStorage.getItem("token")
       const fd = new FormData();
-      $.each(this.Sempro, function (key, value) {
+      $.each(this.Semhas, function (key, value) {
         fd.append(key, value);
       });
 
       axios.post(
-        'http://127.0.0.1:8000/api/sempro',
+        'http://127.0.0.1:8000/api/semhas',
         fd, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -140,36 +168,48 @@ export default {
       })
         .then(() => {
           this.$router.push({
-            name: 'Sempro'
+            name: 'Semhas'
           })
 
         }).catch((err) => {
           console.log(err.response.data)
         });
     },
-    fileChange(event, proposal) {
+    fileChange(event, laporan) {
       if (event) {
-        $('.preview_' + proposal).attr('src', URL.createObjectURL(event.target.files[0]));
+        $('.preview_' + laporan).attr('src', URL.createObjectURL(event.target.files[0]));
       }
-      this.Sempro[proposal] = event.target.files[0];
+      this.Semhas[laporan] = event.target.files[0];
     },
-    fileChange1(event, slide) {
+    fileChange1(event, bimbingan) {
       if (event) {
-        $('.preview_' + slide).attr('src', URL.createObjectURL(event.target.files[0]));
+        $('.preview_' + bimbingan).attr('src', URL.createObjectURL(event.target.files[0]));
       }
-      this.Sempro[slide] = event.target.files[0];
+      this.Semhas[bimbingan] = event.target.files[0];
     },
-    fileChange2(event, validasi_dospem1) {
+    fileChange2(event, validasi_sidang1) {
       if (event) {
-        $('.preview_' + validasi_dospem1).attr('src', URL.createObjectURL(event.target.files[0]));
+        $('.preview_' + validasi_sidang1).attr('src', URL.createObjectURL(event.target.files[0]));
       }
-      this.Sempro[validasi_dospem1] = event.target.files[0];
+      this.Semhas[validasi_sidang1] = event.target.files[0];
     },
-    fileChange3(event, validasi_dospem2) {
+    fileChange3(event, validasi_sidang2) {
       if (event) {
-        $('.preview_' + validasi_dospem2).attr('src', URL.createObjectURL(event.target.files[0]));
+        $('.preview_' + validasi_sidang2).attr('src', URL.createObjectURL(event.target.files[0]));
       }
-      this.Sempro[validasi_dospem2] = event.target.files[0];
+      this.Semhas[validasi_sidang2] = event.target.files[0];
+    },
+    fileChange4(event, validasi_sempro) {
+      if (event) {
+        $('.preview_' + validasi_sempro).attr('src', URL.createObjectURL(event.target.files[0]));
+      }
+      this.Semhas[validasi_sempro] = event.target.files[0];
+    },
+    fileChange5(event, bukti) {
+      if (event) {
+        $('.preview_' + bukti).attr('src', URL.createObjectURL(event.target.files[0]));
+      }
+      this.Semhas[bukti] = event.target.files[0];
     },
   },
 

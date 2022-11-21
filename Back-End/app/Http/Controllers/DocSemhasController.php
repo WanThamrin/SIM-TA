@@ -44,28 +44,49 @@ class DocSemhasController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'judul'=>['required'],
-            'keyword'=>['required'],
-            'file'=>['required'],
-            'status'=>['required'],
-            'hari'=>['required'],
-            'jam'=>['required'],
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'judul'=>['required'],
+        //     'keyword'=>['required'],
+        //     'file'=>['required'],
+        //     'status'=>['required'],
+        //     'hari'=>['required'],
+        //     'jam'=>['required'],
+        // ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 
-            Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors(), 
+        //     Response::HTTP_UNPROCESSABLE_ENTITY);
+        // }
 
-        try {
-            $DocSemhas = Doc_Semhas::create($request->all());
-            $response=[
-                'message' => 'DocSemhas telah dibuat',
-                'data'=> $DocSemhas
-            ];
+        // try {
+        //     $DocSempro = Doc_Sempro::create($request->all());
+        //     $response=[
+        //         'message' => 'DocSempro telah dibuat',
+        //         'data'=> $DocSempro
+        //     ];
 
-            return response()->json($response, Response::HTTP_CREATED);
+        //     return response()->json($response, Response::HTTP_CREATED);
+        $name = $request->file('file')->getClientOriginalName();
+    
+        $path = $request->file('file')->store('public/Doc');
+
+         // dd($request->all()) ;
+     try {
+         $DocSemhas = Doc_Semhas::create([
+             'judul' => $request->judul,
+             'keyword' => $request->keyword,
+            //  'status' => $request->status,
+             // 'hari' => $request->hari,
+             // 'jam' => $request->jam,
+             'file' => $path
+
+         ]);
+         $response=[
+             'message' => ' Form Doc Semhas telah dibuat',
+             'data'=> $DocSemhas
+         ];
+
+         return response()->json($response, Response::HTTP_CREATED);
 
         } catch (QueryException $e) {
             return response()->json([
@@ -117,9 +138,9 @@ class DocSemhasController extends Controller
             'judul'=>['required'],
             'keyword'=>['required'],
             'file'=>['required'],
-            'status'=>['required'],
-            'hari'=>['required'],
-            'jam'=>['required'],
+            // 'status'=>['required'],
+            // 'hari'=>['required'],
+            // 'jam'=>['required'],
         ]);
 
         if ($validator->fails()) {

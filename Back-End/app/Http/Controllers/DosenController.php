@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\User;
+use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,13 +19,13 @@ class DosenController extends Controller
      */
     public function index()
     {
-        $Dosen = Dosen::orderBy('time', 'DESC')->get();
+        $Dosen = Dosen::join('users','dosens.users_id','users.id')->where('users_id',auth()->id())->get();
         $response =[
             'message' => 'List Dosen',
             'data'=> $Dosen
         ];
 
-        return response()->json($response, Response::HTTP_OK); 
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -31,9 +33,15 @@ class DosenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getDosen()
     {
-        //
+        $Dosen = User::where('role','dosen')->get();
+        $response =[
+            'message' => 'List Dosen',
+            'data'=> $Dosen
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -44,19 +52,21 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
+        $number=Auth::user()->number;
         $validator = Validator::make($request->all(), [
-            'niph'=>['required'],
+            // 'niph'=>['required'],
             'note'=>['required'],
             'sertif'=>['required']
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try {
-            $Dosen = Dosen::create($request->all());
+            $Dosen = Dosen::create($request->all()+[
+                'users_id'=>auth()->id()]);
             $response=[
                 'message' => 'Data Dosen telah dibuat',
                 'data'=> $Dosen
@@ -79,6 +89,7 @@ class DosenController extends Controller
      */
     public function show($id)
     {
+        $Dosen = User::where('role','dosen')->get();
         $Dosen = Dosen::findOrFail($id);
         $response=[
             'message' => 'Daftar Dosen',
@@ -111,13 +122,13 @@ class DosenController extends Controller
         $Dosen = Dosen::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'niph'=>['required'],
+            // 'niph'=>['required'],
             'note'=>['required'],
             'sertif'=>['required']
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

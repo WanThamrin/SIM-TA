@@ -20,9 +20,9 @@ class CreateInfosTable extends Migration
             $table->string('keyword',250) ->nullable();
             $table->string('file');     #import&export
             $table->string('note',250)->nullable();
-            $table->enum('status',['publish','not']);
-            $table->string("hari",50) ->nullable();
-            $table->string("jam",50) ->nullable();
+            // $table->enum('status',['publish','not']);
+            // $table->string("hari",50) ->nullable();
+            // $table->string("jam",50) ->nullable();
             $table->timestamp('time')->default(now());
         });
     }

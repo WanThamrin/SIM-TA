@@ -61,27 +61,6 @@
                       v-model="Doc.note" />
                   </div>
                 </div> -->
-                <div class="row mb-3">
-                  <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">Status Dokumen</label>
-                  </div>
-                  <div class="col-lg-8 my-2">
-                    <div class="form-check-inline">
-                      <input v-model="DocSempro.status" value="publish" class="form-check-input border border-info py-2 px-2 text-sm" type="radio"
-                        name="flexRadioDefault" id="flexRadioDefault1">
-                      <label class="form-check-label" for="flexRadioDefault1">
-                        Publikasi
-                      </label>
-                    </div>
-                    <div class="form-check-inline">
-                      <input v-model="DocSempro.status" value="not" class="form-check-input border border-info py-2 px-2 text-sm" type="radio"
-                        name="flexRadioDefault" id="flexRadioDefault2">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Tidak
-                      </label>
-                    </div>
-                  </div>
-                </div>
                 <div class="text-end">
                   <MaterialButton class="mx-3" variant="outline" size="md" type="cancel">Cancel</MaterialButton>
                   <MaterialButton size="md" type="submit">Submit</MaterialButton>

@@ -1,4 +1,6 @@
 <template>
+  <!-- POV Mahasiswa -->
+  <!-- v-if="profiles.role == 'user'" -->
   <div class="container-fluid py-2">
     <div class="row">
       <div class="col-12">
@@ -32,10 +34,10 @@
                           </h6>
                           <span class="text-xs">{{ DocSempro.keyword }}</span>
                         </div>
-                          <button class="btn btn-link" onclick="window.open({{ DocSempro.file }})">
-                            <span><i class="fas fa-file-pdf text-md me-2" aria-hidden="true"><br/>PDF</i></span>
-                            {{ DocSempro.file ? DocSempro.file.name : '' }}
-                          </button>
+                        <button class="btn btn-link" onclick="window.open({{ DocSempro.file }})">
+                          <span><i class="fas fa-file-pdf text-md me-2" aria-hidden="true"><br />PDF</i></span>
+                          {{ DocSempro.file ? DocSempro.file.name : '' }}
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -44,10 +46,11 @@
             </div>
           </div>
           <div class="col-lg-8">
-            <router-link :to="{ name: 'Tambah' }" class="btn btn-dark mx-3" type="button">
+            <router-link :to="{ name: 'Tambah-Sempro' }" class="btn btn-dark mx-3" type="button">
               <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Sempro
             </router-link>
-            <router-link :to="{ name: 'Tambah' }" class="btn btn-dark mx-3 disabled ">
+            <!-- Nilai-Sempro -->
+            <router-link :to="{ name: '' }" class="btn btn-dark mx-3 disabled ">
               <i class="fas fa-duotone fa-hashtag m-0 p-0 me-2"></i>Lihat Nilai
             </router-link>
             <div class="col-lg-12 me-4">
@@ -92,7 +95,6 @@
         </div>
       </div>
     </div>
-
     <div class="row my-4">
       <div class="col-12">
         <div class="card my-4">
@@ -107,7 +109,7 @@
                 <thead>
                   <tr>
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Nama Dosen
+                      Nama Mahasiswa
                     </th>
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Judul TA
@@ -127,44 +129,11 @@
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Jadwal
                     </th>
-                    <th class="text-dark opacity-2"></th>
+                    <th class="text-dark opacity-2"></th> 
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user1" />
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">John Michael</h6>
-                          <p class="text-sm text-secondary mb-0">
-                            11181050
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-medium">SIM-TA</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-medium">21/06/2020 (13.00-16.00)</span>
-                    </td>
-                  </tr>
+                  <!-- v-for="(RegisTA, index) in RegisTAs.data" :key="index" -->
                   <tr>
                     <td>
                       <div class="d-flex px-2 py-1">
@@ -173,21 +142,21 @@
                             alt="user2" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Sisca Khol</h6>
+                          <h6 class="mb-0 text-sm">{{ RegisTAs.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            11191050
+                            {{ RegisTAs.number }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">Cyber Security</span>
+                      <span class="text-sm font-weight-normal">{{ RegisTAs.keyword }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
+                      <span class="text-secondary text-sm font-weight-bold">{{ RegisTAs.dospem1 }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
+                      <span class="text-secondary text-sm font-weight-bold">{{ RegisTAs.dospem2 }}</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="badge badge-sm bg-gradient-light text-dark">-</span>
@@ -206,6 +175,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- POV Dosen -->
+  <!-- v-if="profiles.role == 'dosen'" -->
+  <div class="container-fluid py-2">
     <div class="row my-4">
       <div class="col-12">
         <div class="card my-4">
@@ -220,7 +194,7 @@
                 <thead>
                   <tr>
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Nama Dosen
+                      Nama Mahasiswa
                     </th>
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Judul TA
@@ -240,8 +214,8 @@
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Jadwal
                     </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-5"> Action </th>
-                    <th class="text-dark opacity-2"></th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-5"> Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -270,61 +244,22 @@
                       <span class="text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
+                      <span class="text-secondary text-sm font-weight-bold">-</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
+                      <span class="text-secondary text-sm font-weight-bold">-</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-medium">21/06/2020 (13.00-16.00)</span>
+                      <span class="text-secondary text-sm font-weight-medium">-</span>
                     </td>
                     <td class="text-center">
-                      <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                        <router-link :to="{ name: 'Edit' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
-                            aria-hidden="true"></i>
+                      <a class="btn btn-link text-dark mb-0" href="javascript:;">
+                        <router-link :to="{ name: 'Create' }"><i
+                            class="fas fa-calendar fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
-                      <a class="btn btn-link mb-0 " href="javascript:;">
-                        <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="@/assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Sisca Khol</h6>
-                          <p class="text-sm text-secondary mb-0">
-                            11191050
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">Cyber Security</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">Belum Ada Penguji</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">Belum Ada Penguji</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">Belum Ada Jadwal</span>
-                    </td>
-                    <td class="text-center">
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                        <router-link :to="{ name: 'Edit' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
+                        <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
                             aria-hidden="true"></i>
                         </router-link>
                       </a>
@@ -350,10 +285,30 @@ import { onMounted, ref } from "vue";
 // import MaterialButton from "@/components/MaterialButton.vue";
 export default {
   name: "sempro",
+  data() {
+    return {
+      RegisTAs: {}
+      
+      
+    };
+  },
   components: {
     // MaterialButton,
   },
+ methods:{
+  getTugas() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/regis-ta',
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then((result) => {
+          this.RegisTAs = result.data.data,
+            console.log(this.RegisTAs)
+        }).catch((err) => {
+          console.log(err.response)
 
+        })
+    },
+ },
   setup() {
     let DocSempros = ref([]);
 
@@ -373,6 +328,9 @@ export default {
       DocSempros,
     };
   },
+  mounted() {
+    this.getTugas();
+  }
   // beforeMount() {
   //     this.toggleEveryDisplay();
   //     this.toggleHideConfig();
@@ -382,9 +340,6 @@ export default {
   //     this.toggleEveryDisplay();
   //     this.toggleHideConfig();
   //     // body.classList.add("bg-gray-100");
-  // },
-  // methods: {
-  //     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
   // },
 };
 </script>

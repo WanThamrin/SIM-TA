@@ -16,10 +16,12 @@ class CreateDosensTable extends Migration
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('niph',50) ->nullable();
+            // $table->string('niph',50) ->nullable();
             $table->string('note',250) ->nullable();
-            $table->string('sertif') ->nullable();      
-            $table->timestamp('time')->default(now());
+            $table->string('sertif') ->nullable();
+            $table->unsignedBigInteger('users_id');
+            $table->foreign ('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            // $table->timestamp('time')->default(now());
         });
     }
 
