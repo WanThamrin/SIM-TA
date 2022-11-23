@@ -23,7 +23,7 @@ class InfoController extends Controller
             'data'=> $Info
         ];
 
-        return response()->json($response, Response::HTTP_OK); 
+        return response()->json($response, Response::HTTP_OK);
 
     }
 
@@ -56,20 +56,19 @@ class InfoController extends Controller
         // ]);
 
         // if ($validator->fails()) {
-        //     return response()->json($validator->errors(), 
+        //     return response()->json($validator->errors(),
         //     Response::HTTP_UNPROCESSABLE_ENTITY);
         // }
         // return $request->all();
 
         // $validatedData = $request->validate([
         //     'file' => 'required|csv,txt,xlx,xls,pdf|max:2048',
-    
+
         //    ]);
         // return  $request->all();
-    
-           $name = $request->file('file')->getClientOriginalName();
-    
-           $path = $request->file('file')->store('public/Info');
+
+        $file = $request->file('file')->getClientOriginalName();
+        $request->file('file')->move('public/Info',$file);
 
             // dd($request->all()) ;
         try {
@@ -80,7 +79,7 @@ class InfoController extends Controller
                 // 'hari' => $request->hari,
                 // 'jam' => $request->jam,
                 'note' => $request->note,
-                'file' => $path
+                'file' => $file
 
             ]);
             $response=[
@@ -147,7 +146,7 @@ class InfoController extends Controller
         // ]);
 
         // if ($validator->fails()) {
-        //     return response()->json($validator->errors(), 
+        //     return response()->json($validator->errors(),
         //     Response::HTTP_UNPROCESSABLE_ENTITY);
         // }
 
@@ -160,7 +159,7 @@ class InfoController extends Controller
 
         //     return response()->json($response, Response::HTTP_OK);
             $name = $request->file('file')->getClientOriginalName();
-    
+
            $path = $request->file('file')->store('public/Info');
 
             // dd($request->all()) ;

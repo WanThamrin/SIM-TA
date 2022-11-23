@@ -48,9 +48,9 @@
               <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Semhas
             </router-link>
             <!-- Nilai-Semhas -->
-            <router-link :to="{ name: '' }" class="btn btn-dark mx-3 disabled ">
+            <!-- <router-link :to="{ name: '' }" class="btn btn-dark mx-3 disabled ">
               <i class="fas fa-duotone fa-hashtag m-0 p-0 me-2"></i>Lihat Nilai
-            </router-link>
+            </router-link> -->
             <div class="col-lg-12 me-4">
               <div class="card">
                 <div class="card-header pb-0 px-3">
@@ -94,6 +94,7 @@
     </div>
   </div>
 
+
   <!-- POV Dosen -->
   <!-- v-if="profiles.role == 'dosen'" -->
   <div class="container-fluid py-2">
@@ -131,11 +132,14 @@
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Jadwal
                     </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Status
+                    </th>
                     <th class="text-dark opacity-2"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(Semhas, index) in Semhass.data" :key="index">
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
@@ -143,64 +147,32 @@
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">John Michael</h6>
+                          <h6 class="mb-0 text-sm">{{ Semhas.user.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            11181050
+                            {{ Semhas.user.number }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-medium">SIM-TA</span>
+                      <span class="text-sm font-weight-medium">{{ Semhas.t_a.keyword }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
+                      <span class="text-sm font-weight-bold">{{ Semhas.t_a.dosen1.name }}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
+                      <span class="text-sm font-weight-bold">{{ Semhas.t_a.dosen2.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
+                      <span class="text-secondary text-sm font-weight-bold"></span>
+                      <!-- {{Semhas.t_a.dosen3.name}} -->
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
+                      <span class="text-secondary text-sm font-weight-bold"></span>
+                      <!-- {{Semhas.t_a.dosen4.name}} -->
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-sm font-weight-medium">21/06/2020 (13.00-16.00)</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="@/assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Sisca Khol</h6>
-                          <p class="text-sm text-secondary mb-0">
-                            11191050
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">Cyber Security</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">-</span>
                     </td>
                   </tr>
                 </tbody>
@@ -210,6 +182,14 @@
         </div>
       </div>
     </div>
+
+    <div class=" row mx-2 my-2">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+        <label class="form-check-label text-lg" for="flexSwitchCheckChecked">Buka Pendaftaran Seminar Hasil</label>
+      </div>
+    </div>
+
     <div class="row my-4">
       <div class="col-12">
         <div class="card my-4">
@@ -249,7 +229,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(Semhas, index) in Semhass.data" :key="index">
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
@@ -257,21 +237,21 @@
                             alt="user2" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Sisca Khol</h6>
+                          <h6 class="mb-0 text-sm">{{ Semhas.user.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            11191050
+                            {{ Semhas.user.number }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">Cyber Security</span>
+                      <span class="text-sm font-weight-normal">{{ Semhas.t_a.keyword }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
+                      <span class="text-secondary text-sm font-weight-bold">{{ Semhas.t_a.dosen1.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
+                      <span class="text-secondary text-sm font-weight-bold">{{ Semhas.t_a.dosen2.name }}</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
@@ -284,8 +264,8 @@
                     </td>
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                        <router-link :to="{ name: 'Create' }"><i
-                            class="fas fa-calendar text-gradient-dark fa-lg" aria-hidden="true"></i>
+                        <router-link :to="{ name: '' }"><i class="fas fa-calendar text-gradient-dark fa-lg"
+                            aria-hidden="true"></i>
                         </router-link>
                       </a>
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
@@ -313,11 +293,32 @@ import axios from 'axios';
 import { onMounted, ref } from "vue";
 
 export default {
-  name: "sempro",
+  name: "semhas",
+  data() {
+    return {
+      Semhass: {
+        user: {},
+        t_a: {}
+      }
+    }
+  },
   components: {
 
   },
+  methods: {
+    getSemhas() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/semhas',
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then((result) => {
+          this.Semhass = result.data,
+            console.log(this.Semhass)
+        }).catch((err) => {
+          console.log(err.response)
 
+        })
+    },
+  },
   setup() {
     let DocSemhass = ref([]);
 
@@ -337,6 +338,9 @@ export default {
       DocSemhass,
     };
   },
+  mounted() {
+    this.getSemhas();
+  }
   // beforeMount() {
   //     this.toggleEveryDisplay();
   //     this.toggleHideConfig();

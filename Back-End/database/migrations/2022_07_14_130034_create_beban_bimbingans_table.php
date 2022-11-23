@@ -15,6 +15,8 @@ class CreateBebanBimbingansTable extends Migration
     {
         Schema::create('beban_bimbingans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('users_id');
+            $table->foreign ('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('mata_kuliah',50) ->nullable();
             $table->string('catatan',250) ->nullable();
             $table->timestamp('time')->default(now());

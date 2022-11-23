@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Mahasiswa;
+use App\Models\Dosen;
 use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -28,6 +30,16 @@ class AuthController extends Controller
                 'role' => $request->role,
                 'password' => "psswrd"
             ]);
+            if ($request->role=="user") {
+                $mahasiswa = Mahasiswa::create([
+                    'users_id' => $user->id
+                ]);
+            } else {
+                $dosen = Dosen::create([
+                    'users_id' => $user->id
+                ]);
+            }
+
 
             return response()->json([
                 "token" => $user->createToken("API TOKEN")->plainTextToken

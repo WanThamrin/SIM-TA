@@ -15,6 +15,8 @@ class CreateRisetsTable extends Migration
     {
         Schema::create('risets', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('users_id');
+            $table->foreign ('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama_riset',250) ->nullable();
             $table->string('bidang_riset',250)->nullable();
             $table->string('keyword',250) ->nullable();

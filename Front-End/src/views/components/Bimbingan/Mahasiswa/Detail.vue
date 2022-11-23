@@ -4,7 +4,7 @@
   <div class="container-fluid">
     <div class="page-header min-height-250 border-radius-xl mt-4"
       style="
-          background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg')">
+        background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg')">
       <span class="mask bg-gradient-info opacity-2"></span>
       <router-link :to="{name:'Bimbingan'}" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
@@ -26,13 +26,13 @@
           <div class="nav-wrapper position-relative nav-justified mb-3 end-0">
             <ul class=" bg-light nav nav-pills nav-fill p-1" role="tab">
               <li class="nav-item">
-                <a class="px-0 py-1 mb-0 nav-link active in active" data-bs-toggle="tab" href="#riwayat" role="tab"
+                <a  @click="getRiwayat()" class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="#riwayat" role="tab"
                   aria-selected="false">
                   <span class="ms-1">Riwayat</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="px-0 py-1 mb-0 nav-link" data-bs-toggle="tab" href="#informasi" role="tab"
+                <a @click="getInfo()" class="px-0 py-1 mb-0 nav-link" data-bs-toggle="tab" href="#informasi" role="tab"
                   aria-selected="false">
                   <span class="ms-1">Informasi Tugas Akhir</span>
                 </a>
@@ -61,7 +61,7 @@
                 <strong class="text-dark">NIM :</strong> {{ profiles.number }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Mobile :</strong> {{ profiles.telp }}
+                <strong class="text-dark">Mobile :</strong> {{ profiles.phone }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Email :</strong> {{ profiles.email }}
@@ -92,7 +92,8 @@
 
 
         <div class="tab-content ml-4 mt-4 col-8 col-xl-8 mt-xl-0">
-          <div class="tab-pane  card card-plain h-100 " id="riwayat" role="tabpanel" aria-labelledby="riwayat">
+          <div class="tab-pane fade show card card-plain h-100 " id="riwayat" role="tabpanel"
+          aria-labelledby="riwayat">
             <!-- POV Riwayat -->
 
             <div class="p-3 pb-0 card-header">
@@ -155,31 +156,12 @@
                         </a>
                       </td>
                     </tr>
-                    <tr>
-                      <td class="align-middle text-center">
-                        <span class="text-sm font-weight-normal">Yudisium</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="badge badge-sm bg-gradient-light text-dark">-</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-danger text-gradient text-uppercase text-sm font-weight-bold">Belum
-                          Selesai</span>
-                      </td>
-                      <td class="text-center">
-                        <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                          <router-link :to="{ name: 'Lihat' }"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
-                              aria-hidden="true"></i>
-                          </router-link>
-                        </a>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          <div class="tab-pane fade show active  card card-plain h-100 " id="info" role="tabpanel"
+          <div class="tab-pane fade show active card card-plain h-100 " id="info" role="tabpanel"
             aria-labelledby="info">
             <!-- POV Informasi TA -->
             <div class="p-3 pb-0 card-header">
@@ -191,26 +173,23 @@
                   <div class="d-flex flex-column">
                     <span class="mb-2 text-md">
                       Judul Tugas Akhir:
-                      <span class="text-dark font-weight-bold ms-sm-2">Sistem Informasi Manajemen Tugas Akhir [Studi
-                        Kasus:ITK]</span>
+                      <span class="text-dark font-weight-bold ms-sm-2">{{ profiles.judul }}</span>
                     </span>
                     <span class="mb-2 text-md">
                       Keyword:
-                      <span class="text-dark ms-sm-2 font-weight-bold">SIM-TA</span>
+                      <span class="text-dark ms-sm-2 font-weight-bold">{{ profiles.keyword }}</span>
                     </span>
                     <span class="text-md">
                       Abstrak:
-                      <span class="text-dark font-weight-bold ms-sm-2">Sistem Informasi Manajemen Tugas Akhir [Studi
-                        Kasus:ITK]Sistem Informasi Manajemen Tugas Akhir [Studi
-                        Kasus:ITK]</span>
+                      <span class="text-dark font-weight-bold ms-sm-2">{{ profiles.abstrak }}</span>
                     </span>
                     <span class="mb-2 text-md">
                       Dosen Pembimbing Utama :
-                      <span class="text-dark font-weight-bold ms-sm-2">John Michael S.Kom,M.Kom</span>
+                      <span class="text-dark font-weight-bold ms-sm-2">{{ profiles.dospem1 }}</span>
                     </span>
                     <span class="mb-2 text-md">
                       Dosen Pembimbing Pendamping :
-                      <span class="text-dark font-weight-bold ms-sm-2">John Michael S.Kom,M.Kom</span>
+                      <span class="text-dark font-weight-bold ms-sm-2">{{ profiles.dospem2 }}</span>
                     </span>
                     <span class="mb-2 text-md">
                       Dosen Penguji I :
@@ -256,9 +235,9 @@ export default {
 
   methods: {
 
-    getNama() {
+    getTA() {
       let token = localStorage.getItem("token")
-      axios.get('http://127.0.0.1:8000/api/me',
+      axios.get('http://127.0.0.1:8000/api/regis-ta/' + this.$route.params.id,
         { headers: { "Authorization": `Bearer ${token}` } })
         .then((result) => {
           this.profiles = result.data.data
@@ -274,7 +253,7 @@ export default {
   },
 
   mounted() {
-    this.getNama()
+    this.getTA()
     this.$store.state.isAbsolute = true;
     setNavPills();
     setTooltip();

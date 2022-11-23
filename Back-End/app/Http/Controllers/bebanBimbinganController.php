@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BebanBimbingan;
+use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,13 +18,13 @@ class bebanBimbinganController extends Controller
      */
     public function index()
     {
-        $Bimbingan = BebanBimbingan::orderBy('time', 'DESC')->get();
+        $Bimbingan = BebanBimbingan::where('users_id',auth()->id())->orderBy('time', 'DESC')->get();
         $response =[
             'message' => 'List Beban Bimbingan',
             'data'=> $Bimbingan
         ];
 
-        return response()->json($response, Response::HTTP_OK); 
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -50,12 +51,15 @@ class bebanBimbinganController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try {
-            $Bimbingan = BebanBimbingan::create($request->all());
+            $Bimbingan = BebanBimbingan::create($request->all()+[
+                'users_id'=>auth()->id(),
+            ]);
+
             $response=[
                 'message' => 'Beban Bimbingan telah dibuat',
                 'data'=> $Bimbingan
@@ -115,7 +119,7 @@ class bebanBimbinganController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

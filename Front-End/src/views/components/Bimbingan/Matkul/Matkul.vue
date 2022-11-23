@@ -77,11 +77,12 @@ export default {
   },
   methods: {
     store() {
+      let token = localStorage.getItem("token")
       // console.log(this.bebanBimbingan)
       axios.post(
         'http://127.0.0.1:8000/api/beban-bimbingan',
-        this.bebanBimbingan
-      )
+        this.bebanBimbingan,
+        { headers: { Authorization: `Bearer ${token}` } })
         .then(() => {
           this.$router.push({
             name: 'Bimbingan'

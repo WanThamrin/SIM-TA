@@ -11,8 +11,10 @@ import TambahMhs from "../views/components/Bimbingan/Mahasiswa/Tambah.vue";
 import Info from "../views/components/Pengumuman/Info/Info.vue";
 import EditInfo from "../views/components/Pengumuman/Info/edit.vue";
 import EyeInfo from "../views/components/Pengumuman/Info/EyeInfo.vue";
-import Doc from "../views/components/Pengumuman/Dokumen/Doc.vue";
-import EyeDoc from "../views/components/Pengumuman/Dokumen/EyeDoc.vue";
+import DocSempro from "../views/components/Pengumuman/Dokumen/Sempro/Doc.vue";
+import EyeDocSempro from "../views/components/Pengumuman/Dokumen/Sempro/EyeDoc.vue";
+import DocSemhas from "../views/components/Pengumuman/Dokumen/Semhas/Doc.vue";
+import EyeDocSemhas from "../views/components/Pengumuman/Dokumen/Semhas/EyeDoc.vue";
 import Sempro from "../views/components/Sempro/Sempro.vue";
 import TambahSempro from "../views/components/Sempro/Tambah.vue";
 import Create from "../views/components/Sempro/Jadwal/Create.vue";
@@ -67,7 +69,7 @@ const routes = [
     component: Matkul,
   },
   {
-    path: "/detail-dosen",
+    path: "/detail-dosen/:id",
     name: "Detail-Dosen",
     component: DetailDosen,
   },
@@ -77,7 +79,7 @@ const routes = [
     component: TambahDosen,
   },
   {
-    path: "/detail-mahasiswa",
+    path: "/detail-mahasiswa/:id",
     name: "Detail-Mahasiswa",
     component: DetailMhs,
   },
@@ -107,14 +109,24 @@ const routes = [
     component: EyeInfo,
   },
   {
-    path: "/Doc",
-    name: "Doc",
-    component: Doc,
+    path: "/DocSempro",
+    name: "Doc-Sempro",
+    component: DocSempro,
   },
   {
-    path: "/EyeDoc",
-    name: "EyeDoc",
-    component: EyeDoc,
+    path: "/EyeDocSempro",
+    name: "EyeDoc-Sempro",
+    component: EyeDocSempro,
+  },
+  {
+    path: "/DocSemhas",
+    name: "Doc-Semhas",
+    component: DocSemhas,
+  },
+  {
+    path: "/EyeDocSemhas",
+    name: "EyeDoc-Semhas",
+    component: EyeDocSemhas,
   },
   {
     path: "/sempro",
@@ -127,7 +139,7 @@ const routes = [
     component: TambahSempro,
   },
   {
-    path: "/create",
+    path: "/create/:id",
     name: "Create",
     component: Create,
   },

@@ -19,7 +19,7 @@ class SemproController extends Controller
      */
     public function index()
     {
-        $sempro = Sempro::join('users','sempros.users_id','users.id')->where('users_id',auth()->id())->get();
+        $sempro = Sempro::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')->get();
         $response =[
             'message' => 'List Sempro',
             'data'=> $sempro
@@ -76,29 +76,29 @@ class SemproController extends Controller
 
         //     return response()->json($response, Response::HTTP_CREATED);
         $proposal = $request->file('proposal')->getClientOriginalName();
-        $proposal = $request->file('proposal')->store('public/Sempro/proposal');
+        $request->file('proposal')->move('public/Sempro/proposal',$proposal);
 
         $slide = $request->file('slide')->getClientOriginalName();
-        $slide = $request->file('slide')->store('public/Sempro/slide');
+        $request->file('slide')->move('public/Sempro/slide',$slide);
 
         $validasi_dospem1 = $request->file('validasi_dospem1')->getClientOriginalName();
-        $validasi_dospem1 = $request->file('validasi_dospem1')->store('public/Sempro/validasi_dospem1');
+        $request->file('validasi_dospem1')->move('public/Sempro/validasi_dospem1',$validasi_dospem1);
 
         $validasi_dospem2 = $request->file('validasi_dospem2')->getClientOriginalName();
-        $validasi_dospem2 = $request->file('validasi_dospem2')->store('public/Sempro/validasi_dospem2');
+        $request->file('validasi_dospem2')->move('public/Sempro/validasi_dospem2',$validasi_dospem2);
 
 
             // dd($request->all()) ;
         try {
-            // $TA = RegisTA::where('users_id',auth()->id())->first();
+            $TA = RegisTA::where('users_id',Auth::user()->id)->first();
+            // dd($TA->id);
             $sempro = Sempro::create([
                 'proposal'=>$proposal,
                 'slide'=>$slide,
                 'validasi_dospem1'=>$validasi_dospem1,
-                'validasi_dospem2' => $validasi_dospem2
-                ]+[
-                'users_id'=>auth()->id(),
-                'ta_id'=>0
+                'validasi_dospem2' => $validasi_dospem2,
+                'users_id'=>Auth::user()->id,
+                'ta_id'=>$TA->id
                 // 'ta_id'=>$TA
             ]);
             $response=[
@@ -125,7 +125,7 @@ class SemproController extends Controller
      */
     public function show($id)
     {
-        $sempro = Sempro::findOrFail($id);
+        $sempro = Sempro::where('id',$id)->with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')->first();
         $response=[
             'message' => 'Daftar Sempro',
             'data'=> $sempro

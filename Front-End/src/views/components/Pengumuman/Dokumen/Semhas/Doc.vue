@@ -26,7 +26,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="judul" type="text" placeholder="Masukkan Judul Dokumen" class="input-group border border-info rounded py-2 px-2 text-sm" name="nama_riset" :isRequired="true"
-                      v-model="DocSempro.judul" />
+                      v-model="DocSemhas.judul" />
                       
                   </div>
                 </div>
@@ -38,7 +38,7 @@
                   </div>
                   <div class="col-lg-9 my-2">
                     <input id="keyword" type="text" placeholder="Masukkan Keyword" class="input-group border border-info rounded py-2 px-2 text-sm" name="keyword"  :isRequired="true"
-                      v-model="DocSempro.keyword" />
+                      v-model="DocSemhas.keyword" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -85,7 +85,7 @@ import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
 
 export default {
-  name: "Doc",
+  name: "Doc-Semhas",
   components: {
     // MaterialInput,
     MaterialButton,
@@ -93,18 +93,18 @@ export default {
   },
   data() {
     return {
-      DocSempro: {},
+      DocSemhas: {},
     }
   },
   methods: {
     store() {
       const fd = new FormData();
-      $.each(this.DocSempro, function (key, value) {
+      $.each(this.DocSemhas, function (key, value) {
         fd.append(key, value);
       });
 
       axios.post(
-        'http://127.0.0.1:8000/api/doc-sempro',
+        'http://127.0.0.1:8000/api/doc-semhas',
         fd, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -123,7 +123,7 @@ export default {
       if (event) {
         $('.preview_' + name).attr('src', URL.createObjectURL(event.target.files[0]));
       }
-      this.DocSempro[name] = event.target.files[0];
+      this.DocSemhas[name] = event.target.files[0];
     },
   }
   // beforeMount() {

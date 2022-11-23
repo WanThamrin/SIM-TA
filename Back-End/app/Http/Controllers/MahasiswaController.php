@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\User;
 use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -35,6 +36,28 @@ class MahasiswaController extends Controller
     public function create()
     {
         //
+    }
+
+    public function getMahasiswa()
+    {
+        $Mahasiswa = User::with('mahasiswa','TA')->where('role','user')->get();
+        $response =[
+            'message' => 'List Mahasiswa',
+            'data'=> $Mahasiswa
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function detailMahasiswa($id)
+    {
+        $Mahasiswa = User::with('mahasiswa','TA')->where('id',$id)->first();
+        $response =[
+            'message' => 'List Mahasiswa',
+            'data'=> $Mahasiswa
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**

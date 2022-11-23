@@ -15,6 +15,7 @@ class Info extends Model
         'keyword',
         'file',
         'note',
+        'time'
         // 'status',
         // 'hari',
         // 'jam',

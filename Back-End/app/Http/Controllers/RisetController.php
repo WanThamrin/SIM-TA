@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Riset;
+use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,13 +18,13 @@ class RisetController extends Controller
      */
     public function index()
     {
-        $Riset = Riset::orderBy('time', 'DESC')->get();
+        $Riset = Riset::where('users_id',auth()->id())->orderBy('time', 'DESC')->get();
         $response =[
             'message' => 'List Riset',
             'data'=> $Riset
         ];
 
-        return response()->json($response, Response::HTTP_OK); 
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -52,12 +53,14 @@ class RisetController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try {
-            $Riset = Riset::create($request->all());
+            $Riset = Riset::create($request->all()+[
+                'users_id'=>auth()->id(),
+            ]);
             $response=[
                 'message' => 'Riset telah dibuat',
                 'data'=> $Riset
@@ -116,11 +119,11 @@ class RisetController extends Controller
             'bidang_riset'=>['required'],
             'note'=>['required'],
             'keyword'=>['required']
-            
+
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

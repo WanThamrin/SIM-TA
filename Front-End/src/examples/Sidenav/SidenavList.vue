@@ -48,14 +48,14 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="penilaian"
           navText="Penilaian">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">assignment_turned_in</i>
           </template>
         </sidenav-collapse>
-      </li>
+      </li> -->
       <li class="nav-item">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="relasi" navText="Relasi">
           <template v-slot:icon>

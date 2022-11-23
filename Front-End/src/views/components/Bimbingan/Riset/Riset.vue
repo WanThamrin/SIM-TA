@@ -97,10 +97,11 @@ export default {
   },
   methods: {
     store() {
+      let token = localStorage.getItem("token")
       axios.post(
         'http://127.0.0.1:8000/api/riset',
-        this.Riset
-      )
+        this.Riset,
+        { headers: { Authorization: `Bearer ${token}` } })
         .then(() => {
           this.$router.push({
             name: 'Bimbingan'

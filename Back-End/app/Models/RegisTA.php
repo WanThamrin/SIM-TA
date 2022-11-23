@@ -34,4 +34,24 @@ public function user()
 {
     return $this->belongsTo(User::class, 'users_id', 'id');
 }
+
+public function dosen1()
+{
+    return $this->belongsTo(User::class, 'dospem1', 'id');
+}
+
+public function dosen2()
+{
+    return $this->belongsTo(User::class, 'dospem2', 'id');
+}
+
+public function dosen3()
+{
+    return $this->belongsTo(User::class, 'dospeng1', 'id');
+}
+
+public function dosen4()
+{
+    return $this->belongsTo(User::class, 'dospeng2', 'id');
+}
 }

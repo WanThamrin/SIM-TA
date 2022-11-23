@@ -117,7 +117,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(dosen, index) in dosens" :key="index">
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
@@ -125,50 +125,9 @@
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">John Michael S.Kom,M.Kom</h6>
+                          <h6 class="mb-0 text-sm">{{dosen.name}}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            NIPH. <span>2154214214213</span>
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-medium">A</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-success">2/10</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-secondary">10/10</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-secondary">10/10</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-success">2/10</span>
-                    </td>
-                    <!-- <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-medium">21/06/2020 (13.00-16.00)</span>
-                    </td> -->
-                    <td class="text-center">
-                      <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                        <router-link :to="{ name: 'Lihat' }"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
-                            aria-hidden="true"></i>
-                        </router-link>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="@/assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Sisca Khol</h6>
-                          <p class="text-sm text-secondary mb-0">
-                            NIPH. <span>2154132156515</span>
+                            NIPH. <span>{{dosen.number}}</span>
                           </p>
                         </div>
                       </div>
@@ -210,8 +169,31 @@
 </template>
   
 <script>
+import axios from 'axios';
+
 export default {
   name: "Relasi",
+  data() {
+    return{
+      dosens:{}
+    };
+  },
+  methods: {
+    getDosen() {
+            let token = localStorage.getItem("token")
+            axios.get('http://127.0.0.1:8000/api/get-dosen',
+                { headers: { "Authorization": `Bearer ${token}` } })
+                .then((result) => {
+                    this.dosens = result.data.data
+                    console.log(this.dosens)
+                }).catch((err) => {
+                    console.log(err.response)
+                })
+        },
+  },
+  mounted(){
+    this.getDosen();
+  }
 };
 
 </script>

@@ -48,13 +48,13 @@
                     class="form-control input-group border border-info rounded py-2 px-2 text-sm"
                     placeholder="Masukan Password Anda..." id="password" label="Password" name="password" required
                     pattern=".{8,}" title="Please enter 8 characters or more." aria-describedby="button-addon2">
-                  
-                    <button @click.prevent="ToggleButtonIcon" class="input-group-append btn btn-link text-dark mb-0 px-2" href="javascript:;">
+                  <div class="input-group-append">
+                    <button @click.prevent="ToggleButtonIcon" class=" btn btn-link text-dark mb-0 px-2" href="javascript:;">
                       <!-- <i class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i> -->
                       <i v-if="passwordIcon == 'password'" class="fas fa-eye text-gradient-dark fa-lg"></i>
                       <i v-else class="fas fa-eye-slash text-gradient-dark fa-lg"></i>
                     </button>
-                  
+                  </div>
                 </div>
                 <!-- <material-switch id="rememberMe" name="rememberMe">Remember me</material-switch> -->
                 <div class="text-center">

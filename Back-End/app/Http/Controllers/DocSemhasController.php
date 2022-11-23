@@ -23,7 +23,7 @@ class DocSemhasController extends Controller
             'data'=> $DocSemhas
         ];
 
-        return response()->json($response, Response::HTTP_OK); 
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -54,7 +54,7 @@ class DocSemhasController extends Controller
         // ]);
 
         // if ($validator->fails()) {
-        //     return response()->json($validator->errors(), 
+        //     return response()->json($validator->errors(),
         //     Response::HTTP_UNPROCESSABLE_ENTITY);
         // }
 
@@ -66,9 +66,8 @@ class DocSemhasController extends Controller
         //     ];
 
         //     return response()->json($response, Response::HTTP_CREATED);
-        $name = $request->file('file')->getClientOriginalName();
-    
-        $path = $request->file('file')->store('public/Doc');
+        $file = $request->file('file')->getClientOriginalName();
+        $request->file('file')->move('public/Doc',$file);
 
          // dd($request->all()) ;
      try {
@@ -78,7 +77,7 @@ class DocSemhasController extends Controller
             //  'status' => $request->status,
              // 'hari' => $request->hari,
              // 'jam' => $request->jam,
-             'file' => $path
+             'file' => $file
 
          ]);
          $response=[
@@ -144,7 +143,7 @@ class DocSemhasController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

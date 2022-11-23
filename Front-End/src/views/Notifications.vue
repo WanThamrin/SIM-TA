@@ -65,10 +65,10 @@
                       <span class="text-sm font-weight-medium">{{ Info.keyword }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-success">{{ Info.status }}</span>
+                      <span class="text-sm font-weight-medium">{{ Info.judul }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-medium">{{ Info.hari }}</span>
+                      <span class="text-secondary text-sm font-weight-medium">{{ Info.time }}</span>
                     </td>
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0" href="javascript:;">
@@ -81,7 +81,7 @@
                             aria-hidden="true"></i>
                         </router-link>
                       </a>
-                      <a class="btn btn-link mb-0 " href="javascript:;" @click="destroy(Info.id)">
+                      <a class="btn btn-link mb-0 " href="javascript:;" @click.prevent="destroy(Info.id)">
                         <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
                       </a>
                     </td>
@@ -126,7 +126,7 @@
               <div class="bg-gradient-light shadow-success border-radius-lg pt-4 pb-3">
                 <h6 class="text-dark text-capitalize ps-3 ml-2">Daftar Dokumen Pendukung Pendaftaran</h6>
                 <div class="text-end">
-                  <router-link :to="{ name: 'Doc' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
+                  <router-link :to="{ name: 'Doc-Sempro' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
                     <i class="fas fa-plus m-0 p-0 me-2"></i> Masukkan Dokumen
                   </router-link>
                 </div>
@@ -185,23 +185,23 @@
                         <span class="text-sm font-weight-medium">{{ DocSempro.keyword }} </span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="badge badge-sm bg-gradient-success">{{ DocSempro.status }} </span>
+                        <span class="text-sm font-weight-medium">{{ DocSempro.judul }} </span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-sm font-weight-medium">{{ DocSempro.note }}</span>
+                        <span class="text-secondary text-sm font-weight-medium">{{ DocSempro.time }}</span>
                       </td>
                       <td class="text-center">
                         <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                          <router-link :to="{ name: 'EyeDoc' }"><i
+                          <router-link :to="{ name: 'EyeDoc-Sempro' }"><i
                               class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
                         <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                          <router-link :to="{ name: 'Edit' }"><i class="fas fa-pencil-alt text-dark fa-lg"
+                          <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark fa-lg"
                               aria-hidden="true"></i>
                           </router-link>
                         </a>
-                        <a class="btn btn-link mb-0 " href="javascript;" @click="drop(DocSempro.id)">
+                        <a class="btn btn-link mb-0 " href="javascript;" @click.prevent="drop(DocSempro.id)">
                           <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
                         </a>
                       </td>
@@ -217,7 +217,7 @@
               <div class="bg-gradient-light shadow-success border-radius-lg pt-4 pb-3">
                 <h6 class="text-dark text-capitalize ps-3 ml-2">Daftar Dokumen Pendukung Pendaftaran</h6>
                 <div class="text-end">
-                  <router-link :to="{ name: 'Doc' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
+                  <router-link :to="{ name: 'Doc-Semhas' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
                     <i class="fas fa-plus m-0 p-0 me-2"></i> Masukkan Dokumen
                   </router-link>
                 </div>
@@ -276,23 +276,23 @@
                         <span class="text-sm font-weight-medium">{{ DocSemha.keyword }} </span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="badge badge-sm bg-gradient-success">{{ DocSemha.status }} </span>
+                        <span class="text-sm font-weight-medium">{{ DocSemha.judul }} </span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-sm font-weight-medium">{{ DocSemha.note }}</span>
+                        <span class="text-secondary text-sm font-weight-medium">{{ DocSemha.time }}</span>
                       </td>
                       <td class="text-center">
                         <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                          <router-link :to="{ name: 'EyeDoc' }"><i
+                          <router-link :to="{ name: 'EyeDoc-Semhas' }"><i
                               class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
                         <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                          <router-link :to="{ name: 'Edit' }"><i class="fas fa-pencil-alt text-dark fa-lg"
+                          <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark fa-lg"
                               aria-hidden="true"></i>
                           </router-link>
                         </a>
-                        <a class="btn btn-link mb-0 " href="javascript;">
+                        <a class="btn btn-link mb-0 " href="javascript;" @click.prevent="del(DocSemha.id)">
                           <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
                         </a>
                       </td>
@@ -493,6 +493,7 @@ export default {
       )
         .then(() => {
           this.Infos.value.splice(this.Infos.value.indexOf(id), 1);
+          this.$router.go()
 
         }).catch((err) => {
           console.log(err.response.data);
@@ -500,16 +501,32 @@ export default {
     },
 
     drop(id) {
+      if (confirm('Apakah anda yakin?'))
       axios.delete(
         'http://127.0.0.1:8000/api/doc-sempro/' + id
       )
         .then(() => {
           this.DocSempros.value.splice(this.DocSempros.value.indexOf(id), 1);
+          this.$router.go()
+          this.drop()
 
         }).catch((err) => {
           console.log(err.response.data);
         });
     },
+
+    del(id) {
+      axios.delete(
+        'http://127.0.0.1:8000/api/doc-semhas/' + id
+      )
+        .then(() => {
+          this.DocSemhas.value.splice(this.DocSemhas.value.indexOf(id), 1);
+          this.del()
+          this.$router.go()
+        }).catch((err) => {
+          console.log(err.response.data);
+        });
+    }
   },
   mounted() {
     this.getInfo()

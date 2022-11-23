@@ -13,6 +13,7 @@ class Dosen extends Model
 
     protected $fillable = [
         'id',
+        'foto',
         'note',
         'sertif',
         'users_id'
@@ -23,7 +24,7 @@ class Dosen extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
     }

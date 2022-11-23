@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,4 +46,44 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bimbingan()
+    {
+        return $this->hasMany(BebanBimbingan::class, 'users_id','id');
+    }
+
+    public function riset()
+    {
+        return $this->hasMany(Riset::class,  'users_id','id');
+    }
+
+    /**
+     * Get the user that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function mahasiswa()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    public function TA()
+    {
+        return $this->belongsTo(RegisTA::class, 'users_id', 'id');
+    }
+
+    /**
+     * Get the user that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function JadwalSempro()
+    {
+        return $this->belongsTo(JadwalSempro::class, 'users_id', 'id');
+    }
 }

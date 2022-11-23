@@ -136,7 +136,7 @@
                 </span>
                 <span class="mb-2 text-md">
                   Waktu
-                  <span class="text-dark ms-sm-2 font-weight-bold">{{ Info.hari }} ({{ Info.jam }})</span>
+                  <span class="text-dark ms-sm-2 font-weight-bold">{{ Info.time }}</span>
                 </span>
                 <span class="text-md">
                   Note:

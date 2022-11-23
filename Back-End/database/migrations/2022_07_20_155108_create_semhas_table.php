@@ -21,6 +21,8 @@ class CreateSemhasTable extends Migration
             // $table->string('niph',250);
             $table->unsignedBigInteger('users_id');
             $table->foreign ('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('ta_id');
+            $table->foreign ('ta_id')->references('id')->on('regis_t_a_s')->onUpdate('cascade')->onDelete('cascade');
             $table->string('laporan')->nullable();
             $table->string('bimbingan')->nullable();
             $table->string('validasi_sidang1')->nullable();

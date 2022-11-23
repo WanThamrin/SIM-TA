@@ -35,7 +35,18 @@ class DosenController extends Controller
      */
     public function getDosen()
     {
-        $Dosen = User::where('role','dosen')->get();
+        $Dosen = User::with('bimbingan','riset')->where('role','dosen')->get();
+        $response =[
+            'message' => 'List Dosen',
+            'data'=> $Dosen
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function detailDosen($id)
+    {
+        $Dosen = User::with('bimbingan','riset')->where('id',$id)->first();
         $response =[
             'message' => 'List Dosen',
             'data'=> $Dosen
@@ -56,6 +67,7 @@ class DosenController extends Controller
         $validator = Validator::make($request->all(), [
             // 'niph'=>['required'],
             'note'=>['required'],
+            'foto'=>['required'],
             'sertif'=>['required']
         ]);
 
@@ -124,6 +136,7 @@ class DosenController extends Controller
         $validator = Validator::make($request->all(), [
             // 'niph'=>['required'],
             'note'=>['required'],
+            'foto'=>['required'],
             'sertif'=>['required']
         ]);
 

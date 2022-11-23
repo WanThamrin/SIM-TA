@@ -41,15 +41,19 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::resource('/regis-ta', regisTAController::class)->except(['create','edit']);
 Route::get('/get-dospem', [regisTAController::class,'getDospem']);
+Route::get('/get-bimbingan', [regisTAController::class,'getBimbingan']);
 Route::post('/update-status1/{id}', [regisTAController::class,'updateStatus1']);
 Route::post('/update-status2/{id}', [regisTAController::class,'updateStatus2']);
 
 
 
 Route::resource('/mahasiswa', MahasiswaController::class)->except(['create','edit']);
+Route::get('/get-mahasiswa', [MahasiswaController::class,'getMahasiswa']);
+Route::get('/get-mahasiswa/{id}', [MahasiswaController::class,'detailMahasiswa']);
 
 Route::resource('/dosen', DosenController::class)->except(['create','edit']);
 Route::get('/get-dosen', [DosenController::class,'getDosen']);
+Route::get('/get-dosen/{id}', [DosenController::class,'detailDosen']);
 
 Route::resource('/sempro', SemproController::class)->except(['create','edit']);
 
@@ -63,19 +67,19 @@ Route::resource('/nilai-sempro', NilaiSemproController::class)->except(['create'
 
 Route::resource('/nilai-semhas', NilaiSemhasController::class)->except(['create','edit']);
 
-
-    Route::get('/me', [AuthController::class,'me']);
-});
-
 Route::resource('/beban-bimbingan', bebanBimbinganController::class)->except(['create','edit']);
 
 Route::resource('/riset', RisetController::class)->except(['create','edit']);
 
 Route::resource('/relasi', RelasiController::class)->except(['create','edit']);
 
-Route::resource('/info', InfoController::class)->except(['create','edit']);
 
-Route::resource('/doc-yudisium', DocYudisiumController::class)->except(['create','edit']);
+
+    Route::get('/me', [AuthController::class,'me']);
+});
+
+
+Route::resource('/info', InfoController::class)->except(['create','edit']);
 
 Route::resource('/doc-sempro', DocSemproController::class)->except(['create','edit']);
 

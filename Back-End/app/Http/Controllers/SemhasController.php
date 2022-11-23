@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\semhas;
+use App\Models\RegisTA;
+use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +19,7 @@ class SemhasController extends Controller
      */
     public function index()
     {
-        $semhas = Semhas::join('users','semhas.users_id','users.id')->where('users_id',auth()->id())->get();
+        $semhas = Semhas::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')->get();
         $response =[
             'message' => 'List Semhas',
             'data'=> $semhas
@@ -77,36 +79,37 @@ class SemhasController extends Controller
 //             ]);
 //         }
         $laporan = $request->file('laporan')->getClientOriginalName();
-        $laporan = $request->file('laporan')->store('public/Semhas/laporan');
+        $request->file('laporan')->move('public/Semhas/laporan',$laporan);
 
         $bimbingan = $request->file('bimbingan')->getClientOriginalName();
-        $bimbingan = $request->file('bimbingan')->store('public/Semhas/bimbingan');
+        $request->file('bimbingan')->move('public/Semhas/bimbingan',$bimbingan);
 
         $validasi_sidang1 = $request->file('validasi_sidang1')->getClientOriginalName();
-        $validasi_sidang1 = $request->file('validasi_sidang1')->store('public/Semhas/validasi_sidang1');
+        $request->file('validasi_sidang1')->move('public/Semhas/validasi_sidang1',$validasi_sidang1);
 
         $validasi_sidang2 = $request->file('validasi_sidang2')->getClientOriginalName();
-        $validasi_sidang2 = $request->file('validasi_sidang2')->store('public/Semhas/validasi_sidang2');
+        $request->file('validasi_sidang2')->move('public/Semhas/validasi_sidang2',$validasi_sidang2);
 
         $validasi_sempro = $request->file('validasi_sempro')->getClientOriginalName();
-        $validasi_sempro = $request->file('validasi_sempro')->store('public/Semhas/validasi_sempro');
+        $request->file('validasi_sempro')->move('public/Semhas/validasi_sempro',$validasi_sempro);
 
         $bukti = $request->file('bukti')->getClientOriginalName();
-        $bukti = $request->file('bukti')->store('public/Semhas/bukti');
+        $request->file('bukti')->move('public/Semhas/bukti',$bukti);
+
             // dd($request->all()) ;
         try {
+            $TA = RegisTA::where('users_id',Auth::user()->id)->first();
+
             $semhas = Semhas::create([
                 'laporan'=>$laporan,
                 'bimbingan'=>$bimbingan,
-                'validasi_sidang1$validasi_sidang1'=>$validasi_sidang1,
+                'validasi_sidang1'=>$validasi_sidang1,
                 'validasi_sidang2' => $validasi_sidang2,
                 'validasi_sempro' => $validasi_sempro,
-                'bukti' => $bukti
+                'bukti' => $bukti,
 
-
-
-                ]+['users_id'=>auth()->id()
-        //         'ta_id'=>$TA->id
+                'users_id'=>Auth::user()->id,
+                'ta_id'=>$TA->id
             ]);
             $response=[
                 'message' => ' Form Semhas telah dibuat',
@@ -131,7 +134,7 @@ class SemhasController extends Controller
      */
     public function show($id)
     {
-        $semhas = Semhas::findOrFail($id);
+        $semhas = Semhas::where('id',$id)->with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')->first();
         $response=[
             'message' => 'Daftar Semhas',
             'data'=> $semhas

@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="page-header min-height-250 border-radius-xl mt-4" style="
-        background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg')">
+      background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg')">
         <span class="mask bg-gradient-info opacity-2"></span>
       <router-link :to="{name:'Bimbingan'}" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
@@ -65,7 +65,7 @@
             </div>
           </div>
           <div class="p-3 card-body">
-            <p class="text-md font-weight-normal font-italic">{{dosens}}</p>
+            <p class="text-md font-weight-normal font-italic">{{dosens.name}}</p>
             <p class="text-sm font-italic">
               Bachelor Degree (Computer Science)
               Universitas Brawijaya, Indonesia 2014
@@ -110,7 +110,7 @@
           <hr class="vertical dark" />
         </div>
         <div class="tab-content row my-4 ml-4 mt-4 col-8 col-xl-8 mt-xl-0">
-          <div class="tab-pane fade show  card card-plain h-100 " id="riset" role="tabpanel"
+          <div class="tab-pane fade show active card card-plain h-100 " id="riset" role="tabpanel"
             aria-labelledby="riset">
             <div class="p-3 pb-0 card-header">
               <h6 class="mb-0">Daftar Topik Penelitian</h6>
@@ -133,15 +133,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(Riset, index) in Risets.data" :key="index">
+                    <tr v-for="(riset, idx) in dosens.riset" :key="idx">
                       <td class="align-middle text-center">
-                        <span class="text-sm font-weight-normal">{{ Riset.keyword }}</span>
+                        <span class="text-sm font-weight-normal">{{ riset.keyword }}</span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-sm font-weight-normal">{{ Riset.bidang_riset }}</span>
+                        <span class="text-sm font-weight-normal">{{ riset.bidang_riset }}</span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-sm font-weight-normal">{{ Riset.note }}</span>
+                        <span class="text-sm font-weight-normal">{{ riset.note }}</span>
                       </td>
                     </tr>
                   </tbody>
@@ -169,12 +169,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(bebanBimbingan, index) in bebanBimbingans.data" :key="index">
+                    <tr v-for="(bimbingan, key) in dosens.bimbingan" :key="key">
                       <td class="align-middle text-center">
-                        <span class="text-sm font-weight-normal">{{ bebanBimbingan.mata_kuliah }}</span>
+                        <span class="text-sm font-weight-normal">{{ bimbingan.mata_kuliah }}</span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-sm font-weight-normal">{{ bebanBimbingan.catatan }}</span>
+                        <span class="text-sm font-weight-normal">{{ bimbingan.catatan }}</span>
                       </td>
                     </tr>
                   </tbody>
@@ -204,8 +204,8 @@ export default {
   name: "Detail-Dosen",
   data(){
     return{
-      bebanBimbingans: {},
-      Risets:{},
+      // bebanBimbingans: {},
+      // Risets:{},
       dosens:{}
     }
     
@@ -218,7 +218,7 @@ export default {
 
     getDosen() {
       let token = localStorage.getItem("token")
-      axios.get('http://127.0.0.1:8000/api/get-dosen',
+      axios.get('http://127.0.0.1:8000/api/get-dosen/' + this.$route.params.id,
         { headers: { "Authorization": `Bearer ${token}` } })
         .then((result) => {
           this.dosens = result.data.data
@@ -228,32 +228,32 @@ export default {
         })
     },
 
-    getBimbingan(){
-      axios.get('http://127.0.0.1:8000/api/beban-bimbingan')
-        .then((result) => {
-          this.bebanBimbingans = result.data
-          console.log(this.bebanBimbingans)
-        }).catch((err) => {
-          console.log(err.response)
+    // getBimbingan(){
+    //   axios.get('http://127.0.0.1:8000/api/beban-bimbingan')
+    //     .then((result) => {
+    //       this.bebanBimbingans = result.data
+    //       console.log(this.bebanBimbingans)
+    //     }).catch((err) => {
+    //       console.log(err.response)
 
-        })
-    },
+    //     })
+    // },
 
-    getRiset(){
-      axios.get('http://127.0.0.1:8000/api/riset')
-        .then((result) => {
-          this.Risets = result.data
-          console.log(this.Risets)
-        }).catch((err) => {
-          console.log(err.response)
+    // getRiset(){
+    //   axios.get('http://127.0.0.1:8000/api/riset')
+    //     .then((result) => {
+    //       this.Risets = result.data
+    //       console.log(this.Risets)
+    //     }).catch((err) => {
+    //       console.log(err.response)
 
-        })
-    }
+    //     })
+    // }
   },
 
   mounted() {
-    this.getBimbingan()
-    this.getRiset()
+    // this.getBimbingan()
+    // this.getRiset()
     this.getDosen()
     this.$store.state.isAbsolute = true;
     setNavPills();

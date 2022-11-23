@@ -110,7 +110,9 @@ class regisTAController extends Controller
      */
     public function show($id)
     {
-        $RegisTA = RegisTA::findOrFail($id);
+        // dd($RegisTA);
+
+        $RegisTA = RegisTA::where('regis_t_a_s.id',$id)->join('users','users.id','regis_t_a_s.users_id')->first();
         $response=[
             'message' => 'Daftar RegisTA',
             'data'=> $RegisTA
@@ -128,8 +130,38 @@ class regisTAController extends Controller
     public function getDospem()
     {
         // dd(Auth::id());
-        $regis1['dospem1'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')->where('dospem1',Auth::id())->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
-        $regis1['dospem2'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')->where('dospem2',Auth::id())->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
+        $regis1['dospem1'] = RegisTA::where('status1',0)
+        ->join('users','users.id','regis_t_a_s.users_id')
+        ->where('dospem1',Auth::id())
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
+
+        $regis1['dospem2'] = RegisTA::where('status2',0)
+        ->join('users','users.id','regis_t_a_s.users_id')
+        ->where('dospem2',Auth::id())
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
+
+        $response=[
+            'message' => 'Daftar RegisTA',
+            'data'=> $regis1
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function getBimbingan()
+    {
+        // dd(Auth::id());
+
+        $regis1['dospem1'] = RegisTA::where('status1',1)
+        ->join('users','users.id','regis_t_a_s.users_id')
+        ->where('dospem1',Auth::id())
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
+
+        $regis1['dospem2'] = RegisTA::where('status2',1)
+        ->join('users','users.id','regis_t_a_s.users_id')
+        ->where('dospem2',Auth::id())
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
+
         $response=[
             'message' => 'Daftar RegisTA',
             'data'=> $regis1

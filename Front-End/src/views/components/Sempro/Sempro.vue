@@ -50,9 +50,9 @@
               <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Sempro
             </router-link>
             <!-- Nilai-Sempro -->
-            <router-link :to="{ name: '' }" class="btn btn-dark mx-3 disabled ">
+            <!-- <router-link :to="{ name: '' }" class="btn btn-dark mx-3 disabled ">
               <i class="fas fa-duotone fa-hashtag m-0 p-0 me-2"></i>Lihat Nilai
-            </router-link>
+            </router-link> -->
             <div class="col-lg-12 me-4">
               <div class="card">
                 <div class="card-header pb-0 px-3">
@@ -129,12 +129,15 @@
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Jadwal
                     </th>
-                    <th class="text-dark opacity-2"></th> 
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Status
+                    </th>
+                    <th class="text-dark opacity-2"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <!-- v-for="(RegisTA, index) in RegisTAs.data" :key="index" -->
-                  <tr>
+                  <tr v-for="(Sempro, index) in Sempros.data" :key="index">
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
@@ -142,21 +145,26 @@
                             alt="user2" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ RegisTAs.name }}</h6>
+                          <h6 class="mb-0 text-sm">{{ Sempro.user.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            {{ RegisTAs.number }}
+                            {{ Sempro.user.number }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">{{ RegisTAs.keyword }}</span>
+                      <span class="text-sm font-weight-normal">{{ Sempro.t_a.keyword }}</span>
+                      <span v-if="Sempro.t_a.keyword == null"
+                        class="badge badge-sm bg-gradient-light text-dark">-</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">{{ RegisTAs.dospem1 }}</span>
+                      <span class="text-secondary text-sm font-weight-bold">{{ Sempro.t_a.dosen1.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">{{ RegisTAs.dospem2 }}</span>
+                      <span class="text-secondary text-sm font-weight-bold">{{ Sempro.t_a.dosen2.name }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="badge badge-sm bg-gradient-light text-dark">-</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="badge badge-sm bg-gradient-light text-dark">-</span>
@@ -177,6 +185,12 @@
     </div>
   </div>
 
+  <div class="container-fluid mx-2 row">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+      <label class="form-check-label text-lg" for="flexSwitchCheckChecked">Buka Pendaftaran Seminar Proposal</label>
+    </div>
+  </div>
   <!-- POV Dosen -->
   <!-- v-if="profiles.role == 'dosen'" -->
   <div class="container-fluid py-2">
@@ -219,7 +233,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(Sempro, index) in Sempros.data" :key="index">
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
@@ -227,21 +241,21 @@
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">John Michael</h6>
+                          <h6 class="mb-0 text-sm">{{ Sempro.user.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            11181050
+                            {{ Sempro.user.number }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-medium">SIM-TA</span>
+                      <span class="text-sm font-weight-medium">{{ Sempro.t_a.keyword }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-bold">John Michael S.Kom M.Kom</span>
+                      <span class="text-sm font-weight-bold">{{ Sempro.t_a.dosen1.name }}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="text-sm font-weight-bold">Sisca Sabyan S.Kom M.Kom</span>
+                      <span class="text-sm font-weight-bold">{{ Sempro.t_a.dosen2.name }}</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-sm font-weight-bold">-</span>
@@ -254,8 +268,8 @@
                     </td>
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                        <router-link :to="{ name: 'Create' }"><i
-                            class="fas fa-calendar fa-lg" aria-hidden="true"></i>
+                        <router-link :to="{ name: 'Create', params: { id: Sempro.id } }"><i class="fas fa-calendar fa-lg"
+                            aria-hidden="true"></i>
                         </router-link>
                       </a>
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
@@ -287,28 +301,32 @@ export default {
   name: "sempro",
   data() {
     return {
-      RegisTAs: {}
-      
-      
+      Sempros: {
+        user: {},
+        t_a: {}
+
+      }
+
+
     };
   },
   components: {
     // MaterialButton,
   },
- methods:{
-  getTugas() {
+  methods: {
+    getSempro() {
       let token = localStorage.getItem("token")
-      axios.get('http://127.0.0.1:8000/api/regis-ta',
+      axios.get('http://127.0.0.1:8000/api/sempro',
         { headers: { Authorization: `Bearer ${token}` } })
         .then((result) => {
-          this.RegisTAs = result.data.data,
-            console.log(this.RegisTAs)
+          this.Sempros = result.data,
+            console.log(this.Sempros)
         }).catch((err) => {
           console.log(err.response)
 
         })
     },
- },
+  },
   setup() {
     let DocSempros = ref([]);
 
@@ -329,7 +347,7 @@ export default {
     };
   },
   mounted() {
-    this.getTugas();
+    this.getSempro();
   }
   // beforeMount() {
   //     this.toggleEveryDisplay();

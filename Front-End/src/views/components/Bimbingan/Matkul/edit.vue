@@ -74,9 +74,10 @@ export default {
   },
   methods: {
     getMatkul() {
+      let token = localStorage.getItem("token")
       axios.get(
-        'http://127.0.0.1:8000/api/beban-bimbingan/' + this.$route.params.id
-      )
+        'http://127.0.0.1:8000/api/beban-bimbingan/' + this.$route.params.id,
+        { headers: { "Authorization": `Bearer ${token}` } })
         .then((result) => {
           this.bebanBimbingan = result.data.data
           // console.log(result.data.data)
@@ -86,9 +87,11 @@ export default {
         });
     },
     update() {
+      let token = localStorage.getItem("token")
       axios.put(
         'http://127.0.0.1:8000/api/beban-bimbingan/' + this.$route.params.id,
-        this.bebanBimbingan
+        this.bebanBimbingan,
+        { headers: { "Authorization": `Bearer ${token}` } }
       )
         .then(() => {
           this.$router.push({

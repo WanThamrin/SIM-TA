@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="page-header min-height-200 border-radius-xl mt-4" style="
       background-image: url('https://images.unsplash.com/photo-1537498425277-c283d32ef9db?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcHV0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60');
-      ">
+    ">
       <span class="mask bg-gradient-warning opacity-6"></span>
       <router-link :to="{name:'Sempro'}" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
@@ -17,7 +17,7 @@
           <div class="card-body">
             <p class="text-muted">Form Edit Seminar Proposal</p>
             <div class="live-preview">
-              <form @submit.prevent="">
+              <form @submit.prevent="store()">
                 <div class="row mb-3 ">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Nama Mahasiswa</label>
@@ -31,7 +31,7 @@
                           size="md"
                           Required
                         /> -->
-                    <h6 class="mb-0 text-md  my-1 ">John Michael</h6>
+                    <h6 class="mb-0 text-md  my-1 ">{{ Sempro.user.name }}</h6>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -46,12 +46,12 @@
                           name="nim"
                           size="md"
                         /> -->
-                    <h6 class="mb-0 text-md my-1">11181050</h6>
+                    <h6 class="mb-0 text-md my-1">{{ Sempro.user.number }}</h6>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">Proposal</label>
+                    <label for="nameInput" class="form-label">Judul Tugas Akhir</label>
                   </div>
                   <div class="col-lg-9 my-1">
                     <!-- <material-input
@@ -61,7 +61,7 @@
                           name="Judul TA"
                           size="md"
                         /> -->
-                    <h6 class="mb-0 text-md  my-1">SIM-TA</h6>
+                    <h6 class="mb-0 text-md  my-1">{{ Sempro.t_a.keyword }}</h6>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -76,7 +76,7 @@
                           name="slide"
                           size="md"
                         /> -->
-                    <h6 class="mb-0 text-md  my-1">John Michael S.Kom M.Kom</h6>
+                    <h6 class="mb-0 text-md  my-1">{{Sempro.t_a.dosen1.name}}</h6>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -91,7 +91,7 @@
                           name="slide"
                           size="md"
                         /> -->
-                    <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6>
+                    <h6 class="mb-0 text-md  my-1">{{Sempro.t_a.dosen2.name}}</h6>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -99,11 +99,8 @@
                     <label for="nameInput" class="form-label">Dosen Penguji Utama</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <select v-model="selected" class="border border-info rounded py-2 px-2 text-sm">
-                      <option disabled value="">Pilih Salah Satu</option>
-                      <option>John Michael</option>
-                      <option>Awwwwwwwww</option>
-                      <option>Sisca Khol</option>
+                    <select v-model="JadwalSempros.dospeng1" class="border border-info rounded py-2 px-2 text-sm">
+                      <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
                   </div>
@@ -113,11 +110,8 @@
                     <label for="nameInput" class="form-label">Dosen Penguji Pendamping</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <select v-model="selected" class="border border-info rounded py-2 px-2 text-sm">
-                      <option disabled value="">Pilih Salah Satu</option>
-                      <option>John Michael</option>
-                      <option>Awwwwwwwww</option>
-                      <option>Sisca Khol</option>
+                    <select v-model="JadwalSempros.dospeng2" class="border border-info rounded py-2 px-2 text-sm">
+                      <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
                   </div>
@@ -128,7 +122,7 @@
                   </div>
                   <div class="col-lg my-1">
                     <input id="jadwal" type="date" min="today" label="" name="jadwal" size="md"
-                      class="border border-info rounded py-2 px-2 text-sm">
+                      class="border border-info rounded py-2 px-2 text-sm" v-model="JadwalSempros.hari">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
                   <div class="col-lg my-2">
@@ -136,7 +130,7 @@
                   </div>
                   <div class="col-lg my-1">
                     <input id="jadwal" type="time" label="" name="jadwal" size="md"
-                      class="border border-info rounded py-2 px-2 text-sm">
+                      class="border border-info rounded py-2 px-2 text-sm" v-model="JadwalSempros.jam_mulai">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
                   <div class="col-lg my-2">
@@ -144,7 +138,7 @@
                   </div>
                   <div class="col-lg my-1">
                     <input id="jadwal" type="time" label="" name="jadwal" size="md"
-                      class="border border-info rounded py-2 px-2 text-sm">
+                      class="border border-info rounded py-2 px-2 text-sm"  v-model="JadwalSempros.jam_akhir">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
                 </div>
@@ -153,20 +147,12 @@
                     <label for="nameInput" class="form-label">Status Ruangan</label>
                   </div>
                   <div class="col-lg-8 my-2">
-                    <div class="form-check-inline">
-                      <input class="form-check-input border border-info py-2 px-2 text-sm" type="radio"
-                        name="flexRadioDefault" id="flexRadioDefault1">
-                      <label class="form-check-label" for="flexRadioDefault1">
-                        Online (Dalam jaringan)
-                      </label>
-                    </div>
-                    <div class="form-check-inline">
-                      <input class="form-check-input border border-info py-2 px-2 text-sm" type="radio"
-                        name="flexRadioDefault" id="flexRadioDefault2" checked>
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Offline (Luar jaringan)
-                      </label>
-                    </div>
+                    <select v-model="JadwalSempros.type" class="border border-info rounded py-2 px-2 text-sm">
+                      <!-- <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option> -->
+                      <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
+                      <option class="" value="daring">Dalam Jaringan (Daring)</option>
+                      <option class="" value="luring">Luar Jaringan (Luring)</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -176,7 +162,9 @@
                     </label>
                   </div>
                   <div class="col-lg-9 my-2">
-                    <input id="Keterangan" type="text" placeholder="Masukkan Keterangan" class="input-group border border-info rounded py-2 px-2 text-sm" name="Keterangan"  :isRequired="true"
+                    <input id="Keterangan" type="text" placeholder="Masukkan Keterangan" 
+                    class="input-group border border-info rounded py-2 px-2 text-sm" name="Keterangan" 
+                    v-model="JadwalSempros.ruangan" :isRequired="true"
                        />
                   </div>
                 </div>
@@ -197,15 +185,83 @@
 
 <script>
 // import MaterialInput from "@/components/MaterialInput.vue";
+import axios from 'axios';
+
 import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
 
 export default {
   name: "edit",
+  data() {
+    return {
+      Sempro: {  
+        user:{},
+        t_a:{
+          dosen1:{},
+          dosen2:{}
+        },
+      },
+      JadwalSempros: {},
+      dosens: {}
+      
+    };
+  },
   components: {
     // MaterialInput,
     MaterialButton,
   },
+
+  methods:{
+  getSempro() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/sempro/'+ this.$route.params.id,
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then((result) => {
+          this.Sempro = result.data.data
+            console.log(this.Sempro)
+        }).catch((err) => {
+          console.log(err.response)
+
+        })
+    },
+
+    getDosen() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/get-dosen',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.dosens = result.data.data
+          console.log(this.dosens)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+
+    store() {
+      let token = localStorage.getItem("token")
+      axios.post(
+        'http://127.0.0.1:8000/api/jadwal-sempro',
+        this.JadwalSempros,
+        { headers: { Authorization: `Bearer ${token}` } })
+
+        .then(() => {
+          this.$router.push({
+            name: 'Sempro'
+          })
+
+        }).catch((err) => {
+          console.log(err.response.data)
+        });
+    }
+ },
+
+ mounted() {
+    this.getSempro();
+    this.getDosen();
+
+  }
+
+
   // beforeMount() {
   //     this.toggleEveryDisplay();
   //     this.toggleHideConfig();

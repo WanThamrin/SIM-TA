@@ -19,9 +19,9 @@ class JadwalSempro extends Model
         'users_id',
         'hari',
         'jam_mulai',
-        'jam-akhir',
-        // 'dospeng1',
-        // 'dospeng2',
+        'jam_akhir',
+        'dospeng1',
+        'dospeng2',
         'type',
         'ruangan'
     ];
@@ -31,8 +31,10 @@ class JadwalSempro extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
+
+
 }

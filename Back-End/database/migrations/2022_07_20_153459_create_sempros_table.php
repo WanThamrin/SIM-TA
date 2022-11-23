@@ -25,8 +25,8 @@ class CreateSemprosTable extends Migration
             $table->string('validasi_dospem2')->nullable();
             $table->unsignedBigInteger('users_id');
             $table->foreign ('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            // $table->unsignedBigInteger('ta_id');
-            // $table->foreign ('ta_id')->references('id')->on('regis_t_a_s')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('ta_id');
+            $table->foreign ('ta_id')->references('id')->on('regis_t_a_s')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('time')->default(now());
         });
     }

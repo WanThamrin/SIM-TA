@@ -17,6 +17,7 @@ class CreateDosensTable extends Migration
             $table->id();
             $table->timestamps();
             // $table->string('niph',50) ->nullable();
+            $table->string('foto') ->nullable();
             $table->string('note',250) ->nullable();
             $table->string('sertif') ->nullable();
             $table->unsignedBigInteger('users_id');
