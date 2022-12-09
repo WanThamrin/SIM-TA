@@ -8,15 +8,15 @@
             :class="this.$store.state.isRTL ? 'text-lg-end' : 'text-lg-start'"
           >
             ©
-            {{ new Date().getFullYear() }}, made with
-            <i class="fa fa-heart"></i> by
+            {{ new Date().getFullYear() }}, made by 
+             
             <a
-              href="https://www.creative-tim.com"
+              href="https://if.itk.ac.id/"
               class="font-weight-bold"
               target="_blank"
-              >Mog_Mog</a
+              >Informatika ITK</a
             >
-            AWWW.
+            
           </div>
         </div>
         <!-- <div class="col-lg-6">

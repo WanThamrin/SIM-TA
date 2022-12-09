@@ -25,6 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'is_admin',
+        'is_superadmin',
         'role',
     ];
 
@@ -84,6 +86,13 @@ class User extends Authenticatable
      */
     public function JadwalSempro()
     {
-        return $this->belongsTo(JadwalSempro::class, 'users_id', 'id');
+        return $this->belongsTo(JadwalSempro::class, 'id', 'users_id');
     }
+
+    public function JadwalSemhas()
+    {
+        return $this->belongsTo(JadwalSemhas::class, 'id', 'users_id');
+    }
+
+
 }

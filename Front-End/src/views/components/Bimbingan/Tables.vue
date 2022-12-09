@@ -18,6 +18,11 @@
             <p class="text-muted">Form Daftar Tugas Akhir</p>
             <div class="live-preview">
               <form @submit.prevent="store()">
+                <div v-if="isLogin">
+                  <material-alert class="font-weight-light" color="danger" dismissible>
+                    <span class="text-sm">{{ this.messageError }}</span>
+                  </material-alert>
+                </div>
                 <div class="row mb-3 ">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Nama Mahasiswa</label>
@@ -49,7 +54,8 @@
                     <label for="nameInput" class="form-label">Abstrak </label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <textarea placeholder="Masukkan Keterangan Singkat mengenai Judul" v-model="tugas.abstrak" class="input-group border border-info rounded py-2 px-2 text-sm" size="md">  </textarea>
+                    <textarea placeholder="Masukkan Keterangan Singkat mengenai Judul" v-model="tugas.abstrak"
+                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md">  </textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -67,8 +73,8 @@
                     <label for="nameInput" class="form-label">Dosen Pembimbing Utama</label>
                   </div>
                   <div class="col-lg-9 my-2 ">
-                    <select v-model="tugas.dospem1" class="border border-info rounded py-2 px-2 text-sm">
-                      <option  v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
+                    <select v-model="tugas.dospem1" @change="checkDospem()" class="border border-info rounded py-2 px-2 text-sm">
+                      <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
                   </div>
@@ -78,7 +84,7 @@
                     <label for="nameInput" class="form-label">Dosen Pembimbing Pendamping</label>
                   </div>
                   <div class="col-lg-9 my-2">
-                    <select v-model="tugas.dospem2" class="border border-info rounded py-2 px-2 text-sm">
+                    <select v-model="tugas.dospem2" @change="checkDospem()" class="border border-info rounded py-2 px-2 text-sm">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
@@ -100,8 +106,11 @@
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import MaterialButton from "@/components/MaterialButton.vue";
+// import MaterialAlert from "@/components/MaterialAlert.vue";
+
 
 export default {
   name: "tables",
@@ -109,7 +118,7 @@ export default {
     return {
       profiles: {},
       tugas: {},
-      dosens: {}
+      dosens: {},
     };
   },
 
@@ -118,6 +127,21 @@ export default {
   },
 
   methods: {
+    checkDospem() {
+      if (this.tugas.dospem1 == this.tugas.dospem2) {
+        Swal.fire(
+          "Error!",
+          "Dosen Pembimbing Tidak Boleh Sama!",
+          "error"
+        ).then((result) => {
+          if (result.value) {
+            this.tugas.dospem2 = null
+          }
+        });
+        this.tugas.dospem2 = null
+      }
+    },
+
     getNama() {
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/me',

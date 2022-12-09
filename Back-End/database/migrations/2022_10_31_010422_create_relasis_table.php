@@ -16,9 +16,11 @@ class CreateRelasisTable extends Migration
         Schema::create('relasis', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('nim',50) ->nullable();
-            $table->string('niph',250) ->nullable();
-            $table->string('posisi') ->nullable();      
+            // $table->string('nim',50) ->nullable();
+            // $table->string('niph',250) ->nullable();
+            $table->unsignedBigInteger('users_id');
+            $table->foreign ('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('posisi') ->nullable();
             $table->timestamp('time')->default(now());
         });
     }

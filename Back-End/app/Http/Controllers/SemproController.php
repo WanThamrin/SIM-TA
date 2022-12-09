@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\sempro;
+use App\Models\Sempro;
 use App\Models\RegisTA;
+use App\Models\Mahasiswa;
 use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class SemproController extends Controller
      *``
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $sempro = Sempro::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')->get();
@@ -28,14 +30,38 @@ class SemproController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
+    public function NilaiSempro()
+    {
+        // dd(auth());
+        $data["Sempro"] = Sempro::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4', 'nilais', 'nilais.dosen')
+        ->whereHas('user', function($q){
+            $q->where('id', auth()->id());
+        } )
+        ->get();
+
+        $response =[
+            'message' => 'List Sempro',
+            'data'=> $data
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getData()
     {
-        //
+        $sempro = Sempro::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')
+        ->where('users_id',auth()->id())
+        ->get();
+        $response =[
+            'message' => 'List Sempro',
+            'data'=> $sempro
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -46,46 +72,17 @@ class SemproController extends Controller
      */
     public function store(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     // 'nama_mhs'=>['required'],
-        //     // 'nim'=>['required'],
-        //     // 'niph'=>['required'],
-        //     'proposal'=>['required'],
-        //     'slide'=>['required'],
-        //     'validasi_dospem1'=>['required'],
-        //     'validasi_dospem2'=>['required']
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json($validator->errors(),
-        //     Response::HTTP_UNPROCESSABLE_ENTITY);
-        // }
-
-        // try {
-        //     $TA = RegisTA::where('users_id',auth()->id())->first();
-        //     $sempro = Sempro::create($request->all()+[
-        //         'users_id'=>auth()->id(),
-        //         'ta_id'=>$TA->id
-        //     ]);
-        //     $response=[
-        //         'message' => ' Form Sempro telah dibuat',
-        //         'data'=> $sempro
-        //     ];
-
-        //     $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'seminar proposal']);
-
-        //     return response()->json($response, Response::HTTP_CREATED);
         $proposal = $request->file('proposal')->getClientOriginalName();
-        $request->file('proposal')->move('public/Sempro/proposal',$proposal);
+        $request->file('proposal')->move(public_path('Sempro/proposal'),$proposal);
 
         $slide = $request->file('slide')->getClientOriginalName();
-        $request->file('slide')->move('public/Sempro/slide',$slide);
+        $request->file('slide')->move(public_path('Sempro/slide'),$slide);
 
         $validasi_dospem1 = $request->file('validasi_dospem1')->getClientOriginalName();
-        $request->file('validasi_dospem1')->move('public/Sempro/validasi_dospem1',$validasi_dospem1);
+        $request->file('validasi_dospem1')->move(public_path('Sempro/validasi_dospem1'),$validasi_dospem1);
 
         $validasi_dospem2 = $request->file('validasi_dospem2')->getClientOriginalName();
-        $request->file('validasi_dospem2')->move('public/Sempro/validasi_dospem2',$validasi_dospem2);
+        $request->file('validasi_dospem2')->move(public_path('Sempro/validasi_dospem2'),$validasi_dospem2);
 
 
             // dd($request->all()) ;
@@ -104,9 +101,10 @@ class SemproController extends Controller
             $response=[
                 'message' => ' Form sempro telah dibuat',
                 'data'=> $sempro
-            ];
 
-            // $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'seminar proposal']);
+            ];
+            $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'seminar proposal']);
+
 
             return response()->json($response, Response::HTTP_CREATED);
 
@@ -155,24 +153,61 @@ class SemproController extends Controller
     public function update(Request $request, $id)
     {
         $sempro = Sempro::findOrFail($id);
-
-        $validator = Validator::make($request->all(), [
-            // 'nama_mhs'=>['required'],
-            // 'nim'=>['required'],
-            // 'niph'=>['required'],
-            'proposal'=>['required'],
-            'slide'=>['required'],
-            'validasi_dospem1'=>['required'],
-            'validasi_dospem2'=>['required']
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(),
-            Response::HTTP_UNPROCESSABLE_ENTITY);
+        // $TA = RegisTA::where('users_id')->first();
+        if (!$sempro){
+            return $this->errorResponse('Data tidak ditemukan',422);
         }
 
-        try {
-            $sempro -> update($request->all());
+        if ($request->file != null && $request->file != 'null') {
+
+            $proposal = $request->file('proposal')->getClientOriginalName();
+            $request->file('proposal')->move(public_path('Sempro/proposal'),$proposal);
+
+        $sempro->proposal = $proposal;
+        }
+        dd($request->$proposal) ;
+
+        if ($request->file != null && $request->file != 'null') {
+
+            $slide = $request->file('slide')->getClientOriginalName();
+            $request->file('slide')->move(public_path('Sempro/slide'),$slide);
+
+        $sempro->slide = $slide;
+        }
+        if ($request->file != null && $request->file != 'null') {
+
+            $validasi_dospem1 = $request->file('validasi_dospem1')->getClientOriginalName();
+            $request->file('validasi_dospem1')->move(public_path('Sempro/validasi_dospem1'),$validasi_dospem1);
+
+        $sempro->validasi_dospem1 = $validasi_dospem1;
+        }
+        if ($request->file != null && $request->file != 'null') {
+
+            $validasi_dospem2 = $request->file('validasi_dospem2')->getClientOriginalName();
+            $request->file('validasi_dospem2')->move(public_path('Sempro/validasi_dospem2'),$validasi_dospem2);
+
+        $sempro->validasi_dospem2 = $validasi_dospem2;
+        }
+
+
+        $sempro->save();
+        // $validator = Validator::make($request->all(), [
+        //     // 'nama_mhs'=>['required'],
+        //     // 'nim'=>['required'],
+        //     // 'niph'=>['required'],
+        //     'proposal'=>['required'],
+        //     'slide'=>['required'],
+        //     'validasi_dospem1'=>['required'],
+        //     'validasi_dospem2'=>['required']
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors(),
+        //     Response::HTTP_UNPROCESSABLE_ENTITY);
+        // }
+
+        // try {
+        //     $sempro -> update($request->all());
             $response=[
                 'message' => 'List sempro telah diubah',
                 'data'=> $sempro
@@ -180,11 +215,11 @@ class SemproController extends Controller
 
             return response()->json($response, Response::HTTP_OK);
 
-        } catch (QueryException $e) {
-            return response()->json([
-                'message' => "Gagal" . $e->errorInfo
-            ]);
-        }
+        // } catch (QueryException $e) {
+        //     return response()->json([
+        //         'message' => "Gagal" . $e->errorInfo
+        //     ]);
+        // }
     }
 
     /**

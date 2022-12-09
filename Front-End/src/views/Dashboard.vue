@@ -144,11 +144,12 @@
                 </span>
                 <span class="text-md">
                   File:
-                  <button class="btn btn-link text-sm mb-0" onclick="window.open({{ Info.file }})">
-                    <i class="fas fa-file-pdf text-lg me-1" aria-hidden="true"> PDF</i>
-                    {{ Info.file? Info.file.name:'' }}
-                  </button>
+                  <a class="btn btn-link text-sm mb-0" :href="'http://127.0.0.1:8000/info/'+Info.file" target="_blank" >
+                    <i class="fas fa-file-pdf text-lg me-2" aria-hidden="true">{{ Info.file }}</i>
+                    
+                  </a>
                 </span>
+              <!-- <a href= "http://127.0.0.1:8000/api/storage/app/public/Info/file_1670090385.pdf">aaaa</a> -->
               </div>
             </li>
           </ul>

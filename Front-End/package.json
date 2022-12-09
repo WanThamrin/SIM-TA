@@ -28,6 +28,7 @@
     "sweetalert2": "^11.6.6",
     "vue": "3.2.0",
     "vue-router": "4.0.14",
+    "vue-sweetalert2": "^5.0.5",
     "vue-time-date-range-picker-vue3": "^1.4.17",
     "vuex": "4.0.2"
   },

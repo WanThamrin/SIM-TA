@@ -46,13 +46,18 @@
             </div>
           </div>
           <div class="col-lg-8">
-            <router-link :to="{ name: 'Tambah-Sempro' }" class="btn btn-dark mx-3" type="button">
-              <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Sempro
-            </router-link>
+            <button  @click="$router.push ({ name: 'Tambah-Sempro' })" class="btn btn-dark mx-3" type="button" :disabled="checked">
+              <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Seminar Proposal
+            </button>
+            <!-- Button trigger modal -->
+            <button  @click="$router.push ({ name: 'Nilai-Sempro' })" class="btn btn-primary mx-3" type="button">
+              <i class="fas fa-hashtag m-0 p-0 me-2"></i>Lihat Nilai
+            </button>
             <!-- Nilai-Sempro -->
             <!-- <router-link :to="{ name: '' }" class="btn btn-dark mx-3 disabled ">
               <i class="fas fa-duotone fa-hashtag m-0 p-0 me-2"></i>Lihat Nilai
             </router-link> -->
+            
             <div class="col-lg-12 me-4">
               <div class="card">
                 <div class="card-header pb-0 px-3">
@@ -65,16 +70,15 @@
                         <h6 class="mb-3 text-md">Senin, 11/01/19</h6>
                         <span class="mb-2 text-md">
                           Judul Tugas Akhir:
-                          <span class="text-dark font-weight-bold ms-sm-2">Sistem Informasi Manajemen Tugas Akhir [Studi
-                            Kasus:ITK]</span>
+                          <span class="text-dark font-weight-bold ms-sm-2">{{}}</span>
                         </span>
                         <span class="mb-2 text-md">
                           Keyword:
                           <span class="text-dark ms-sm-2 font-weight-bold">SIM-TA</span>
                         </span>
                         <span class="text-md">
-                          Tanggal Seminar Proposal:
-                          <span class="badge badge-sm bg-gradient-secondary">Menunggu Persetujuan</span>
+                          Tanggal Seminar Proposal: 
+                          <span class="badge badge-sm bg-gradient-secondary">{{JadwalSempros.hari}} ({{JadwalSempros.jam_mulai}} - {{JadwalSempros.jam_akhir}})</span>
                         </span>
                       </div>
                     </li>
@@ -82,7 +86,8 @@
                       class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
                       <div class="d-flex flex-column">
                         <h6 class="col-md-auto text-danger text-md"> Belum ada pengajuan</h6>
-                        <router-link :to="{ name: 'Riset' }" class="text-dark text-gradient font-weight-light text-sm">
+                        <router-link :to="{ name: 'Tambah-Sempro' }"
+                          class="text-dark text-gradient font-weight-light text-sm">
                           Daftar Seminar</router-link>
                       </div>
                     </li>
@@ -141,7 +146,7 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
                             alt="user2" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
@@ -154,27 +159,46 @@
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-sm font-weight-normal">{{ Sempro.t_a.keyword }}</span>
-                      <span v-if="Sempro.t_a.keyword == null"
-                        class="badge badge-sm bg-gradient-light text-dark">-</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">{{ Sempro.t_a.dosen1.name }}</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen1 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen1.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">{{ Sempro.t_a.dosen2.name }}</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen2 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen2.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen3 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen3 === null ? '-' :
+                          Sempro.t_a.dosen3.name
+                      }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen4 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen4.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark"
+                        v-if="Sempro.user.jadwal_sempro === null">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                          Sempro.user.jadwal_sempro.hari
+                      }} ({{ Sempro.user.jadwal_sempro.jam_mulai }}-{{
+    Sempro.user.jadwal_sempro.jam_akhir
+}})</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark"
+                        v-if="Sempro.user.jadwal_sempro === null">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                          Sempro.user.jadwal_sempro.type
+                      }} ({{ Sempro.user.jadwal_sempro.ruangan }})</span>
                     </td>
+
                   </tr>
                 </tbody>
               </table>
@@ -183,12 +207,13 @@
         </div>
       </div>
     </div>
+    
   </div>
 
   <div class="container-fluid mx-2 row">
     <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-      <label class="form-check-label text-lg" for="flexSwitchCheckChecked">Buka Pendaftaran Seminar Proposal</label>
+      <input class="form-check-input" type="checkbox" role="switch" id="checkbox" v-model="checked">
+      <label class="form-check-label text-lg" for="checkbox">Tutup Pendaftaran Seminar Proposal</label> 
     </div>
   </div>
   <!-- POV Dosen -->
@@ -228,6 +253,9 @@
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Jadwal
                     </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Status
+                    </th>
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-5"> Action
                     </th>
                   </tr>
@@ -237,8 +265,8 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user1" />
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                            alt="user2" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">{{ Sempro.user.name }}</h6>
@@ -249,36 +277,58 @@
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-medium">{{ Sempro.t_a.keyword }}</span>
+                      <span class="text-sm font-weight-normal">{{ Sempro.t_a.keyword }}</span>
+                      <!-- <span v-if="Sempro.t_a.keyword == null"
+                        class="badge badge-sm bg-gradient-light text-dark">-</span> -->
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-bold">{{ Sempro.t_a.dosen1.name }}</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="text-sm font-weight-bold">{{ Sempro.t_a.dosen2.name }}</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen1 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen1.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-bold">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen2 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen2.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-sm font-weight-medium">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen3 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen3 === null ? '-' :
+                          Sempro.t_a.dosen3.name
+                      }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen4 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen4.name }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="badge badge-sm bg-gradient-light text-dark"
+                        v-if="Sempro.user.jadwal_sempro === null">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                          Sempro.user.jadwal_sempro.hari
+                      }} ({{ Sempro.user.jadwal_sempro.jam_mulai }}-{{
+    Sempro.user.jadwal_sempro.jam_akhir
+}})</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="badge badge-sm bg-gradient-light text-dark"
+                        v-if="Sempro.user.jadwal_sempro === null">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                          Sempro.user.jadwal_sempro.type
+                      }} ({{ Sempro.user.jadwal_sempro.ruangan }})</span>
                     </td>
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                        <router-link :to="{ name: 'Create', params: { id: Sempro.id } }"><i class="fas fa-calendar fa-lg"
-                            aria-hidden="true"></i>
+                        <router-link :to="{ name: 'Create', params: { id: Sempro.id } }"><i
+                            class="fas fa-calendar fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                        <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
+                        <router-link :to="{ name: 'EditJadSempro', params: { id: Sempro.id } }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
                             aria-hidden="true"></i>
                         </router-link>
-                      </a>
-                      <a class="btn btn-link mb-0 " href="javascript:;">
-                        <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
                       </a>
                     </td>
                   </tr>
@@ -297,18 +347,30 @@ import axios from 'axios';
 import { onMounted, ref } from "vue";
 
 // import MaterialButton from "@/components/MaterialButton.vue";
+
+// import MaterialButton from "@/components/MaterialButton.vue";
 export default {
   name: "sempro",
   data() {
     return {
       Sempros: {
-        user: {},
-        t_a: {}
+        user: {
+          jadwal_sempro: {}
+        },
+        t_a: {
+          dosen1: {},
+          dosen2: {},
+          dosen3: {},
+          dosen4: {},
 
-      }
+        }
 
+      },
+      Views:{},
+      JadwalSempros:{},
+      checked: true
+    }
 
-    };
   },
   components: {
     // MaterialButton,
@@ -321,6 +383,35 @@ export default {
         .then((result) => {
           this.Sempros = result.data,
             console.log(this.Sempros)
+        }).catch((err) => {
+          console.log(err.response)
+
+        })
+    },
+
+    getJadwal() {
+      let token = localStorage.getItem("token")
+      axios.get(
+        'http://127.0.0.1:8000/api/jadwal-sempro',
+        { headers: { "Authorization": `Bearer ${token}` } }
+
+      )
+        .then((result) => {
+          this.JadwalSempros = result.data.data
+          // console.log(result.data.data)
+
+        }).catch((err) => {
+          console.log(err)
+        });
+    },
+
+    getData() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/get-sempro',
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then((result) => {
+          this.Views = result.data.data,
+            console.log(this.Views)
         }).catch((err) => {
           console.log(err.response)
 
@@ -348,6 +439,8 @@ export default {
   },
   mounted() {
     this.getSempro();
+    this.getData();
+    this.getJadwal();
   }
   // beforeMount() {
   //     this.toggleEveryDisplay();

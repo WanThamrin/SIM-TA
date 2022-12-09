@@ -41,23 +41,24 @@
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="semhas"
-          navText="Seminar Hasil">
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="sidang"
+          navText="Sidang Tugas Akhir">
           <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5">cast_for_education</i>
+            <i class="material-icons-round opacity-10 fs-5">school</i>
           </template>
         </sidenav-collapse>
       </li>
-      <!-- <li class="nav-item">
+      <li class="nav-item">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="penilaian"
           navText="Penilaian">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">assignment_turned_in</i>
           </template>
         </sidenav-collapse>
-      </li> -->
+      </li>
       <li class="nav-item">
-        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="relasi" navText="Relasi">
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="relasi" 
+        navText="Relasi">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">groups_3</i>
           </template>
@@ -118,9 +119,24 @@
         </h6>
       </li>
       <li class="nav-item">
-        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="profile" navText="Profil">
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="profile" 
+        navText="Profil">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">person</i>
+          </template>
+        </sidenav-collapse>
+      </li>
+      <li class="nav-item">
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="manage-data" navText="Manage Data">
+          <template v-slot:icon>
+            <i class="material-icons-round opacity-10 fs-5">description</i>
+          </template>
+        </sidenav-collapse>
+      </li>
+      <li class="nav-item">
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="manage" navText="Manage User">
+          <template v-slot:icon>
+            <i class="material-icons-round opacity-10 fs-5">manage_accounts</i>
           </template>
         </sidenav-collapse>
       </li>
@@ -157,8 +173,8 @@ export default {
   },
   data() {
     return {
-      title: "Soft UI Dashboard PRO",
-      controls: "dashboardsExamples",
+      title: "SIM-TA",
+      controls: "dashboard",
       isActive: "active"
     };
   },

@@ -12,21 +12,30 @@ import Info from "../views/components/Pengumuman/Info/Info.vue";
 import EditInfo from "../views/components/Pengumuman/Info/edit.vue";
 import EyeInfo from "../views/components/Pengumuman/Info/EyeInfo.vue";
 import DocSempro from "../views/components/Pengumuman/Dokumen/Sempro/Doc.vue";
+import EditDocSempro from "../views/components/Pengumuman/Dokumen/Sempro/edit.vue";
 import EyeDocSempro from "../views/components/Pengumuman/Dokumen/Sempro/EyeDoc.vue";
 import DocSemhas from "../views/components/Pengumuman/Dokumen/Semhas/Doc.vue";
+import EditDocSemhas from "../views/components/Pengumuman/Dokumen/Semhas/edit.vue";
+import CreateSidang from "../views/components/Semhas/Jadwal/Create.vue";
 import EyeDocSemhas from "../views/components/Pengumuman/Dokumen/Semhas/EyeDoc.vue";
 import Sempro from "../views/components/Sempro/Sempro.vue";
 import TambahSempro from "../views/components/Sempro/Tambah.vue";
+import NilaiSempro from "../views/components/Sempro/Nilai/Lihat.vue";
 import Create from "../views/components/Sempro/Jadwal/Create.vue";
+import EditJadSempro from "../views/components/Sempro/Jadwal/edit.vue";
 import Matkul from "../views/components/Bimbingan/Matkul/Matkul.vue";
 import Riset from "../views/components/Bimbingan/Riset/Riset.vue";
-import Semhas from "../views/components/Semhas/Semhas.vue";
-import TambahSemhas from "../views/components/Semhas/Tambah.vue";
+import Sidang from "../views/components/Semhas/Sidang.vue";
+import TambahSidang from "../views/components/Semhas/Tambah.vue";
 import Penilaian from "../views/components/Penilaian/Penilaian.vue";
 import Nilai from "../views/components/Penilaian/Nilai.vue";
 import Relasi from "../views/components/Relasi/Relasi.vue";
 import Lihat from "../views/components/Relasi/Lihat.vue";
-import Yudisium from "../views/components/Yudisium/Yudisium.vue";
+import Manage from "../views/components/Manage_User/Manage.vue";
+import ManageData from "../views/components/Manage_Data/Manage.vue";
+import DetailData from "../views/components/Manage_Data/Tugas_Akhir/Detail.vue";
+import EditSempro from "../views/components/Manage_Data/Sempro/Edit.vue";
+import JadSempro from "../views/components/Manage_Data/Sempro/Jadwal/Create.vue";
 import Billing from "../views/Billing.vue";
 import Notifications from "../views/Notifications.vue";
 import Profile from "../views/Profile.vue"; 
@@ -99,9 +108,19 @@ const routes = [
     component: Info,
   },
   {
-    path: "/edit-Info",
+    path: "/edit-Info/:id",
     name: "Edit-Info",
     component: EditInfo,
+  },
+  {
+    path: "/edit-DocSempro/:id",
+    name: "Edit-DocSempro",
+    component: EditDocSempro,
+  },
+  {
+    path: "/edit-DocSemhas/:id",
+    name: "Edit-DocSemhas",
+    component: EditDocSemhas,
   },
   {
     path: "/EyeInfo",
@@ -139,19 +158,34 @@ const routes = [
     component: TambahSempro,
   },
   {
+    path: "/nilai-sempro",
+    name: "Nilai-Sempro",
+    component: NilaiSempro,
+  },
+  {
     path: "/create/:id",
     name: "Create",
     component: Create,
   },
   {
-    path: "/semhas",
-    name: "Semhas",
-    component: Semhas,
+    path: "/edit-jadsempro/:id",
+    name: "EditJadSempro",
+    component: EditJadSempro,
   },
   {
-    path: "/tambah-semhas",
-    name: "Tambah-Semhas",
-    component: TambahSemhas,
+    path: "/createSidang/:id",
+    name: "CreateSidang",
+    component: CreateSidang,
+  },
+  {
+    path: "/sidang",
+    name: "Sidang",
+    component: Sidang,
+  },
+  {
+    path: "/tambah-sidang",
+    name: "Tambah-Sidang",
+    component: TambahSidang,
   },
   {
     path: "/penilaian",
@@ -159,7 +193,7 @@ const routes = [
     component: Penilaian,
   },
   {
-    path: "/nilai",
+    path: "/nilai/:id",
     name: "Nilai",
     component: Nilai,
   },
@@ -169,14 +203,34 @@ const routes = [
     component: Relasi,
   },
   {
-    path: "/lihat",
+    path: "/lihat/:id",
     name: "Lihat",
     component: Lihat,
   },
   {
-    path: "/yudisium",
-    name: "Yudisium",
-    component: Yudisium,
+    path: "/manage",
+    name: "Manage",
+    component: Manage,
+  },
+  {
+    path: "/manage-data",
+    name: "ManageData",
+    component: ManageData,
+  },
+  {
+    path: "/jad-sempro/:id",
+    name: "JadSempro",
+    component: JadSempro,
+  },
+  {
+    path: "/edit-sempro/:id",
+    name: "EditSempro",
+    component: EditSempro,
+  },
+  {
+    path: "/detail-data/:id",
+    name: "Detail-Data",
+    component: DetailData,
   },
   {
     path: "/billing",

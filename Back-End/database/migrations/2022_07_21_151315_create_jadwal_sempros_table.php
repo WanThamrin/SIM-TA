@@ -26,7 +26,7 @@ class CreateJadwalSemprosTable extends Migration
             $table->string("jam_akhir",50) ->nullable();
             $table->string('dospeng1')->nullable();
             $table->string('dospeng2')->nullable();
-            $table->enum('type')->nullable();
+            $table->string('type')->nullable();
             $table->string('ruangan') ->nullable();
             $table->timestamp('time')->default(now());
         });

@@ -16,7 +16,8 @@ class Dosen extends Model
         'foto',
         'note',
         'sertif',
-        'users_id'
+        'users_id',
+        
     ];
 
     /**

@@ -28,6 +28,7 @@ class MahasiswaController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *

@@ -16,13 +16,17 @@ class CreateNilaiSemprosTable extends Migration
         Schema::create('nilai_sempros', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('users_id');
-            $table->foreign ('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('sempros_id');
+            $table->foreign ('sempros_id')->references('id')->on('sempros')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('dosen_id')->nullable();
             $table->string('nilai1')->nullable();
             $table->string('nilai2')->nullable();
             $table->string('nilai3')->nullable();
             $table->string('nilai4')->nullable();
             $table->string('nilai5')->nullable();
+            $table->string('nilai_presentasi')->nullable();
+            $table->string('nilai_laporan')->nullable();
+            $table->string('dosen_id')->nullable();
             $table->string('note')->nullable();
             $table->timestamp('time')->default(now());
         });

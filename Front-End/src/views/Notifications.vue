@@ -77,7 +77,7 @@
                         </router-link>
                       </a>
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                        <router-link :to="{ name: 'Edit-Info' }"><i class="fas fa-pencil-alt text-dark fa-lg"
+                        <router-link :to="{ name: 'Edit-Info', params: { id: Info.id } }"><i class="fas fa-pencil-alt text-dark fa-lg"
                             aria-hidden="true"></i>
                         </router-link>
                       </a>
@@ -197,7 +197,7 @@
                           </router-link>
                         </a>
                         <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                          <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark fa-lg"
+                          <router-link :to="{ name: 'Edit-DocSempro', params: { id: DocSempro.id } }"><i class="fas fa-pencil-alt text-dark fa-lg"
                               aria-hidden="true"></i>
                           </router-link>
                         </a>
@@ -288,7 +288,7 @@
                           </router-link>
                         </a>
                         <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                          <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark fa-lg"
+                          <router-link :to="{ name: 'Edit-DocSemhas', params: { id: DocSemha.id } }"><i class="fas fa-pencil-alt text-dark fa-lg"
                               aria-hidden="true"></i>
                           </router-link>
                         </a>

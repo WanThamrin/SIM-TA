@@ -19,8 +19,10 @@ class regisTAController extends Controller
      */
     public function index()
     {
-
-        $RegisTA = RegisTA::join('users','regis_t_a_s.users_id','users.id')->where('users_id',auth()->id())->get();
+#nampilinn sesuai user login
+        $RegisTA = RegisTA::join('users','regis_t_a_s.users_id','users.id')
+        ->where('users_id',auth()->id())
+        ->get();
         $response =[
             'message' => 'List Form TA',
             'data'=> $RegisTA
@@ -28,6 +30,34 @@ class regisTAController extends Controller
 
         return response()->json($response, Response::HTTP_OK);
     }
+
+    public function getData()
+    {
+#nampilinn sesuai user login
+        $RegisTA = RegisTA::join('users','regis_t_a_s.users_id','users.id')
+        ->orderBy('name', 'ASC')->get();
+        $response =[
+            'message' => 'List Form TA',
+            'data'=> $RegisTA
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function getDetail($id)
+    {
+#nampilinn sesuai user login
+        $RegisTA = RegisTA::where('users.id',$id)
+        ->join('users','users.id','regis_t_a_s.users_id')
+        ->orderBy('name', 'ASC')->first();
+        $response =[
+            'message' => 'List Form TA',
+            'data'=> $RegisTA
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -91,6 +121,8 @@ class regisTAController extends Controller
                 'message' => 'Form telah dibuat',
                 'data'=> $RegisTA
             ];
+            $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'Daftar Tugas Akhir']);
+
 
             return response()->json($response, Response::HTTP_CREATED);
 
@@ -180,36 +212,41 @@ class regisTAController extends Controller
     public function update(Request $request, $id)
     {
         $RegisTA = RegisTA::findOrFail($id);
-
+        $number=Auth::user()->number;
         $validator = Validator::make($request->all(), [
             // 'nama_mhs'=>['required'],
             // 'nim'=>['required'],
             // 'niph'=>['required'],
             'judul'=>['required'],
             'abstrak'=>['required'],
+            // 'status1'=>['required'],
+            // 'status2'=>['required'],
             'keyword'=>['required'],
-            // 'dospem1'=>['required'],
-            // 'dospem2'=>['required']
+            'dospem1'=>['required'],
+            'dospem2'=>['required']
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
+        // dd($request->all()+['users_id'=>auth()->id()]);
         try {
-            $RegisTA -> update($request->all());
+            $RegisTA = RegisTA::update($request->all()+[
+                'users_id'=>auth()->id(),
+            ]);
+
             $response=[
-                'message' => 'RegisTA telah diubah',
+                'message' => 'Form telah dibuat',
                 'data'=> $RegisTA
             ];
-
             $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'Daftar Tugas Akhir']);
+
 
             return response()->json($response, Response::HTTP_OK);
 
-
         } catch (QueryException $e) {
+        //   dd($e);
             return response()->json([
                 'message' => "Gagal" . $e->errorInfo
             ]);

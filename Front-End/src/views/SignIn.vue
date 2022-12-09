@@ -49,7 +49,7 @@
                     placeholder="Masukan Password Anda..." id="password" label="Password" name="password" required
                     pattern=".{8,}" title="Please enter 8 characters or more." aria-describedby="button-addon2">
                   <div class="input-group-append">
-                    <button @click.prevent="ToggleButtonIcon" class=" btn btn-link text-dark mb-0 px-2" href="javascript:;">
+                    <button @click.prevent="ToggleButtonIcon" type="button" class=" btn btn-link text-dark mb-0 px-2" href="javascript:;">
                       <!-- <i class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i> -->
                       <i v-if="passwordIcon == 'password'" class="fas fa-eye text-gradient-dark fa-lg"></i>
                       <i v-else class="fas fa-eye-slash text-gradient-dark fa-lg"></i>
@@ -80,10 +80,15 @@
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-12 col-md-6 my-auto">
             <div class="copyright text-center text-sm text-white text-lg-start">
-              © {{ new Date().getFullYear() }}, made with
-              <i class="fa fa-heart" aria-hidden="true"></i> by
-              <a href="https://www.creative-tim.com" class="font-weight-bold text-white" target="_blank">MOG_MOG</a>
-              for a better web.
+              ©
+            {{ new Date().getFullYear() }}, made by 
+             
+            <a
+              href="https://if.itk.ac.id/"
+              class="font-weight-bold"
+              target="_blank"
+              >Informatika ITK</a
+            >
             </div>
           </div>
           <!-- <div class="col-12 col-md-6">
@@ -175,6 +180,7 @@ export default {
     // this.ToggleButtonIcon();
   },
   methods: {
+    
     // switchVisibility() { this.passwordText = this.passwordText === 'password' ? 'text' : 'password' } ,
     ToggleButtonIcon() {
       this.passwordIcon =

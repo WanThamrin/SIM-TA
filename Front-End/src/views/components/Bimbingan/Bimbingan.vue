@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="page-header min-height-200 border-radius-xl mt-4" style=
         "background-image: url('https://media.istockphoto.com/photos/businessman-working-modern-compter-document-management-system-virtual-picture-id1368237807?k=20&m=1368237807&s=612x612&w=0&h=9lEc3lJFgkrCTO1aHcSHYO2Z22PFKX53YYUDy9Rsaqc=')
-        ">
+      ">
             <span class="mask bg-gradient-info opacity-2"></span>
             <router-link :to="{ name: 'Tables' }" class="btn btn-light mx-4 mt-8" type="button">
                 <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Tugas Akhir
@@ -51,7 +51,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="@/assets/img/team-2.jpg"
+                                                    <img src="@/assets/img/user.jpg"
                                                         class="avatar avatar-sm me-3 border-radius-lg" alt="user1" />
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
@@ -71,8 +71,8 @@
                                                 }}<br></span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">2/10</span>
-                                            <span class="badge badge-sm bg-gradient-secondary">10/10</span>
+                                            <span class="badge badge-sm bg-gradient-success">{{ dosen.dospem1 }}</span>
+                                            <span class="badge badge-sm bg-gradient-info">{{ dosen.dospem2 }}</span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span v-for="(riset, idx) in dosen.riset" :key="idx"
@@ -150,25 +150,7 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                        <div>
-                                            <ul class="pagination pagination-info">
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                        <span class="sr-only">Previous</span>
-                                                    </a>
-                                                </li>
-                                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                        <span class="sr-only">Next</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                     
                                     </div>
                                 </div>
                             </div>
@@ -186,11 +168,11 @@
                                     </router-link>
                                 </div>
                                 <div class="card-body pt-4">
-                                    <ul class="list-group">
+                                    <ul class="list-group" v-for="(Riset, index) in Risets.data" :key="index">
                                         <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
-                                            v-for="(Riset, index) in Risets.data" :key="index">
+                                            v-if="(Riset != null)">
                                             <div class="d-flex flex-column">
-                                                <h6 class="mb-3 text-md">{{ Riset.bidang_riset }}</h6>
+                                                <h6 class="mb-3 text-md" >{{ Riset.bidang_riset }}</h6>
                                                 <span class="mb-2 text-md">
                                                     Nama Topik Riset:
                                                     <span class="text-dark font-weight-bold ms-sm-2">{{ Riset.nama_riset
@@ -222,9 +204,10 @@
                                             </div>
 
                                         </li>
-                                        <li
-                                            class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
-                                            <div class="d-flex flex-column">
+                                        <li v-else
+                                            class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center"        
+                                            >
+                                            <div class="d-flex flex-column" >
                                                 <h6 class="col-md-auto text-danger text-md"> Belum memiliki Topik Riset
                                                     ?</h6>
                                                 <router-link :to="{ name: 'Riset' }"
@@ -289,7 +272,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="@/assets/img/team-2.jpg"
+                                                    <img src="@/assets/img/user.jpg"
                                                         class="avatar avatar-sm me-3 border-radius-lg" alt="user1" />
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
@@ -331,7 +314,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="@/assets/img/team-2.jpg"
+                                                    <img src="@/assets/img/user.jpg"
                                                         class="avatar avatar-sm me-3 border-radius-lg" alt="user1" />
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
@@ -476,7 +459,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="@/assets/img/team-2.jpg"
+                                                    <img src="@/assets/img/user.jpg"
                                                         class="avatar avatar-sm me-3 border-radius-lg" alt="user1" />
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
@@ -552,7 +535,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="@/assets/img/team-2.jpg"
+                                                    <img src="@/assets/img/user.jpg"
                                                         class="avatar avatar-sm me-3 border-radius-lg" alt="user1" />
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
@@ -724,15 +707,6 @@ export default {
 
                 })
 
-            // axios.get('http://127.0.0.1:8000/api/regis-ta')
-            // .then((result) => {
-            //   RegisTAs.value = result.data
-            //   console.log(RegisTAs)
-            // }).catch((err) => {
-            //   console.log(err.response)
-
-            // })
-
 
             axios.get('http://127.0.0.1:8000/api/riset',
                 { headers: { "Authorization": `Bearer ${token}` } }
@@ -751,9 +725,12 @@ export default {
         });
 
         function destroy(id) {
+            let token = localStorage.getItem("token")
             if (confirm('Apakah anda yakin?'))
                 axios.delete(
-                    'http://127.0.0.1:8000/api/beban-bimbingan/' + id
+                    'http://127.0.0.1:8000/api/beban-bimbingan/' + id,
+                { headers: { "Authorization": `Bearer ${token}` } }
+
                 )
                     .then(() => {
                         bebanBimbingans.value.splice(bebanBimbingans.value.indexOf(id), 1);
@@ -767,9 +744,12 @@ export default {
         }
 
         function drop(id) {
+            let token = localStorage.getItem("token")
             if (confirm('Apakah anda yakin?'))
                 axios.delete(
-                    'http://127.0.0.1:8000/api/riset/' + id
+                    'http://127.0.0.1:8000/api/riset/' + id,
+                { headers: { "Authorization": `Bearer ${token}` } }
+
                 )
                     .then(() => {
                         Risets.value.splice(Risets.value.indexOf(id), 1);

@@ -17,7 +17,7 @@ class DocSemhasController extends Controller
      */
     public function index()
     {
-        $DocSemhas = Doc_Semhas::orderBy('time', 'DESC')->get();
+        $DocSemhas = Doc_Semhas::orderBy('judul', 'ASC')->get();
         $response =[
             'message' => 'List DocSemhas',
             'data'=> $DocSemhas
@@ -66,9 +66,9 @@ class DocSemhasController extends Controller
         //     ];
 
         //     return response()->json($response, Response::HTTP_CREATED);
-        $file = $request->file('file')->getClientOriginalName();
-        $request->file('file')->move('public/Doc',$file);
 
+        $file = $request->file('file')->getClientOriginalName();
+        $request->file('file')->move(public_path('DocSidang'),$file);
          // dd($request->all()) ;
      try {
          $DocSemhas = Doc_Semhas::create([
@@ -133,34 +133,31 @@ class DocSemhasController extends Controller
     {
         $DocSemhas = Doc_Semhas::findOrFail($id);
 
-        $validator = Validator::make($request->all(), [
-            'judul'=>['required'],
-            'keyword'=>['required'],
-            'file'=>['required'],
-            // 'status'=>['required'],
-            // 'hari'=>['required'],
-            // 'jam'=>['required'],
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(),
-            Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (!$DocSemhas){
+            return $this->errorResponse('Data tidak ditemukan',422);
         }
 
-        try {
-            $DocSemhas -> update($request->all());
-            $response=[
-                'message' => 'DocSemhas telah diubah',
-                'data'=> $DocSemhas
-            ];
+        $DocSemhas->judul = $request->judul;
+        $DocSemhas->keyword = $request->keyword;
 
+
+        // $DocSemhas->judul = $request->judul;
+
+        if ($request->file != null && $request->file != 'null') {
+            $file = $request->file('file')->getClientOriginalName();
+        $request->file('file')->move(public_path('DocSidang'),$file);
+
+        $DocSemhas->file = $file;
+
+        }
+        $DocSemhas->save();
+
+        $response=[
+            'message' => ' Form DocSemhas telah dibuat',
+            'data'=> $DocSemhas
+        ];
             return response()->json($response, Response::HTTP_OK);
 
-        } catch (QueryException $e) {
-            return response()->json([
-                'message' => "Gagal" . $e->errorInfo
-            ]);
-        }
     }
 
     /**

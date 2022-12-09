@@ -67,8 +67,9 @@ class InfoController extends Controller
         //    ]);
         // return  $request->all();
 
+
         $file = $request->file('file')->getClientOriginalName();
-        $request->file('file')->move('public/Info',$file);
+        $request->file('file')->move(public_path('info'),$file);
 
             // dd($request->all()) ;
         try {
@@ -134,58 +135,49 @@ class InfoController extends Controller
     public function update(Request $request, $id)
     {
         $Info = Info::findOrFail($id);
+        if (!$Info){
+            return $this->errorResponse('Data tidak ditemukan',422);
+        }
 
-        // $validator = Validator::make($request->all(), [
-        //     'judul'=>['required'],
-        //     'keyword'=>['required'],
-        //     'file'=>['required'],
-        //     'note'=>['required'],
-        //     'status'=>['required'],
-        //     'hari'=>['required'],
-        //     'jam'=>['required'],
-        // ]);
+        $Info->judul = $request->judul;
+        $Info->keyword = $request->keyword;
+        $Info->note = $request->note;
 
-        // if ($validator->fails()) {
-        //     return response()->json($validator->errors(),
-        //     Response::HTTP_UNPROCESSABLE_ENTITY);
-        // }
+        // $Info->judul = $request->judul;
 
-        // try {
-        //     $Info -> update($request->all());
-        //     $response=[
-        //         'message' => 'List Info telah diubah',
-        //         'data'=> $Info
-        //     ];
+        if ($request->file != null && $request->file != 'null') {
+            $file = $request->file('file')->getClientOriginalName();
+            $request->file('file')->move(public_path('info'),$file);
+        $Info->file = $file;
 
-        //     return response()->json($response, Response::HTTP_OK);
-            $name = $request->file('file')->getClientOriginalName();
+        }
+        $Info->save();
 
-           $path = $request->file('file')->store('public/Info');
 
-            // dd($request->all()) ;
-        try {
-            $Info = Info::create([
-                'judul' => $request->judul,
-                'keyword' => $request->keyword,
-                // 'status' => $request->status,
-                // 'hari' => $request->hari,
-                // 'jam' => $request->jam,
-                'note' => $request->note,
-                'file' => $path
+            // $Info = Info::create([
+            //     'judul' => $request->judul,
+            //     'keyword' => $request->keyword,
+            //     // 'status' => $request->status,
+            //     // 'hari' => $request->hari,
+            //     // 'jam' => $request->jam,
+            //     'note' => $request->note,
+            //     'file' => $file
 
-            ]);
+            // ]);
             $response=[
                 'message' => ' Form Info telah dibuat',
                 'data'=> $Info
             ];
 
-            return response()->json($response, Response::HTTP_CREATED);
+            // if ($request->file != null && $request->file != 'null') {
+            //     $file_ext = $request->file->extension();
+            //     $file_name = 'file_' . $Info->users_id . '_' . time() . '.' . $file_ext;
+            //     $file = 'storage/documents/' . $Info->users_id . '/' . $file_name;
+            //     $request->file('file')->move("storage/documents/$Info->users_id", $file);
+            //     $Info->file = $file;
+            // }
 
-        } catch (QueryException $e) {
-            return response()->json([
-                'message' => "Gagal" . $e->errorInfo
-            ]);
-        }
+            return response()->json($response, Response::HTTP_CREATED);
     }
 
     /**

@@ -19,7 +19,7 @@ class JadwalSemhas extends Model
         'users_id',
         'hari',
         'jam_mulai',
-        'jam-akhir',
+        'jam_akhir',
         // 'dospeng1',
         // 'dospeng2',
         'type',

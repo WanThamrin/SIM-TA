@@ -11,13 +11,15 @@
       <div class="col-xxl-12">
         <div class="card card-body mx-3 mx-md-4 mt-n6">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Edit Daftar Seminar Proposal</h4>
+            <h4 class="card-title mb-0 flex-grow-1">Jadwal Seminar Proposal</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
-            <p class="text-muted">Form Edit Seminar Proposal</p>
+            <p class="text-muted">Form Jadwal Seminar Proposal</p>
             <div class="live-preview">
               <form @submit.prevent="store()">
+                <!-- <input type="text" label="" name="users_id" size="md"
+                      class="border border-info rounded py-2 px-2 text-sm"  v-model="JadwalSempros.users_id" > -->
                 <div class="row mb-3 ">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Nama Mahasiswa</label>
@@ -191,7 +193,7 @@ import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
 
 export default {
-  name: "edit",
+  name: "Create",
   data() {
     return {
       Sempro: {  
@@ -201,7 +203,9 @@ export default {
           dosen2:{}
         },
       },
-      JadwalSempros: {},
+      JadwalSempros: {
+        semproId : this.$route.params.id
+      },
       dosens: {}
       
     };
@@ -244,7 +248,8 @@ export default {
         this.JadwalSempros,
         { headers: { Authorization: `Bearer ${token}` } })
 
-        .then(() => {
+        .then((result) => {
+          console.log(result)
           this.$router.push({
             name: 'Sempro'
           })

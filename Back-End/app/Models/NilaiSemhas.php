@@ -16,7 +16,7 @@ class NilaiSemhas extends Model
         // 'nama_mhs',
         // 'nim',
         // 'niph',
-        'users_id',
+        'Semhas_id',
         'nilai1',
         'nilai2',
         'nilai3',
@@ -31,9 +31,9 @@ class NilaiSemhas extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function semhas()
     {
-        return $this->belongsTo(User::class, 'users_id', 'id');
+        return $this->belongsTo(semhas::class, 'semhas_id', 'id');
     }
 }
 

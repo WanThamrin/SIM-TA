@@ -4,18 +4,18 @@
       background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
      ">
       <span class="mask bg-gradient-success opacity-6"></span>
-      <router-link :to="{name:'Semhas'}" class="btn btn-light mx-4 material-icons me-2" type="button">
+      <router-link :to="{name:'Sidang'}" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
     </div>
     <div class="row">
       <div class="col-xxl-12">
         <div class="card card-body mx-3 mx-md-4 mt-n6">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Daftar Semhas</h4>
+            <h4 class="card-title mb-0 flex-grow-1">Daftar Sidang Tugas Akhir</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
-            <p class="text-muted">Form Daftar Semhas</p>
+            <p class="text-muted">Form Daftar Sidang Tugas Akhir</p>
             <div class="live-preview">
               <form @submit.prevent="store()">
                 <div class="row mb-3 ">
@@ -122,7 +122,7 @@ import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
 
 export default {
-  name: "tambah-semhas",
+  name: "Tambah-Sidang",
   data(){
     return{
       profiles:{},
@@ -168,7 +168,7 @@ export default {
       })
         .then(() => {
           this.$router.push({
-            name: 'Semhas'
+            name: 'Sidang'
           })
 
         }).catch((err) => {

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\JadwalSemhas;
+use App\Models\semhas;
+use App\Models\RegisTA;
+
+
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -44,6 +48,8 @@ class JadwalSemhasController extends Controller
      */
     public function store(Request $request)
     {
+        $semhas = semhas::find($request->sidangId);
+        $ta = RegisTA::where('users_id',$semhas->users_id);
         $validator = Validator::make($request->all(), [
             // 'nama_mhs'=>['required'],
             // 'nim'=>['required'],
@@ -63,7 +69,7 @@ class JadwalSemhasController extends Controller
         }
 
         try {
-            $JadwalSemhas = JadwalSemhas::create($request->all()+['users_id'=>auth()->id()]);
+            $JadwalSemhas = JadwalSemhas::create($request->all()+['users_id'=>$semhas->users_id]);
             $response=[
                 'message' => 'Jadwal Semhas telah dibuat',
                 'data'=> $JadwalSemhas

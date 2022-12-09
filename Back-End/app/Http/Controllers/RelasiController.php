@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Relasi;
+use App\Models\RegisTA;
+
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +25,7 @@ class RelasiController extends Controller
             'data'=> $Relasi
         ];
 
-        return response()->json($response, Response::HTTP_OK); 
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -51,7 +53,7 @@ class RelasiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -79,10 +81,21 @@ class RelasiController extends Controller
      */
     public function show($id)
     {
-        $Relasi = Relasi::findOrFail($id);
+        $data['dospem1'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')
+        ->where('dospem1',$id)->get();
+
+        $data['dospem2'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')
+        ->where('dospem2',$id)->get();
+
+        $data['dospeng1'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')
+        ->where('dospeng1',$id)->get();
+
+        $data['dospeng2'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')
+        ->where('dospeng2',$id)->get();
+
         $response=[
             'message' => 'Daftar Relasi',
-            'data'=> $Relasi
+            'data'=> $data
         ];
 
         return response()->json($response, Response::HTTP_OK);
@@ -117,7 +130,7 @@ class RelasiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 
+            return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

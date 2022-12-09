@@ -16,12 +16,15 @@ class NilaiSempro extends Model
         // 'nama_mhs',
         // 'nim',
         // 'niph',
-        'users_id',
+        'sempros_id',
+        'dosen_id',
         'nilai1',
         'nilai2',
         'nilai3',
         'nilai4',
         'nilai5',
+        'nilai_presentasi',
+        'nilai_laporan',
         'note',
 
     ];
@@ -31,8 +34,13 @@ class NilaiSempro extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function sempro()
     {
-        return $this->belongsTo(User::class, 'users_id', 'id');
+        return $this->belongsTo(sempro::class, 'sempros_id', 'id');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(User::class, 'dosen_id', 'id');
     }
 }

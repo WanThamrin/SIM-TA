@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\JadwalSempro;
+use App\Models\sempro;
+use App\Models\RegisTA;
+
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +20,7 @@ class JadwalSemproController extends Controller
      */
     public function index()
     {
-        $JadwalSempro = JadwalSempro::join('users','jadwal_sempros.users_id','users.id')->where('users_id',auth()->id())->get();
+        $JadwalSempro = JadwalSempro::join('users','jadwal_sempros.users_id','users.id')->where('users_id',auth()->id())->first();
         $response =[
             'message' => 'List Jadwal Sempro',
             'data'=> $JadwalSempro
@@ -44,6 +47,12 @@ class JadwalSemproController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
+        $sempro = sempro::find($request->semproId);
+        $ta = RegisTA::where('users_id',$sempro->users_id)->update([
+            'dospeng1' => $request->dospeng1,
+            'dospeng2' => $request->dospeng2
+        ]);
         $validator = Validator::make($request->all(), [
             // 'nama_mhs'=>['required'],
             // 'nim'=>['required'],
@@ -62,8 +71,8 @@ class JadwalSemproController extends Controller
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        try {
-            $JadwalSempro = JadwalSempro::create($request->all()+['users_id'=>auth()->id()]);
+
+            $JadwalSempro = JadwalSempro::create($request->all()+['users_id'=>$sempro->users_id]);
             $response=[
                 'message' => 'Jadwal Sempro telah dibuat',
                 'data'=> $JadwalSempro
@@ -71,11 +80,7 @@ class JadwalSemproController extends Controller
 
             return response()->json($response, Response::HTTP_CREATED);
 
-        } catch (QueryException $e) {
-            return response()->json([
-                'message' => "Gagal" . $e->errorInfo
-            ]);
-        }
+
     }
 
     /**
@@ -115,8 +120,11 @@ class JadwalSemproController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $JadwalSempro = JadwalSempro::findOrFail($id);
-
+        $sempro = sempro::find($request->semproId);
+        $ta = RegisTA::where('users_id',$sempro->users_id)->update([
+            'dospeng1' => $request->dospeng1,
+            'dospeng2' => $request->dospeng2
+        ]);
         $validator = Validator::make($request->all(), [
             // 'nama_mhs'=>['required'],
             // 'nim'=>['required'],
@@ -135,20 +143,15 @@ class JadwalSemproController extends Controller
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        try {
-            $JadwalSempro -> update($request->all());
+
+            $JadwalSempro = JadwalSempro::update($request->all()+['users_id'=>$sempro->users_id]);
             $response=[
-                'message' => 'List Jadwal Sempro telah diubah',
+                'message' => 'Jadwal Sempro telah dibuat',
                 'data'=> $JadwalSempro
             ];
 
             return response()->json($response, Response::HTTP_OK);
 
-        } catch (QueryException $e) {
-            return response()->json([
-                'message' => "Gagal" . $e->errorInfo
-            ]);
-        }
     }
 
     /**

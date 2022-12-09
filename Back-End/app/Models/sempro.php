@@ -37,4 +37,15 @@ class sempro extends Model
     {
         return $this->belongsTo(RegisTA::class, 'ta_id', 'id');
     }
+
+    public function nilai()
+    {
+        return $this->HasOne(NilaiSempro::class, 'sempros_id', 'id');
+    }
+
+    public function nilais()
+    {
+        return $this->HasMany(NilaiSempro::class, 'sempros_id', 'id');
+    }
+
 }

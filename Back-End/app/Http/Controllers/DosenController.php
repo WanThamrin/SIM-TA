@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\User;
+use App\Models\RegisTA;
 use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -35,7 +36,14 @@ class DosenController extends Controller
      */
     public function getDosen()
     {
-        $Dosen = User::with('bimbingan','riset')->where('role','dosen')->get();
+        $Dosen = User::with('bimbingan','riset')->where('role','dosen')->orderBy('name', 'ASC')->get();
+
+        foreach ($Dosen as $key => $data) {
+            $data['dospem1'] = RegisTA::with('user')->where('dospem1',$data->id)->count();
+            $data['dospem2'] = RegisTA::with('user')->where('dospem2',$data->id)->count();
+            $data['dospeng1'] = RegisTA::with('user')->where('dospeng1',$data->id)->count();
+            $data['dospeng2'] = RegisTA::with('user')->where('dospeng2',$data->id)->count();
+        }
         $response =[
             'message' => 'List Dosen',
             'data'=> $Dosen
@@ -43,6 +51,61 @@ class DosenController extends Controller
 
         return response()->json($response, Response::HTTP_OK);
     }
+
+    public function ManageDosen()
+    {
+        $Dosen['admin'] = User::with('bimbingan','riset')->where('role','dosen')->where('is_admin',1)->get();
+
+        foreach ($Dosen['admin'] as $key => $data) {
+            $data['dospem1'] = RegisTA::with('user')->where('dospem1',$data->id)->count();
+            $data['dospem2'] = RegisTA::with('user')->where('dospem2',$data->id)->count();
+            $data['dospeng1'] = RegisTA::with('user')->where('dospeng1',$data->id)->count();
+            $data['dospeng2'] = RegisTA::with('user')->where('dospeng2',$data->id)->count();
+        }
+
+        $Dosen['dosen'] = User::with('bimbingan','riset')->where('role','dosen')->where('is_admin',0)->get();
+
+        foreach ($Dosen['dosen'] as $key => $data) {
+            $data['dospem1'] = RegisTA::with('user')->where('dospem1',$data->id)->count();
+            $data['dospem2'] = RegisTA::with('user')->where('dospem2',$data->id)->count();
+            $data['dospeng1'] = RegisTA::with('user')->where('dospeng1',$data->id)->count();
+            $data['dospeng2'] = RegisTA::with('user')->where('dospeng2',$data->id)->count();
+        }
+        $response =[
+            'message' => 'List Dosen',
+            'data'=> $Dosen
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function ManageSuperAdmin()
+    {
+        $Dosen['superadmin'] = User::with('bimbingan','riset')->where('role','dosen')->where('is_superadmin',1)->get();
+
+        foreach ($Dosen['superadmin'] as $key => $data) {
+            $data['dospem1'] = RegisTA::with('user')->where('dospem1',$data->id)->count();
+            $data['dospem2'] = RegisTA::with('user')->where('dospem2',$data->id)->count();
+            $data['dospeng1'] = RegisTA::with('user')->where('dospeng1',$data->id)->count();
+            $data['dospeng2'] = RegisTA::with('user')->where('dospeng2',$data->id)->count();
+        }
+
+        $Dosen['dosen'] = User::with('bimbingan','riset')->where('role','dosen')->where('is_superadmin',0)->get();
+
+        foreach ($Dosen['dosen'] as $key => $data) {
+            $data['dospem1'] = RegisTA::with('user')->where('dospem1',$data->id)->count();
+            $data['dospem2'] = RegisTA::with('user')->where('dospem2',$data->id)->count();
+            $data['dospeng1'] = RegisTA::with('user')->where('dospeng1',$data->id)->count();
+            $data['dospeng2'] = RegisTA::with('user')->where('dospeng2',$data->id)->count();
+        }
+        $response =[
+            'message' => 'List Dosen',
+            'data'=> $Dosen
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
 
     public function detailDosen($id)
     {
@@ -109,6 +172,46 @@ class DosenController extends Controller
         ];
 
         return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function updateStatus($id,Request $request)
+    {
+        $updateStatus=User::where('id',$id)->update(['is_admin'=>1]);
+        $response=[
+            'message' => 'Status telah di update',
+            'data'=> $updateStatus
+        ];
+        return response()->json($response, Response::HTTP_CREATED);
+    }
+
+    public function hapusStatus($id,Request $request)
+    {
+        $updateStatus=User::where('id',$id)->update(['is_admin'=>0]);
+        $response=[
+            'message' => 'Status telah di update',
+            'data'=> $updateStatus
+        ];
+        return response()->json($response, Response::HTTP_CREATED);
+    }
+
+    public function updateStatusSup($id,Request $request)
+    {
+        $updateStatusSup=User::where('id',$id)->update(['is_superadmin'=>1]);
+        $response=[
+            'message' => 'Status telah di update',
+            'data'=> $updateStatusSup
+        ];
+        return response()->json($response, Response::HTTP_CREATED);
+    }
+
+    public function hapusStatusSup($id,Request $request)
+    {
+        $updateStatusSup=User::where('id',$id)->update(['is_superadmin'=>0]);
+        $response=[
+            'message' => 'Status telah di update',
+            'data'=> $updateStatusSup
+        ];
+        return response()->json($response, Response::HTTP_CREATED);
     }
 
     /**

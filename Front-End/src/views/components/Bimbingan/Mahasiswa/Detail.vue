@@ -92,7 +92,7 @@
 
 
         <div class="tab-content ml-4 mt-4 col-8 col-xl-8 mt-xl-0">
-          <div class="tab-pane fade show card card-plain h-100 " id="riwayat" role="tabpanel"
+          <div class="tab-pane fade show active card card-plain h-100 " id="riwayat" role="tabpanel"
           aria-labelledby="riwayat">
             <!-- POV Riwayat -->
 
@@ -161,8 +161,8 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane fade show active card card-plain h-100 " id="info" role="tabpanel"
-            aria-labelledby="info">
+          <div class="tab-pane fade show  card card-plain h-100 " id="informasi" role="tabpanel"
+            aria-labelledby="informasi">
             <!-- POV Informasi TA -->
             <div class="p-3 pb-0 card-header">
               <h6 class="mb-0">Informasi Tugas Akhir</h6>
@@ -254,12 +254,12 @@ export default {
 
   mounted() {
     this.getTA()
-    this.$store.state.isAbsolute = true;
+    // this.$store.state.isAbsolute = true;
     setNavPills();
     setTooltip();
   },
   beforeUnmount() {
-    this.$store.state.isAbsolute = false;
+    // this.$store.state.isAbsolute = false;
   },
 };
 </script>

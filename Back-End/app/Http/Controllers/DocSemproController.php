@@ -17,7 +17,7 @@ class DocSemproController extends Controller
      */
     public function index()
     {
-        $DocSempro = Doc_Sempro::orderBy('time', 'DESC')->get();
+        $DocSempro = Doc_Sempro::orderBy('judul', 'ASC')->get();
         $response =[
             'message' => 'List DocSempro',
             'data'=> $DocSempro
@@ -67,9 +67,9 @@ class DocSemproController extends Controller
 
         //     return response()->json($response, Response::HTTP_CREATED);
 
-        $file = $request->file('file')->getClientOriginalName();
-        $request->file('file')->move('public/Doc',$file);
 
+        $file = $request->file('file')->getClientOriginalName();
+        $request->file('file')->move(public_path('DocSempro'),$file);
 
          // dd($request->all()) ;
      try {
@@ -135,34 +135,31 @@ class DocSemproController extends Controller
     {
         $DocSempro = Doc_Sempro::findOrFail($id);
 
-        $validator = Validator::make($request->all(), [
-            'judul'=>['required'],
-            'keyword'=>['required'],
-            'file'=>['required'],
-            // 'status'=>['required'],
-            // 'hari'=>['required'],
-            // 'jam'=>['required'],
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(),
-            Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (!$DocSempro){
+            return $this->errorResponse('Data tidak ditemukan',422);
         }
 
-        try {
-            $DocSempro -> update($request->all());
-            $response=[
-                'message' => 'DocSempro telah diubah',
-                'data'=> $DocSempro
-            ];
+        $DocSempro->judul = $request->judul;
+        $DocSempro->keyword = $request->keyword;
 
+
+        // $DocSempro->judul = $request->judul;
+
+        if ($request->file != null && $request->file != 'null') {
+            $file = $request->file('file')->getClientOriginalName();
+            $request->file('file')->move(public_path('DocSempro'),$file);
+
+        $DocSempro->file = $file;
+
+        }
+        $DocSempro->save();
+
+        $response=[
+            'message' => ' Form DocSempro telah dibuat',
+            'data'=> $DocSempro
+        ];
             return response()->json($response, Response::HTTP_OK);
 
-        } catch (QueryException $e) {
-            return response()->json([
-                'message' => "Gagal" . $e->errorInfo
-            ]);
-        }
     }
 
     /**

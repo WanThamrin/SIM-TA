@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="page-header min-height-200 border-radius-xl mt-4" style="
-          background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
-        ">
+       background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+         ">
       <span class="mask bg-gradient-success opacity-6"></span>
-      <router-link :to="{name:'Relasi'}" class="btn btn-light mx-4 material-icons me-2" type="button">
+      <router-link :to="{ name: 'Relasi' }" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
     </div>
     <div class="card card-body mx-3 mx-md-4 mt-n6">
@@ -16,9 +16,9 @@
         </div>
         <div class="col-auto my-auto">
           <div class="h-100">
-            <h5 class="mb-1">Richard Davis S.Kom,M.Kom</h5>
+            <h5 class="mb-1">{{ dosens.name }}</h5>
             <p class="mb-0 font-weight-normal text-sm"> Dosen Informatika </p>
-            <h6 class="mb-1">Sertifikasi A</h6>
+            <h6 class="mb-1">Sertifikasi A </h6>
           </div>
         </div>
       </div>
@@ -26,31 +26,22 @@
     <div class="row align-items-center mt-4">
       <div class="col-lg-4 col-sm-8">
         <div class="nav-wrapper position-relative end-0">
-          <ul class="p-1 nav nav-pills nav-fill" role="tablist">
+          <ul class="nav nav-pills nav-fill p-1" role="tablist">
             <li class="nav-item">
-              <a class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="javascript:;" role="tab"
-                aria-selected="true">
-
-                <span class="ms-1">Pembimbing I</span>
-              </a>
+              <a @click="getDosen1()" class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="#get-dosen1"
+                role="tab" aria-selected="false">Pembimbing 1</a>
             </li>
-            <li class="nav-item">
-              <a class="px-0 py-1 mb-0 nav-link" data-bs-toggle="tab" href="javascript:;" role="tab"
-                aria-selected="false">
-                <span class="ms-1">Pembimbing II</span>
-              </a>
+            <li @click="getDosen2()" class="nav-item">
+              <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#get-dosen2" role="tab"
+                aria-selected="false">Pembimbing 2</a>
             </li>
-            <li class="nav-item">
-              <a class="px-0 py-1 mb-0 nav-link" data-bs-toggle="tab" href="javascript:;" role="tab"
-                aria-selected="false">
-                <span class="ms-1">Penguji I</span>
-              </a>
+            <li @click="getDosen3()" class="nav-item">
+              <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#get-dosen3" role="tab"
+                aria-selected="false">Penguji 1</a>
             </li>
-            <li class="nav-item">
-              <a class="px-0 py-1 mb-0 nav-link" data-bs-toggle="tab" href="javascript:;" role="tab"
-                aria-selected="false">
-                <span class="ms-1">Penguji II</span>
-              </a>
+            <li @click="getDosen4()" class="nav-item">
+              <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#get-dosen4" role="tab"
+                aria-selected="false">Penguji 2</a>
             </li>
           </ul>
 
@@ -58,14 +49,118 @@
 
       </div>
     </div>
-    <div class="row">
-      <div class="col-12 py-2">
+    <div class="tab-content row my-4">
+      <div class="tab-pane fade show active col-12 py-2" id="get-dosen1" role="tabpanel" aria-labelledby="get-dosen1">
         <div class="card my-4">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
               <h6 class="text-white text-capitalize ps-3">Daftar Mahasiswa Bimbingan</h6>
               <div class="text-end">
-                <router-link :to="{name:'/'}" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
+                <a class="btn btn-link text-dark mb-0" href="javascript:;" data-bs-toggle="modal"
+                  data-bs-target="#Mahasiswa">
+                  <!-- Button trigger modal -->
+                  <router-link :to="{ name: '' }" class="btn btn-info m-0">
+                    <i class="fas fa-plus m-0 p-0 me-2"></i> Tambah Mahasiswa
+                  </router-link>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="Mahasiswa" tabindex="-1" aria-labelledby="Mahasiswa" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="Mahasiswa">Data Mahasiswa</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body overflow-auto">
+                  <ul class="list-group">
+                    <li v-for="(mahasiswa, index) in mahasiswas.data" :key="index"
+                        class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-1 text-dark font-weight-bold text-sm">
+                                {{ mahasiswa.name }}
+                            </h6>
+                            <span class="text-xs">{{ mahasiswa.number }}</span>
+                        </div>
+                        <div ms-auto text-end>
+                            <a class="btn btn-link mb-0 px-0 ms-4" href="javascript:;"
+                                @click.prevent="">
+                                <i class="fas fa-plus me-0 fa-lg" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Nama Mahasiswa
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      NIM
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Judul TA
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-5">
+                      Action
+                    </th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(relasi, index) in relasis.dospem1" :key="index">
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                            alt="user1" />
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ relasi.name }}</h6>
+                          <p class="text-sm text-secondary mb-0">
+                            {{ relasi.email }}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">{{ relasi.number }}</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">{{ relasi.keyword }}</span>
+                    </td>
+
+                    <td class="text-center">
+                      <a class="btn btn-link mb-0 px-0" href="javascript:;">
+                        <i class="fas fa-trash fa-lg ml-2" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade show col-12 py-2" id="get-dosen2" role="tabpanel" aria-labelledby="get-dosen2">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Daftar Mahasiswa Bimbingan</h6>
+              <div class="text-end">
+                <router-link :to="{ name: '' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
                   <i class="fas fa-plus m-0 p-0 me-2"></i> Tambah Mahasiswa
                 </router-link>
               </div>
@@ -86,17 +181,14 @@
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Judul TA
                     </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Status
-                    </th>
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-5">
                       Action
                     </th>
-                    
+
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(relasi, key) in relasis.dospem2" :key="key">
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
@@ -104,59 +196,157 @@
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">John Michael</h6>
+                          <h6 class="mb-0 text-sm">{{ relasi.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            john@student.co.id
+                            {{ relasi.email }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">11181074</span>
+                      <span class="text-sm font-weight-normal">{{ relasi.number }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">SIM-TA</span>
+                      <span class="text-sm font-weight-normal">{{ relasi.keyword }}</span>
                     </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">Seminar Hasil</span>
-                    </td>
-                    <!-- <td class="align-middle text-center">
-                      <span class="text-info text-sm font-weight-medium">23/08/2022</span>
-                    </td> -->
+
                     <td class="text-center">
                       <a class="btn btn-link mb-0 px-0" href="javascript:;">
                         <i class="fas fa-trash fa-lg ml-2" aria-hidden="true"></i>
                       </a>
                     </td>
                   </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade show col-12 py-2" id="get-dosen3" role="tabpanel" aria-labelledby="get-dosen3">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Daftar Mahasiswa Bimbingan</h6>
+              <div class="text-end">
+                <router-link :to="{ name: '' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
+                  <i class="fas fa-plus m-0 p-0 me-2"></i> Tambah Mahasiswa
+                </router-link>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
                   <tr>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Nama Mahasiswa
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      NIM
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Judul TA
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-5">
+                      Action
+                    </th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(relasi, idk) in relasis.dospeng1" :key="idk">
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
+                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                            alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Sisca Khol</h6>
+                          <h6 class="mb-0 text-sm">{{ relasi.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            sisca@student.itk.ac.id
+                            {{ relasi.email }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">11181090</span>
+                      <span class="text-sm font-weight-normal">{{ relasi.number }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">Cyber Security</span>
+                      <span class="text-sm font-weight-normal">{{ relasi.keyword }}</span>
                     </td>
-                    <!-- <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">-</span>
-                    </td> -->
+
+                    <td class="text-center">
+                      <a class="btn btn-link mb-0 px-0" href="javascript:;">
+                        <i class="fas fa-trash fa-lg ml-2" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade show col-12 py-2" id="get-dosen4" role="tabpanel" aria-labelledby="get-dosen4">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Daftar Mahasiswa Bimbingan</h6>
+              <div class="text-end">
+                <router-link :to="{ name: '' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
+                  <i class="fas fa-plus m-0 p-0 me-2"></i> Tambah Mahasiswa
+                </router-link>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Nama Mahasiswa
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      NIM
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                      Judul TA
+                    </th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-5">
+                      Action
+                    </th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(relasi, idx) in relasis.dospeng2" :key="idx">
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                            alt="user1" />
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{ relasi.name }}</h6>
+                          <p class="text-sm text-secondary mb-0">
+                            {{ relasi.email }}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark">Seminar Proposal</span>
+                      <span class="text-sm font-weight-normal">{{ relasi.number }}</span>
                     </td>
-                         <td class="text-center">
+                    <td class="align-middle text-center">
+                      <span class="text-sm font-weight-normal">{{ relasi.keyword }}</span>
+                    </td>
+
+                    <td class="text-center">
                       <a class="btn btn-link mb-0 px-0" href="javascript:;">
                         <i class="fas fa-trash fa-lg ml-2" aria-hidden="true"></i>
                       </a>
@@ -170,13 +360,69 @@
       </div>
     </div>
   </div>
+  
 </template>
   
 <script>
+import axios from 'axios';
 import setNavPills from "@/assets/js/nav-pills.js";
 export default {
   name: "Lihat",
+  data() {
+    return {
+      dosens: {},
+      relasis: {
+        dospem1: {},
+        dospem2: {},
+        dospeng1: {},
+        dospeng2: {}
+      },
+      mahasiswas:{}
+    }
+  },
+
+  methods: {
+    getDosen() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/get-dosen/' + this.$route.params.id,
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.dosens = result.data.data
+          console.log(this.dosens)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+
+    getMahasiswa(){
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/get-mahasiswa',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.mahasiswas = result.data
+          console.log(this.mahasiswas)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+
+    getRelasi() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/relasi/' + this.$route.params.id,
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          console.log(this.relasis)
+          this.relasis = result.data.data
+          console.log(this.relasis)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    }
+  },
   mounted() {
+    this.getDosen()
+    this.getMahasiswa()
+    this.getRelasi()
     setNavPills();
   },
 };
