@@ -26,9 +26,4 @@ class RevProposal extends Model
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
-
-    public function TA()
-    {
-        return $this->belongsTo(RegisTA::class, 'ta_id', 'id');
-    }
 }

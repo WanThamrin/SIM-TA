@@ -8,6 +8,7 @@ import DetailDosen from "../views/components/Bimbingan/Dosen/Detail.vue";
 import TambahDosen from "../views/components/Bimbingan/Dosen/Tambah.vue";
 import DetailMhs from "../views/components/Bimbingan/Mahasiswa/Detail.vue";
 import TambahMhs from "../views/components/Bimbingan/Mahasiswa/Tambah.vue";
+import EditMhs from "../views/components/Bimbingan/Mahasiswa/Edit.vue";
 import Info from "../views/components/Pengumuman/Info/Info.vue";
 import EditInfo from "../views/components/Pengumuman/Info/edit.vue";
 import EyeInfo from "../views/components/Pengumuman/Info/EyeInfo.vue";
@@ -21,6 +22,7 @@ import EyeDocSemhas from "../views/components/Pengumuman/Dokumen/Semhas/EyeDoc.v
 import Sempro from "../views/components/Sempro/Sempro.vue";
 import TambahSempro from "../views/components/Sempro/Tambah.vue";
 import NilaiSempro from "../views/components/Sempro/Nilai/Lihat.vue";
+import RevisiSempro from "../views/components/Sempro/Nilai/Revisi.vue";
 import Create from "../views/components/Sempro/Jadwal/Create.vue";
 import EditJadSempro from "../views/components/Sempro/Jadwal/edit.vue";
 import Matkul from "../views/components/Bimbingan/Matkul/Matkul.vue";
@@ -29,13 +31,18 @@ import Sidang from "../views/components/Semhas/Sidang.vue";
 import TambahSidang from "../views/components/Semhas/Tambah.vue";
 import Penilaian from "../views/components/Penilaian/Penilaian.vue";
 import Nilai from "../views/components/Penilaian/Nilai.vue";
+import LihatNilai from "../views/components/Penilaian/Lihat.vue";
 import Relasi from "../views/components/Relasi/Relasi.vue";
 import Lihat from "../views/components/Relasi/Lihat.vue";
 import Manage from "../views/components/Manage_User/Manage.vue";
 import ManageData from "../views/components/Manage_Data/Manage.vue";
 import DetailData from "../views/components/Manage_Data/Tugas_Akhir/Detail.vue";
 import EditSempro from "../views/components/Manage_Data/Sempro/Edit.vue";
+import LihatSempro from "../views/components/Manage_Data/Sempro/Lihat.vue";
 import JadSempro from "../views/components/Manage_Data/Sempro/Jadwal/Create.vue";
+import EditSidang from "../views/components/Manage_Data/Sidang/Edit.vue";
+import LihatSidang from "../views/components/Manage_Data/Sidang/Lihat.vue";
+import JadSidang from "../views/components/Manage_Data/Sidang/Jadwal/Create.vue";
 import Billing from "../views/Billing.vue";
 import Notifications from "../views/Notifications.vue";
 import Profile from "../views/Profile.vue"; 
@@ -93,6 +100,11 @@ const routes = [
     component: DetailMhs,
   },
   {
+    path: "/edit-mahasiswa",
+    name: "Edit-Mhs",
+    component: EditMhs,
+  },
+  {
     path: "/tambah-mahasiswa",
     name: "Tambah-Mahasiswa",
     component: TambahMhs,
@@ -113,37 +125,37 @@ const routes = [
     component: EditInfo,
   },
   {
-    path: "/edit-DocSempro/:id",
+    path: "/edit-docsempro/:id",
     name: "Edit-DocSempro",
     component: EditDocSempro,
   },
   {
-    path: "/edit-DocSemhas/:id",
+    path: "/edit-docsemhas/:id",
     name: "Edit-DocSemhas",
     component: EditDocSemhas,
   },
   {
-    path: "/EyeInfo",
+    path: "/eye-info/:id",
     name: "EyeInfo",
     component: EyeInfo,
   },
   {
-    path: "/DocSempro",
+    path: "/docsempro",
     name: "Doc-Sempro",
     component: DocSempro,
   },
   {
-    path: "/EyeDocSempro",
+    path: "/eye-docsempro/:id",
     name: "EyeDoc-Sempro",
     component: EyeDocSempro,
   },
   {
-    path: "/DocSemhas",
+    path: "/docsemhas",
     name: "Doc-Semhas",
     component: DocSemhas,
   },
   {
-    path: "/EyeDocSemhas",
+    path: "/eye-docsemhas/:id",
     name: "EyeDoc-Semhas",
     component: EyeDocSemhas,
   },
@@ -173,7 +185,7 @@ const routes = [
     component: EditJadSempro,
   },
   {
-    path: "/createSidang/:id",
+    path: "/createsidang/:id",
     name: "CreateSidang",
     component: CreateSidang,
   },
@@ -196,6 +208,11 @@ const routes = [
     path: "/nilai/:id",
     name: "Nilai",
     component: Nilai,
+  },
+  {
+    path: "/lihat-nilai/:id",
+    name: "LihatNilai",
+    component: LihatNilai,
   },
   {
     path: "/relasi",
@@ -226,6 +243,31 @@ const routes = [
     path: "/edit-sempro/:id",
     name: "EditSempro",
     component: EditSempro,
+  },
+  {
+    path: "/lihat-sempro/:id",
+    name: "LihatSempro",
+    component: LihatSempro,
+  },
+  {
+    path: "/revisi-sempro",
+    name: "RevisiSempro",
+    component: RevisiSempro,
+  },
+  {
+    path: "/jad-sidang/:id",
+    name: "JadSidang",
+    component: JadSidang,
+  },
+  {
+    path: "/edit-sidang/:id",
+    name: "EditSidang",
+    component: EditSidang,
+  },
+  {
+    path: "/lihat-sidang/:id",
+    name: "LihatSidang",
+    component: LihatSidang,
   },
   {
     path: "/detail-data/:id",

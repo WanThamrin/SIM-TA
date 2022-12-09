@@ -135,17 +135,18 @@
                   <span class="text-dark font-weight-bold ms-sm-2">{{ Info.keyword }}</span>
                 </span>
                 <span class="mb-2 text-md">
-                  Waktu
-                  <span class="text-dark ms-sm-2 font-weight-bold">{{ Info.time }}</span>
+                  Waktu: 
+                  <span class="text-dark m-2 ms-sm-2 font-weight-bold">{{ Info.time }}</span>
                 </span>
                 <span class="text-md">
                   Note:
-                  <span class="text-dark ms-sm-2 font-weight-bold">{{ Info.note }}</span>
+                  <span class="text-dark ml-4 ms-sm-2 font-weight-bold">{{ Info.note }}</span>
                 </span>
                 <span class="text-md">
                   File:
                   <a class="btn btn-link text-sm mb-0" :href="'http://127.0.0.1:8000/info/'+Info.file" target="_blank" >
-                    <i class="fas fa-file-pdf text-lg me-2" aria-hidden="true">{{ Info.file }}</i>
+                    <i class="fas fa-file-pdf text-lg me-2" aria-hidden="true"><span
+                      class="m-2">{{ Info.file }}</span></i>
                     
                   </a>
                 </span>

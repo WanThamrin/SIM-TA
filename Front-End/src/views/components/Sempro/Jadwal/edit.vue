@@ -244,7 +244,7 @@ export default {
     update() {
       let token = localStorage.getItem("token")
       axios.put(
-        'http://127.0.0.1:8000/api/jadwal-sempro'+ this.$route.params.id,
+        'http://127.0.0.1:8000/api/jadwal-sempro',
         this.JadwalSempros,
         { headers: { "Authorization": `Bearer ${token}` } }
       )

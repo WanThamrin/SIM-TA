@@ -18,7 +18,7 @@ class CreateNilaiSemprosTable extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('sempros_id');
             $table->foreign ('sempros_id')->references('id')->on('sempros')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('dosen_id')->nullable();
+            $table->bigInteger('dosen_id') ->nullable();
             $table->string('nilai1')->nullable();
             $table->string('nilai2')->nullable();
             $table->string('nilai3')->nullable();
@@ -26,7 +26,6 @@ class CreateNilaiSemprosTable extends Migration
             $table->string('nilai5')->nullable();
             $table->string('nilai_presentasi')->nullable();
             $table->string('nilai_laporan')->nullable();
-            $table->string('dosen_id')->nullable();
             $table->string('note')->nullable();
             $table->timestamp('time')->default(now());
         });

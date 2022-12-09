@@ -154,10 +154,9 @@
                       </td>
                       <!-- , params: { id: Sempro.id } -->
                       <td class="text-center">
-                        <a class="btn btn-link text-dark mb-0" href="javascript:;" data-bs-toggle="modal"
-                          data-bs-target="#Berkas">
+                        <a class="btn btn-link text-dark mb-0" href="javascript:;" >
                           <!-- Button trigger modal -->
-                          <router-link :to="{ name: '', params: { id: Sempro.id } }"><i
+                          <router-link :to="{ name: 'LihatSempro', params: { id: Sempro.id } }"><i
                               class="fas fa-eye text-dark me-0 fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
@@ -171,92 +170,6 @@
                         </a>
                       </td>
                     </tr>
-                    <!-- Modal -->
-                    <div class="modal fade" id="Berkas" tabindex="-1" aria-labelledby="BerkasLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="BerkasLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="live-preview">
-                              
-                                <div class="row mb-3 ">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Nama Mahasiswa</label>
-                                  </div>
-                                  <div class="text-info col-lg-9 my-1  py-2 px-2 font-weight-bolder">
-                                    {{Sempros.name}}
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">NIM</label>
-                                  </div>
-                                  <div class="text-info col-lg-9 my-1  py-2 px-2 font-weight-bolder">
-
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Proposal</label>
-                                  </div>
-                                  <div class="col-lg-9 my-1">
-                                    <button class="btn btn-link" onclick="window.open()">
-                                      <span><i class="fas fa-file-pdf text-md me-2"
-                                          aria-hidden="true"><br />PDF</i></span>
-                                      <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                    </button>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Slide Presentasi / Poster</label>
-                                  </div>
-                                  <div class="col-lg-9 my-1">
-                                    <button class="btn btn-link" onclick="window.open()">
-                                      <span><i class="fas fa-file-pdf text-md me-2"
-                                          aria-hidden="true"><br />PDF</i></span>
-                                      <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                    </button>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Persetujuan Dosen Pembimbing Utama</label>
-                                  </div>
-                                  <div class="col-lg-9 my-1">
-                                    <button class="btn btn-link" onclick="window.open()">
-                                      <span><i class="fas fa-file-pdf text-md me-2"
-                                          aria-hidden="true"><br />PDF</i></span>
-                                      <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                    </button>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Persetujuan Dosen Pembimbing
-                                      Pendamping</label>
-                                  </div>
-                                  <div class="col-lg-9 my-1">
-                                    <button class="btn btn-link" onclick="window.open()">
-                                      <span><i class="fas fa-file-pdf text-md me-2"
-                                          aria-hidden="true"><br />PDF</i></span>
-                                      <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                    </button>
-                                  </div>
-                                </div>
-                             
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </tbody>
                 </table>
               </div>
@@ -313,15 +226,14 @@
                       </td>
                       <!-- !-- , params: { id: Sempro.id } -->
                       <td class="text-center">
-                        <a class="btn btn-link text-dark mb-0" href="javascript:;" data-bs-toggle="modal"
-                          data-bs-target="#BerkasSidang">
+                        <a class="btn btn-link text-dark mb-0" href="javascript:;">
                           <!-- Button trigger modal -->
-                          <router-link :to="{ name: '', params: { id: Sidang.id } }"><i
+                          <router-link :to="{ name: 'LihatSidang', params: { id: Sidang.id } }"><i
                               class="fas fa-eye text-dark me-0 fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
                         <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                          <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
+                          <router-link :to="{ name: 'EditSidang', params: { id: Sidang.id } }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
                               aria-hidden="true"></i>
                           </router-link>
                         </a>
@@ -330,128 +242,6 @@
                         </a>
                       </td>
                     </tr>
-                    <!-- Modal -->
-                    <div class="modal fade" id="BerkasSidang" tabindex="-1" aria-labelledby="BerkasSidangLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="BerkasLabel">Berkas Sidang Mahasiswa </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="live-preview">
-                              <form @submit.prevent="">
-                                <div class="row mb-3 ">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Nama Mahasiswa</label>
-                                  </div>
-                                  <div class="text-info col-lg-9 my-1  py-2 px-2 font-weight-bolder">
-
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">NIM</label>
-                                  </div>
-                                  <div class="text-info col-lg-9 my-1  py-2 px-2 font-weight-bolder">
-
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Laporan Tugas Akhir</label>
-                                  </div>
-                                  <div class="col-lg-9 my-1">
-                                    <button class="btn btn-link" onclick="window.open()">
-                                      <span><i class="fas fa-file-pdf text-md me-2"
-                                          aria-hidden="true"><br />PDF</i></span>
-                                      <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                    </button>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Lembar Konsultasi Bimbingan
-                                      <h2 class="text-danger text-sm">Form. TA-006</h2>
-                                    </label>
-                                  </div>
-                                  <div class="col-lg-9 my-1">
-                                    <button class="btn btn-link" onclick="window.open()">
-                                      <span><i class="fas fa-file-pdf text-md me-2"
-                                          aria-hidden="true"><br />PDF</i></span>
-                                      <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                    </button>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Formulir Persetujuan Sidang
-                                      <h2 class="text-danger text-sm">Form. TA-007</h2>
-                                    </label>
-                                  </div>
-                                  <div class="col-lg-9 my-1">
-                                    <button class="btn btn-link" onclick="window.open()">
-                                      <span><i class="fas fa-file-pdf text-md me-2"
-                                          aria-hidden="true"><br />PDF</i></span>
-                                      <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                    </button>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Formulir Permohonan Sidang
-                                      <h2 class="text-danger text-sm">Form. TA-008</h2>
-                                    </label>
-                                  </div>
-                                  <div class="col-lg-9 my-1">
-                                    <button class="btn btn-link" onclick="window.open()">
-                                      <span><i class="fas fa-file-pdf text-md me-2"
-                                          aria-hidden="true"><br />PDF</i></span>
-                                      <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                    </button>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <label for="nameInput" class="form-label">Formulir Kehadiran Seminar Proposal
-                                      <h2 class="text-danger text-sm">Form. TA-012</h2>
-                                    </label>
-                                  </div>
-                                  <div class="col-lg-9 my-1">
-                                    <button class="btn btn-link" onclick="window.open()">
-                                      <span><i class="fas fa-file-pdf text-md me-2"
-                                          aria-hidden="true"><br />PDF</i></span>
-                                      <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                    </button>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col-lg-3 my-2">
-                                    <div class="col-lg-3 my-2">
-                                      <label for="nameInput" class="form-label">BUKTI TANDA TERIMA PENDAFTARAN SIDANG
-                                        <h2 class="text-danger text-sm">Form. TA-009</h2>
-                                      </label>
-                                    </div>
-                                    <div class="col-lg-9 my-1">
-                                      <button class="btn btn-link" onclick="window.open()">
-                                        <span><i class="fas fa-file-pdf text-md me-2"
-                                            aria-hidden="true"><br />PDF</i></span>
-                                        <!-- {{ DocSemhas.file ? DocSemhas.file.name : '' }} -->
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </tbody>
                 </table>
               </div>
@@ -763,7 +553,7 @@ export default {
     del(id) {
       let token = localStorage.getItem("token")
       axios.delete(
-        'http://127.0.0.1:8000/api/get-data/' + id,
+        'http://127.0.0.1:8000/api/regis-ta/' + id,
         { headers: { Authorization: `Bearer ${token}` } })
         .then(() => {
           this.Finals.value.splice(this.Finals.value.indexOf(id), 1);

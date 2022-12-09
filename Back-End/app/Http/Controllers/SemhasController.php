@@ -35,10 +35,19 @@ class SemhasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getData()
     {
-        //
+        $semhas = Semhas::with('user.JadwalSemhas','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')
+        ->where('users_id',auth()->id())
+        ->get();
+        $response =[
+            'message' => 'List Sempro',
+            'data'=> $semhas
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -169,35 +178,65 @@ class SemhasController extends Controller
     {
         $semhas = Semhas::findOrFail($id);
 
-        $validator = Validator::make($request->all(), [
-            // 'nama_mhs'=>['required'],
-            // 'nim'=>['required'],
-            // 'niph'=>['required'],
-            'proposal'=>['required'],
-            'slide'=>['required'],
-            'validasi_dospem1'=>['required'],
-            'validasi_dospem2'=>['required']
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(),
-            Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (!$semhas){
+            return $this->errorResponse('Data tidak ditemukan',422);
         }
 
-        try {
-            $semhas -> update($request->all());
+
+        if ($request->laporan != null && $request->laporan != 'null') {
+
+            $laporan = $request->file('laporan')->getClientOriginalName();
+            $request->file('laporan')->move(public_path('Semhas/laporan'),$laporan);
+
+        $semhas->laporan = $laporan;
+        }
+        // dd($request->$proposal) ;
+
+        if ($request->bimbingan != null && $request->bimbingan != 'null') {
+
+            $bimbingan = $request->file('bimbingan')->getClientOriginalName();
+            $request->file('bimbingan')->move(public_path('Semhas/bimbingan'),$bimbingan);
+
+        $semhas->bimbingan = $bimbingan;
+        }
+        if ($request->validasi_sidang1 != null && $request->validasi_sidang1 != 'null') {
+
+            $validasi_sidang1 = $request->file('validasi_sidang1')->getClientOriginalName();
+            $request->file('validasi_sidang1')->move(public_path('Semhas/validasi_sidang1'),$validasi_sidang1);
+
+        $semhas->validasi_sidang1 = $validasi_sidang1;
+        }
+        if ($request->validasi_sidang2 != null && $request->validasi_sidang2 != 'null') {
+
+            $validasi_sidang2 = $request->file('validasi_sidang2')->getClientOriginalName();
+            $request->file('validasi_sidang2')->move(public_path('Semhas/validasi_sidang2'),$validasi_sidang2);
+
+        $semhas->validasi_sidang2 = $validasi_sidang2;
+        }
+        if ($request->validasi != null && $request->validasi != 'null') {
+
+            $validasi_sempro = $request->file('validasi_sempro')->getClientOriginalName();
+            $request->file('validasi_sempro')->move(public_path('Semhas/validasi_sempro'),$validasi_sempro);
+
+        $semhas->validasi = $validasi;
+        }
+        if ($request->bukti != null && $request->bukti != 'null') {
+
+            $bukti = $request->file('bukti')->getClientOriginalName();
+            $request->file('bukti')->move(public_path('Semhas/bukti'),$bukti);
+
+        $semhas->bukti = $bukti;
+        }
+
+
+        $semhas->save();
+
             $response=[
-                'message' => 'List Semhas telah diubah',
+                'message' => 'List semhas telah diubah',
                 'data'=> $semhas
             ];
 
             return response()->json($response, Response::HTTP_OK);
-
-        } catch (QueryException $e) {
-            return response()->json([
-                'message' => "Gagal" . $e->errorInfo
-            ]);
-        }
     }
 
     /**

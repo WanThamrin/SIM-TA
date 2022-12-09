@@ -3,7 +3,7 @@
     <div class="page-header min-height-200 border-radius-xl mt-4" style="
       background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg');
     ">
-      <span class="mask bg-gradient-success opacity-6"></span>
+      <span class="mask bg-gradient-info opacity-2"></span>
       <router-link :to="{ name: 'Profile' }" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
     </div>
@@ -36,8 +36,8 @@
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">Status
-                      <h2 class="text-danger text-sm">ex. Dosen Informatika</h2>
+                    <label for="nameInput" class="form-label">Note
+                      <h2 class="text-danger text-sm">ex. Link Grup WhatsApp Bimbingan</h2>
                     </label>
                   </div>
                   <div class="col-lg-9 my-2">
@@ -47,8 +47,20 @@
                     <!-- v-model="Dosen.status"  -->
                   </div>
                 </div>
-
                 <div class="row mb-3">
+                  <div class="col-lg-3 my-2">
+                    <label for="nameInput" class="form-label">Sertifikasi
+                      <h2 class="text-danger text-sm">ex. A</h2>
+                    </label>
+                  </div>
+                  <div class="col-lg-9 my-2">
+                    <input id="status" type="text" placeholder="Masukkan status"
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="status"
+                      :isRequired="true" />
+                    <!-- v-model="Dosen.status"  -->
+                  </div>
+                </div>
+                <!-- <div class="row mb-3">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Foto Pribadi</label>
                   </div>
@@ -56,7 +68,7 @@
                     <input id="foto" type="file" label="" name="foto"
                       class="input-group border border-info rounded py-2 px-2 text-sm" size="md" />
                   </div>
-                </div>
+                </div> -->
                 <div class="text-end">
                   <MaterialButton class="mx-3" variant="outline" size="md" type="cancel">Cancel</MaterialButton>
                   <MaterialButton size="md" type="submit">Submit</MaterialButton>

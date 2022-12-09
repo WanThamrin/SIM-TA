@@ -91,7 +91,7 @@ class JadwalSemproController extends Controller
      */
     public function show($id)
     {
-        $JadwalSempro = $JadwalSempro::findOrFail($id);
+        $JadwalSempro = JadwalSempro::findOrFail($id);
         $response=[
             'message' => 'Daftar Jadwal Sempro',
             'data'=> $JadwalSempro
@@ -121,36 +121,32 @@ class JadwalSemproController extends Controller
     public function update(Request $request, $id)
     {
         $sempro = sempro::find($request->semproId);
-        $ta = RegisTA::where('users_id',$sempro->users_id)->update([
-            'dospeng1' => $request->dospeng1,
-            'dospeng2' => $request->dospeng2
-        ]);
-        $validator = Validator::make($request->all(), [
-            // 'nama_mhs'=>['required'],
-            // 'nim'=>['required'],
-            // 'niph'=>['required'],
-            'hari'=>['required'],
-            'jam_mulai'=>['required'],
-            'jam_akhir'=>['required'],
-            'dospeng1'=>['required'],
-            'dospeng2'=>['required'],
-            'type'=>['required'],
-            'ruangan'=>['required']
-        ]);
+        $JadwalSempro = JadwalSempro::findOrFail($id);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(),
-            Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (!$JadwalSempro){
+            return $this->errorResponse('Data tidak ditemukan',422);
         }
+        // dd($request->all());
 
+        $JadwalSempro->hari = $request->hari;
+        $JadwalSempro->jam_mulai = $request->jam_mulai;
+        $JadwalSempro->jam_akhir = $request->jam_akhir;
+        $JadwalSempro->dospeng1 = $request->dospeng1;
+        $JadwalSempro->dospeng2 = $request->dospeng2;
+        $JadwalSempro->type = $request->type;
+        $JadwalSempro->ruangan = $request->ruangan;
 
-            $JadwalSempro = JadwalSempro::update($request->all()+['users_id'=>$sempro->users_id]);
-            $response=[
-                'message' => 'Jadwal Sempro telah dibuat',
-                'data'=> $JadwalSempro
-            ];
+        // dd($request->all());
 
-            return response()->json($response, Response::HTTP_OK);
+        $JadwalSempro->save();
+
+        $response=[
+            'message' => 'Jadwal Sempro telah dibuat',
+            'data'=> $JadwalSempro
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+
 
     }
 

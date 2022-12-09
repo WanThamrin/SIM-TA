@@ -1,9 +1,8 @@
 <template>
     <!-- POV Mahasiswa -->
     <!-- v-if="profiles.role == 'user'" -->
-    <div class="container-fluid">
-        <div class="page-header min-height-200 border-radius-xl mt-4" style=
-        "background-image: url('https://media.istockphoto.com/photos/businessman-working-modern-compter-document-management-system-virtual-picture-id1368237807?k=20&m=1368237807&s=612x612&w=0&h=9lEc3lJFgkrCTO1aHcSHYO2Z22PFKX53YYUDy9Rsaqc=')
+    <div  class="container-fluid">
+        <div class="page-header min-height-200 border-radius-xl mt-4" style="background-image: url('https://media.istockphoto.com/photos/businessman-working-modern-compter-document-management-system-virtual-picture-id1368237807?k=20&m=1368237807&s=612x612&w=0&h=9lEc3lJFgkrCTO1aHcSHYO2Z22PFKX53YYUDy9Rsaqc=')
       ">
             <span class="mask bg-gradient-info opacity-2"></span>
             <router-link :to="{ name: 'Tables' }" class="btn btn-light mx-4 mt-8" type="button">
@@ -150,7 +149,7 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                     
+
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +161,7 @@
                                 <div class="card-header mb-0 pb-0">
                                     <h5 class="text-center">Topik Riset</h5>
                                 </div>
-                                <div class="text-end me-4 my-4">
+                                <div class="text-end me-4">
                                     <router-link :to="{ name: 'Riset' }" class="btn btn-dark " type="button">
                                         <i class="fas fa-plus m-0 p-0 me-2"></i>Tambah
                                     </router-link>
@@ -172,7 +171,7 @@
                                         <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
                                             v-if="(Riset != null)">
                                             <div class="d-flex flex-column">
-                                                <h6 class="mb-3 text-md" >{{ Riset.bidang_riset }}</h6>
+                                                <h6 class="mb-3 text-md">{{ Riset.bidang_riset }}</h6>
                                                 <span class="mb-2 text-md">
                                                     Nama Topik Riset:
                                                     <span class="text-dark font-weight-bold ms-sm-2">{{ Riset.nama_riset
@@ -205,9 +204,8 @@
 
                                         </li>
                                         <li v-else
-                                            class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center"        
-                                            >
-                                            <div class="d-flex flex-column" >
+                                            class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
+                                            <div class="d-flex flex-column">
                                                 <h6 class="col-md-auto text-danger text-md"> Belum memiliki Topik Riset
                                                     ?</h6>
                                                 <router-link :to="{ name: 'Riset' }"
@@ -303,7 +301,8 @@
 
                                         <td class="align-middle">
                                             <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                                                <router-link :to="{ name: 'Detail-Mahasiswa', params: { id: RegisTA.id } }"><i
+                                                <router-link
+                                                    :to="{ name: 'Detail-Mahasiswa', params: { id: RegisTA.id } }"><i
                                                         class="fas fa-regular fa-eye text-gradient-dark fa-lg"
                                                         aria-hidden="true"></i>
                                                 </router-link>
@@ -347,7 +346,8 @@
                     </td> -->
                                         <td class="align-middle">
                                             <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                                                <router-link :to="{ name: 'Detail-Mahasiswa', params: { id: RegisTA.id } }"><i
+                                                <router-link
+                                                    :to="{ name: 'Detail-Mahasiswa', params: { id: RegisTA.id } }"><i
                                                         class="fas fa-regular fa-eye text-gradient-dark fa-lg"
                                                         aria-hidden="true"></i>
                                                 </router-link>
@@ -484,7 +484,8 @@
                                         </td>
                                         <td class="align-middle">
                                             <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                                                <router-link :to="{ name: 'Detail-Mahasiswa', params: { id: Bimbingan.id } }"><i
+                                                <router-link
+                                                    :to="{ name: 'Detail-Mahasiswa', params: { id: Bimbingan.id } }"><i
                                                         class="fas fa-regular fa-eye text-gradient-dark fa-lg"
                                                         aria-hidden="true"></i>
                                                 </router-link>
@@ -560,7 +561,8 @@
                                         </td>
                                         <td class="align-middle">
                                             <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                                                <router-link :to="{ name: 'Detail-Mahasiswa', params: { id: Bimbingan.id } }"><i
+                                                <router-link
+                                                    :to="{ name: 'Detail-Mahasiswa', params: { id: Bimbingan.id } }"><i
                                                         class="fas fa-regular fa-eye text-gradient-dark fa-lg"
                                                         aria-hidden="true"></i>
                                                 </router-link>
@@ -597,12 +599,25 @@ export default {
                 dospem2: {}
             },
             dosens: {},
-            mahasiswas: {}
+            mahasiswas: {},
+            // profiles:{}
 
         };
     },
 
     methods: {
+
+        // getNama() {
+        //     let token = localStorage.getItem("token")
+        //     axios.get('http://127.0.0.1:8000/api/me',
+        //         { headers: { "Authorization": `Bearer ${token}` } })
+        //         .then((result) => {
+        //             this.profiles = result.data.data
+        //             console.log(this.profiles)
+        //         }).catch((err) => {
+        //             console.log(err.response)
+        //         })
+        // },
 
         getTugas() {
             let token = localStorage.getItem("token")
@@ -729,7 +744,7 @@ export default {
             if (confirm('Apakah anda yakin?'))
                 axios.delete(
                     'http://127.0.0.1:8000/api/beban-bimbingan/' + id,
-                { headers: { "Authorization": `Bearer ${token}` } }
+                    { headers: { "Authorization": `Bearer ${token}` } }
 
                 )
                     .then(() => {
@@ -748,7 +763,7 @@ export default {
             if (confirm('Apakah anda yakin?'))
                 axios.delete(
                     'http://127.0.0.1:8000/api/riset/' + id,
-                { headers: { "Authorization": `Bearer ${token}` } }
+                    { headers: { "Authorization": `Bearer ${token}` } }
 
                 )
                     .then(() => {
@@ -775,6 +790,7 @@ export default {
     mounted() {
         this.getTugas();
         this.getDosen();
+        // this.getNama();
         this.getBimbingan();
     }
 };

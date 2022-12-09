@@ -4,7 +4,7 @@
       background-image: url('https://images.unsplash.com/photo-1537498425277-c283d32ef9db?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcHV0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60');
     ">
       <span class="mask bg-gradient-warning opacity-6"></span>
-      <router-link :to="{name:'Sempro'}" class="btn btn-light mx-4 material-icons me-2" type="button">
+      <router-link :to="{ name: 'Sempro' }" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
     </div>
     <div class="row">
@@ -78,7 +78,7 @@
                           name="slide"
                           size="md"
                         /> -->
-                    <h6 class="mb-0 text-md  my-1">{{Sempro.t_a.dosen1.name}}</h6>
+                    <h6 class="mb-0 text-md  my-1">{{ Sempro.t_a.dosen1.name }}</h6>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -93,7 +93,7 @@
                           name="slide"
                           size="md"
                         /> -->
-                    <h6 class="mb-0 text-md  my-1">{{Sempro.t_a.dosen2.name}}</h6>
+                    <h6 class="mb-0 text-md  my-1">{{ Sempro.t_a.dosen2.name }}</h6>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -101,7 +101,8 @@
                     <label for="nameInput" class="form-label">Dosen Penguji Utama</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <select v-model="JadwalSempros.dospeng1" class="border border-info rounded py-2 px-2 text-sm">
+                    <select v-model="JadwalSempros.dospeng1" @change="checkDospeng()"
+                      class="border border-info rounded py-2 px-2 text-sm" :required="true">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
@@ -112,7 +113,8 @@
                     <label for="nameInput" class="form-label">Dosen Penguji Pendamping</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <select v-model="JadwalSempros.dospeng2" class="border border-info rounded py-2 px-2 text-sm">
+                    <select v-model="JadwalSempros.dospeng2" @change="checkDospeng()"
+                      class="border border-info rounded py-2 px-2 text-sm" :required="true">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
@@ -123,7 +125,7 @@
                     <label for="nameInput" class="form-label ">Jadwal Seminar Proposal</label>
                   </div>
                   <div class="col-lg my-1">
-                    <input id="jadwal" type="date" min="today" label="" name="jadwal" size="md"
+                    <input id="jadwal" type="date" min="today" label="" name="jadwal" size="md" :required="true"
                       class="border border-info rounded py-2 px-2 text-sm" v-model="JadwalSempros.hari">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
@@ -131,7 +133,7 @@
                     <label for="nameInput" class="form-label text-danger">Jam Mulai</label>
                   </div>
                   <div class="col-lg my-1">
-                    <input id="jadwal" type="time" label="" name="jadwal" size="md"
+                    <input id="jadwal" type="time" label="" name="jadwal" size="md" :required="true"
                       class="border border-info rounded py-2 px-2 text-sm" v-model="JadwalSempros.jam_mulai">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
@@ -139,8 +141,8 @@
                     <label for="nameInput" class="form-label text-danger">Jam Akhir</label>
                   </div>
                   <div class="col-lg my-1">
-                    <input id="jadwal" type="time" label="" name="jadwal" size="md"
-                      class="border border-info rounded py-2 px-2 text-sm"  v-model="JadwalSempros.jam_akhir">
+                    <input id="jadwal" type="time" label="" name="jadwal" size="md" :required="true"
+                      class="border border-info rounded py-2 px-2 text-sm" v-model="JadwalSempros.jam_akhir">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
                 </div>
@@ -149,7 +151,8 @@
                     <label for="nameInput" class="form-label">Status Ruangan</label>
                   </div>
                   <div class="col-lg-8 my-2">
-                    <select v-model="JadwalSempros.type" class="border border-info rounded py-2 px-2 text-sm">
+                    <select v-model="JadwalSempros.type" class="border border-info rounded py-2 px-2 text-sm"
+                      :required="true">
                       <!-- <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option> -->
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                       <option class="" value="daring">Dalam Jaringan (Daring)</option>
@@ -164,10 +167,9 @@
                     </label>
                   </div>
                   <div class="col-lg-9 my-2">
-                    <input id="Keterangan" type="text" placeholder="Masukkan Keterangan" 
-                    class="input-group border border-info rounded py-2 px-2 text-sm" name="Keterangan" 
-                    v-model="JadwalSempros.ruangan" :isRequired="true"
-                       />
+                    <input id="Keterangan" type="text" placeholder="Masukkan Keterangan" :required="true"
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Keterangan"
+                      v-model="JadwalSempros.ruangan" :isRequired="true" />
                   </div>
                 </div>
 
@@ -188,6 +190,8 @@
 <script>
 // import MaterialInput from "@/components/MaterialInput.vue";
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 
 import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
@@ -196,18 +200,18 @@ export default {
   name: "Create",
   data() {
     return {
-      Sempro: {  
-        user:{},
-        t_a:{
-          dosen1:{},
-          dosen2:{}
+      Sempro: {
+        user: {},
+        t_a: {
+          dosen1: {},
+          dosen2: {}
         },
       },
       JadwalSempros: {
-        semproId : this.$route.params.id
+        semproId: this.$route.params.id
       },
       dosens: {}
-      
+
     };
   },
   components: {
@@ -215,14 +219,29 @@ export default {
     MaterialButton,
   },
 
-  methods:{
-  getSempro() {
+  methods: {
+    checkDospeng() {
+      if (this.JadwalSempros.dospeng1 == this.JadwalSempros.dospeng2) {
+        Swal.fire(
+          "Error!",
+          "Dosen Penguji Tidak Boleh Sama!",
+          "error"
+        ).then((result) => {
+          if (result.value) {
+            this.JadwalSempros.dospeng2 = null
+          }
+        });
+        this.JadwalSempros.dospeng2 = null
+      }
+    },
+
+    getSempro() {
       let token = localStorage.getItem("token")
-      axios.get('http://127.0.0.1:8000/api/sempro/'+ this.$route.params.id,
+      axios.get('http://127.0.0.1:8000/api/sempro/' + this.$route.params.id,
         { headers: { Authorization: `Bearer ${token}` } })
         .then((result) => {
           this.Sempro = result.data.data
-            console.log(this.Sempro)
+          console.log(this.Sempro)
         }).catch((err) => {
           console.log(err.response)
 
@@ -258,9 +277,9 @@ export default {
           console.log(err.response.data)
         });
     }
- },
+  },
 
- mounted() {
+  mounted() {
     this.getSempro();
     this.getDosen();
 

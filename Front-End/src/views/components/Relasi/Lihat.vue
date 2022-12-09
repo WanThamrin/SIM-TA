@@ -55,15 +55,6 @@
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
               <h6 class="text-white text-capitalize ps-3">Daftar Mahasiswa Bimbingan</h6>
-              <div class="text-end">
-                <a class="btn btn-link text-dark mb-0" href="javascript:;" data-bs-toggle="modal"
-                  data-bs-target="#Mahasiswa">
-                  <!-- Button trigger modal -->
-                  <router-link :to="{ name: '' }" class="btn btn-info m-0">
-                    <i class="fas fa-plus m-0 p-0 me-2"></i> Tambah Mahasiswa
-                  </router-link>
-                </a>
-              </div>
             </div>
           </div>
           <!-- Modal -->
@@ -77,21 +68,20 @@
                 <div class="modal-body overflow-auto">
                   <ul class="list-group">
                     <li v-for="(mahasiswa, index) in mahasiswas.data" :key="index"
-                        class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                        <div class="d-flex flex-column">
-                            <h6 class="mb-1 text-dark font-weight-bold text-sm">
-                                {{ mahasiswa.name }}
-                            </h6>
-                            <span class="text-xs">{{ mahasiswa.number }}</span>
-                        </div>
-                        <div ms-auto text-end>
-                            <a class="btn btn-link mb-0 px-0 ms-4" href="javascript:;"
-                                @click.prevent="">
-                                <i class="fas fa-plus me-0 fa-lg" aria-hidden="true"></i>
-                            </a>
-                        </div>
+                      class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                      <div class="d-flex flex-column">
+                        <h6 class="mb-1 text-dark font-weight-bold text-sm">
+                          {{ mahasiswa.name }}
+                        </h6>
+                        <span class="text-xs">{{ mahasiswa.number }}</span>
+                      </div>
+                      <div ms-auto text-end>
+                        <a class="btn btn-link mb-0 px-0 ms-4" href="javascript:;" @click.prevent="">
+                          <i class="fas fa-plus me-0 fa-lg" aria-hidden="true"></i>
+                        </a>
+                      </div>
                     </li>
-                </ul>
+                  </ul>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -143,7 +133,7 @@
                     </td>
 
                     <td class="text-center">
-                      <a class="btn btn-link mb-0 px-0" href="javascript:;">
+                      <a class="btn btn-link mb-0 px-0" href="javascript:;" @click="updateData(relasi.id,'dospem1')">
                         <i class="fas fa-trash fa-lg ml-2" aria-hidden="true"></i>
                       </a>
                     </td>
@@ -159,11 +149,6 @@
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
               <h6 class="text-white text-capitalize ps-3">Daftar Mahasiswa Bimbingan</h6>
-              <div class="text-end">
-                <router-link :to="{ name: '' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
-                  <i class="fas fa-plus m-0 p-0 me-2"></i> Tambah Mahasiswa
-                </router-link>
-              </div>
             </div>
 
           </div>
@@ -211,7 +196,7 @@
                     </td>
 
                     <td class="text-center">
-                      <a class="btn btn-link mb-0 px-0" href="javascript:;">
+                      <a class="btn btn-link mb-0 px-0" href="javascript:;" @click="updateData(relasi.id,'dospem2')">
                         <i class="fas fa-trash fa-lg ml-2" aria-hidden="true"></i>
                       </a>
                     </td>
@@ -227,11 +212,6 @@
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
               <h6 class="text-white text-capitalize ps-3">Daftar Mahasiswa Bimbingan</h6>
-              <div class="text-end">
-                <router-link :to="{ name: '' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
-                  <i class="fas fa-plus m-0 p-0 me-2"></i> Tambah Mahasiswa
-                </router-link>
-              </div>
             </div>
 
           </div>
@@ -279,7 +259,7 @@
                     </td>
 
                     <td class="text-center">
-                      <a class="btn btn-link mb-0 px-0" href="javascript:;">
+                      <a class="btn btn-link mb-0 px-0" href="javascript:;" @click="updateData(relasi.id,'dospeng1')">
                         <i class="fas fa-trash fa-lg ml-2" aria-hidden="true"></i>
                       </a>
                     </td>
@@ -295,11 +275,6 @@
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-success shadow-success border-radius-lg pt-4 pb-3">
               <h6 class="text-white text-capitalize ps-3">Daftar Mahasiswa Bimbingan</h6>
-              <div class="text-end">
-                <router-link :to="{ name: '' }" class="btn btn-info my-0 me-4 py-1 px-2" type="button">
-                  <i class="fas fa-plus m-0 p-0 me-2"></i> Tambah Mahasiswa
-                </router-link>
-              </div>
             </div>
 
           </div>
@@ -347,7 +322,7 @@
                     </td>
 
                     <td class="text-center">
-                      <a class="btn btn-link mb-0 px-0" href="javascript:;">
+                      <a class="btn btn-link mb-0 px-0" href="javascript:;" @click="updateData(relasi.id,'dospeng2')">
                         <i class="fas fa-trash fa-lg ml-2" aria-hidden="true"></i>
                       </a>
                     </td>
@@ -360,7 +335,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
   
 <script>
@@ -377,7 +352,7 @@ export default {
         dospeng1: {},
         dospeng2: {}
       },
-      mahasiswas:{}
+      mahasiswas: {}
     }
   },
 
@@ -394,18 +369,6 @@ export default {
         })
     },
 
-    getMahasiswa(){
-      let token = localStorage.getItem("token")
-      axios.get('http://127.0.0.1:8000/api/get-mahasiswa',
-        { headers: { "Authorization": `Bearer ${token}` } })
-        .then((result) => {
-          this.mahasiswas = result.data
-          console.log(this.mahasiswas)
-        }).catch((err) => {
-          console.log(err.response)
-        })
-    },
-
     getRelasi() {
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/relasi/' + this.$route.params.id,
@@ -417,11 +380,27 @@ export default {
         }).catch((err) => {
           console.log(err.response)
         })
-    }
+    },
+
+    updateData(id, Type) {
+      console.log(id, Type)
+      let token = localStorage.getItem("token")
+      axios.post
+      ('http://127.0.0.1:8000/api/relasi-delete/' + id,
+      {type:Type},
+      { headers: { "Authorization": `Bearer ${token}` } },
+        )
+        .then((result) => {
+          // this.dosens = result.data.data
+          // this.$router.go()
+          console.log(result)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
   },
   mounted() {
     this.getDosen()
-    this.getMahasiswa()
     this.getRelasi()
     setNavPills();
   },

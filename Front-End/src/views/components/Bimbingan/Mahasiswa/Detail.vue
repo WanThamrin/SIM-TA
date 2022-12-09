@@ -6,7 +6,7 @@
       style="
         background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg')">
       <span class="mask bg-gradient-info opacity-2"></span>
-      <router-link :to="{name:'Bimbingan'}" class="btn btn-light mx-4 material-icons me-2" type="button">
+      <router-link :to="{ name: 'Bimbingan' }" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
     </div>
     <div class="card card-body mx-3 mx-md-4 mt-n6">
@@ -26,8 +26,8 @@
           <div class="nav-wrapper position-relative nav-justified mb-3 end-0">
             <ul class=" bg-light nav nav-pills nav-fill p-1" role="tab">
               <li class="nav-item">
-                <a  @click="getRiwayat()" class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="#riwayat" role="tab"
-                  aria-selected="false">
+                <a @click="getRiwayat()" class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="#riwayat"
+                  role="tab" aria-selected="false">
                   <span class="ms-1">Riwayat</span>
                 </a>
               </li>
@@ -68,7 +68,11 @@
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Status : </strong>
-                <span class="badge badge-sm bg-gradient-secondary">Seminar Proposal</span>
+                <span class="badge badge-sm bg-gradient-info text-white text-xxs" v-if="profiles.judul == null">Daftar
+                  Tugas Akhir</span>
+                <span class="badge badge-sm bg-gradient-info text-white text-xxs"
+                  v-else-if="profiles.dospeng1 == null">Daftar Tugas Akhir</span>
+                <span class="badge badge-sm bg-gradient-success text-white text-xxs" v-else>Seminar Proposal</span>
               </li>
               <!-- <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Note:</strong> <a href="/">https://chat.whatsapp.com/E9QnNuDlttBBSqAXFgAA37</a>
@@ -93,7 +97,7 @@
 
         <div class="tab-content ml-4 mt-4 col-8 col-xl-8 mt-xl-0">
           <div class="tab-pane fade show active card card-plain h-100 " id="riwayat" role="tabpanel"
-          aria-labelledby="riwayat">
+            aria-labelledby="riwayat">
             <!-- POV Riwayat -->
 
             <div class="p-3 pb-0 card-header">
@@ -185,19 +189,41 @@
                     </span>
                     <span class="mb-2 text-md">
                       Dosen Pembimbing Utama :
-                      <span class="text-dark font-weight-bold ms-sm-2">{{ profiles.dospem1 }}</span>
+                      <span class="badge badge-sm bg-gradient-success text-xxs" v-if="profiles.status1 == 1"> Telah
+                        Diterima
+                      </span>
+                      <span class="badge badge-sm bg-gradient-danger text-white text-xxs"
+                        v-else-if="profiles.status1 == 2"> Ditolak
+                      </span>
+                      <span class="badge badge-sm bg-gradient-light text-dark text-xxs" v-else>Menunggu
+                        Konfirmasi</span>
                     </span>
                     <span class="mb-2 text-md">
                       Dosen Pembimbing Pendamping :
-                      <span class="text-dark font-weight-bold ms-sm-2">{{ profiles.dospem2 }}</span>
+                      <span class="badge badge-sm bg-gradient-success text-xxs" v-if="profiles.status2 == 1"> Telah
+                        Diterima
+                      </span>
+                      <span class="badge badge-sm bg-gradient-danger text-white text-xxs"
+                        v-else-if="profiles.status2 == 2"> Ditolak
+                      </span>
+                      <span class="badge badge-sm bg-gradient-light text-dark text-xxs" v-else>Menunggu
+                        Konfirmasi</span>
                     </span>
                     <span class="mb-2 text-md">
                       Dosen Penguji I :
-                      <span class="badge badge-sm bg-gradient-light text-dark">Menunggu Konfirmasi</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark text-xxs"
+                        v-if="profiles.dospeng1 === null">
+                        Menunggu Konfirmasi
+                      </span>
+                      <span class="badge badge-sm bg-gradient-success text-xxs" v-else>Telah Diterima</span>
                     </span>
                     <span class="mb-2 text-md">
                       Dosen Penguji II :
-                      <span class="badge badge-sm bg-gradient-light text-dark">Menunggu Konfirmasi</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark text-xxs"
+                        v-if="profiles.dospeng2 === null">
+                        Menunggu Konfirmasi
+                      </span>
+                      <span class="badge badge-sm bg-gradient-success text-xxs" v-else>Telah Diterima</span>
                     </span>
                   </div>
                 </li>

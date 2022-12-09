@@ -9,6 +9,7 @@ use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\Response;
 
 class SemproController extends Controller
@@ -21,7 +22,7 @@ class SemproController extends Controller
 
     public function index()
     {
-        $sempro = Sempro::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')->get();
+        $sempro = Sempro::with('user.JadwalSempro','revisi','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')->get();
         $response =[
             'message' => 'List Sempro',
             'data'=> $sempro
@@ -30,22 +31,22 @@ class SemproController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
-    public function NilaiSempro()
-    {
-        // dd(auth());
-        $data["Sempro"] = Sempro::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4', 'nilais', 'nilais.dosen')
-        ->whereHas('user', function($q){
-            $q->where('id', auth()->id());
-        } )
-        ->get();
+    // public function NilaiSempro()
+    // {
+    //     // dd(auth());
+    //     $data["Sempro"] = Sempro::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4', 'nilais', 'nilais.dosen',)
+    //     ->whereHas('user', function($q){
+    //         $q->where('id', auth()->id());
+    //     } )
+    //     ->get();
 
-        $response =[
-            'message' => 'List Sempro',
-            'data'=> $data
-        ];
+    //     $response =[
+    //         'message' => 'List Sempro',
+    //         'data'=> $data
+    //     ];
 
-        return response()->json($response, Response::HTTP_OK);
-    }
+    //     return response()->json($response, Response::HTTP_OK);
+    // }
     /**
      * Show the form for creating a new resource.
      *
@@ -53,7 +54,7 @@ class SemproController extends Controller
      */
     public function getData()
     {
-        $sempro = Sempro::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')
+        $sempro = Sempro::with('user.JadwalSempro','revisi','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')
         ->where('users_id',auth()->id())
         ->get();
         $response =[
@@ -72,6 +73,13 @@ class SemproController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->validate($request, [
+        //     'proposal' => 'required|mimes:pdf|max:50000',
+        //     'slide' => 'required|mimes:pdf|max:50000',
+        //     'validasi_dospem1' => 'required|mimes:pdf|max:50000',
+        //     'validasi_dospem2' => 'required|mimes:pdf|max:50000',
+        // ]);
+
         $proposal = $request->file('proposal')->getClientOriginalName();
         $request->file('proposal')->move(public_path('Sempro/proposal'),$proposal);
 
@@ -90,7 +98,7 @@ class SemproController extends Controller
             $TA = RegisTA::where('users_id',Auth::user()->id)->first();
             // dd($TA->id);
             $sempro = Sempro::create([
-                'proposal'=>$proposal,
+                'proposal'=>$proposal ,
                 'slide'=>$slide,
                 'validasi_dospem1'=>$validasi_dospem1,
                 'validasi_dospem2' => $validasi_dospem2,
@@ -158,30 +166,30 @@ class SemproController extends Controller
             return $this->errorResponse('Data tidak ditemukan',422);
         }
 
-        if ($request->file != null && $request->file != 'null') {
+        if ($request->proposal != null && $request->proposal != 'null') {
 
             $proposal = $request->file('proposal')->getClientOriginalName();
             $request->file('proposal')->move(public_path('Sempro/proposal'),$proposal);
 
         $sempro->proposal = $proposal;
         }
-        dd($request->$proposal) ;
+        // dd($request->$proposal) ;
 
-        if ($request->file != null && $request->file != 'null') {
+        if ($request->slide != null && $request->slide != 'null') {
 
             $slide = $request->file('slide')->getClientOriginalName();
             $request->file('slide')->move(public_path('Sempro/slide'),$slide);
 
         $sempro->slide = $slide;
         }
-        if ($request->file != null && $request->file != 'null') {
+        if ($request->validasi_dospem1 != null && $request->validasi_dospem1 != 'null') {
 
             $validasi_dospem1 = $request->file('validasi_dospem1')->getClientOriginalName();
             $request->file('validasi_dospem1')->move(public_path('Sempro/validasi_dospem1'),$validasi_dospem1);
 
         $sempro->validasi_dospem1 = $validasi_dospem1;
         }
-        if ($request->file != null && $request->file != 'null') {
+        if ($request->validasi_dospem2 != null && $request->validasi_dospem2 != 'null') {
 
             $validasi_dospem2 = $request->file('validasi_dospem2')->getClientOriginalName();
             $request->file('validasi_dospem2')->move(public_path('Sempro/validasi_dospem2'),$validasi_dospem2);

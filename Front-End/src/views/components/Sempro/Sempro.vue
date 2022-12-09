@@ -34,10 +34,10 @@
                           </h6>
                           <span class="text-xs">{{ DocSempro.keyword }}</span>
                         </div>
-                        <button class="btn btn-link" onclick="window.open({{ DocSempro.file }})">
+                        <a class="text-md my-2" :href="('http://127.0.0.1:8000/DocSempro/' + DocSempro.file)"
+                          target="_blank">
                           <span><i class="fas fa-file-pdf text-md me-2" aria-hidden="true"><br />PDF</i></span>
-                          {{ DocSempro.file ? DocSempro.file.name : '' }}
-                        </button>
+                        </a>
                       </li>
                     </ul>
                   </div>
@@ -46,18 +46,19 @@
             </div>
           </div>
           <div class="col-lg-8">
-            <button  @click="$router.push ({ name: 'Tambah-Sempro' })" class="btn btn-dark mx-3" type="button" :disabled="checked">
+            <button @click="$router.push({ name: 'Tambah-Sempro' })" class="btn btn-dark mx-3" type="button"
+              :disabled="checked">
               <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Seminar Proposal
             </button>
             <!-- Button trigger modal -->
-            <button  @click="$router.push ({ name: 'Nilai-Sempro' })" class="btn btn-primary mx-3" type="button">
+            <button @click="$router.push({ name: 'Nilai-Sempro' })" class="btn btn-primary mx-3" type="button">
               <i class="fas fa-hashtag m-0 p-0 me-2"></i>Lihat Nilai
             </button>
             <!-- Nilai-Sempro -->
             <!-- <router-link :to="{ name: '' }" class="btn btn-dark mx-3 disabled ">
               <i class="fas fa-duotone fa-hashtag m-0 p-0 me-2"></i>Lihat Nilai
             </router-link> -->
-            
+
             <div class="col-lg-12 me-4">
               <div class="card">
                 <div class="card-header pb-0 px-3">
@@ -65,24 +66,29 @@
                 </div>
                 <div class="card-body pt-4 p-3">
                   <ul class="list-group">
-                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
+                      v-for="(View, index) in Views.data" :key="index">
                       <div class="d-flex flex-column">
                         <h6 class="mb-3 text-md">Senin, 11/01/19</h6>
                         <span class="mb-2 text-md">
                           Judul Tugas Akhir:
-                          <span class="text-dark font-weight-bold ms-sm-2">{{}}</span>
+                          <span class="text-dark font-weight-bold ms-sm-2"> {{ View.t_a.judul }} </span>
                         </span>
                         <span class="mb-2 text-md">
                           Keyword:
-                          <span class="text-dark ms-sm-2 font-weight-bold">SIM-TA</span>
+                          <span class="text-dark ms-sm-2 font-weight-bold"> {{ View.t_a.keyword }} </span>
                         </span>
                         <span class="text-md">
-                          Tanggal Seminar Proposal: 
-                          <span class="badge badge-sm bg-gradient-secondary">{{JadwalSempros.hari}} ({{JadwalSempros.jam_mulai}} - {{JadwalSempros.jam_akhir}})</span>
+                          Tanggal Seminar Proposal:
+                          <span class="badge badge-sm bg-gradient-light text-dark" v-if="View.user.jadwal_sempro === null"> 
+                            Menunggu Konfirmasi
+                          </span>
+                          <span class="badge badge-sm bg-gradient-secondary" v-else>{{ View.user.jadwal_sempro.hari }}
+                            ({{ View.user.jadwal_sempro.jam_mulai }} - {{ View.user.jadwal_sempro.jam_akhir }})</span>
                         </span>
                       </div>
                     </li>
-                    <li
+                    <li v-if="!Views !== null"
                       class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
                       <div class="d-flex flex-column">
                         <h6 class="col-md-auto text-danger text-md"> Belum ada pengajuan</h6>
@@ -91,6 +97,15 @@
                           Daftar Seminar</router-link>
                       </div>
                     </li>
+                    <!-- <li
+                      class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
+                      <div class="d-flex flex-column">
+                        <h6 class="col-md-auto text-danger text-md"> Belum ada pengajuan</h6>
+                        <router-link :to="{ name: 'Tambah-Sempro' }"
+                          class="text-dark text-gradient font-weight-light text-sm">
+                          Daftar Seminar</router-link>
+                      </div>
+                    </li> -->
                   </ul>
                 </div>
               </div>
@@ -100,120 +115,119 @@
         </div>
       </div>
     </div>
-    <div class="row my-4">
-      <div class="col-12">
-        <div class="card my-4">
-          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-            <div class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
-              <h6 class="text-white text-capitalize ps-3">Data Mahasiswa Seminar Proposal</h6>
-            </div>
+
+
+  </div>
+  <div class="row my-4">
+    <div class="col-12">
+      <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-info shadow-success border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">Data Mahasiswa Seminar Proposal</h6>
           </div>
-          <div class="card-body px-0 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
-                <thead>
-                  <tr>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Nama Mahasiswa
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Judul TA
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Pembimbing I
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Pembimbing II
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Penguji I
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Penguji II
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Jadwal
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Status
-                    </th>
-                    <th class="text-dark opacity-2"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- v-for="(RegisTA, index) in RegisTAs.data" :key="index" -->
-                  <tr v-for="(Sempro, index) in Sempros.data" :key="index">
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ Sempro.user.name }}</h6>
-                          <p class="text-sm text-secondary mb-0">
-                            {{ Sempro.user.number }}
-                          </p>
-                        </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                    Nama Mahasiswa
+                  </th>
+                  <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                    Judul TA
+                  </th>
+                  <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                    Pembimbing I
+                  </th>
+                  <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                    Pembimbing II
+                  </th>
+                  <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                    Penguji I
+                  </th>
+                  <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                    Penguji II
+                  </th>
+                  <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                    Jadwal
+                  </th>
+                  <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                    Status
+                  </th>
+                  <th class="text-dark opacity-2"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- v-for="(RegisTA, index) in RegisTAs.data" :key="index" -->
+                <tr v-for="(Sempro, index) in Sempros.data" :key="index">
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div>
+                        <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2" />
                       </div>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-normal">{{ Sempro.t_a.keyword }}</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen1 === null"> -
-                      </span>
-                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen1.name }}</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen2 === null"> -
-                      </span>
-                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen2.name }}</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen3 === null"> -
-                      </span>
-                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen3 === null ? '-' :
-                          Sempro.t_a.dosen3.name
-                      }}</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen4 === null"> -
-                      </span>
-                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen4.name }}</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark"
-                        v-if="Sempro.user.jadwal_sempro === null">-</span>
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
-                          Sempro.user.jadwal_sempro.hari
-                      }} ({{ Sempro.user.jadwal_sempro.jam_mulai }}-{{
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{ Sempro.user.name }}</h6>
+                        <p class="text-sm text-secondary mb-0">
+                          {{ Sempro.user.number }}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-sm font-weight-normal">{{ Sempro.t_a.keyword }}</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen1 === null"> -
+                    </span>
+                    <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen1.name }}</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen2 === null"> -
+                    </span>
+                    <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen2.name }}</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen3 === null"> -
+                    </span>
+                    <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen3 === null ? '-' :
+                        Sempro.t_a.dosen3.name
+                    }}</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sempro.t_a.dosen4 === null"> -
+                    </span>
+                    <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sempro.t_a.dosen4.name }}</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="badge badge-sm bg-gradient-light text-dark"
+                      v-if="Sempro.user.jadwal_sempro === null">-</span>
+                    <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                        Sempro.user.jadwal_sempro.hari
+                    }} ({{ Sempro.user.jadwal_sempro.jam_mulai }}-{{
     Sempro.user.jadwal_sempro.jam_akhir
 }})</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark"
-                        v-if="Sempro.user.jadwal_sempro === null">-</span>
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
-                          Sempro.user.jadwal_sempro.type
-                      }} ({{ Sempro.user.jadwal_sempro.ruangan }})</span>
-                    </td>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="badge badge-sm bg-gradient-light text-dark"
+                      v-if="Sempro.user.jadwal_sempro === null">-</span>
+                    <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                        Sempro.user.jadwal_sempro.type
+                    }} ({{ Sempro.user.jadwal_sempro.ruangan }})</span>
+                  </td>
 
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-    
   </div>
-
   <div class="container-fluid mx-2 row">
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" role="switch" id="checkbox" v-model="checked">
-      <label class="form-check-label text-lg" for="checkbox">Tutup Pendaftaran Seminar Proposal</label> 
+      <label class="form-check-label text-lg" for="checkbox">Tutup Pendaftaran Seminar Proposal</label>
     </div>
   </div>
   <!-- POV Dosen -->
@@ -265,8 +279,7 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">{{ Sempro.user.name }}</h6>
@@ -326,8 +339,8 @@
                         </router-link>
                       </a>
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                        <router-link :to="{ name: 'EditJadSempro', params: { id: Sempro.id } }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
-                            aria-hidden="true"></i>
+                        <router-link :to="{ name: 'EditJadSempro', params: { id: Sempro.id } }"><i
+                            class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
                     </td>
@@ -366,8 +379,14 @@ export default {
         }
 
       },
-      Views:{},
-      JadwalSempros:{},
+      Views: {
+        user: {
+          jadwal_sempro: {}
+        },
+        t_a: {}
+      },
+
+      // profiles: {},
       checked: true
     }
 
@@ -376,6 +395,18 @@ export default {
     // MaterialButton,
   },
   methods: {
+    // getNama() {
+    //   let token = localStorage.getItem("token")
+    //   axios.get('http://127.0.0.1:8000/api/me',
+    //     { headers: { "Authorization": `Bearer ${token}` } })
+    //     .then((result) => {
+    //       this.profiles = result.data.data
+    //       console.log(this.profiles)
+    //     }).catch((err) => {
+    //       console.log(err.response)
+    //     })
+    // },
+
     getSempro() {
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/sempro',
@@ -389,28 +420,12 @@ export default {
         })
     },
 
-    getJadwal() {
-      let token = localStorage.getItem("token")
-      axios.get(
-        'http://127.0.0.1:8000/api/jadwal-sempro',
-        { headers: { "Authorization": `Bearer ${token}` } }
-
-      )
-        .then((result) => {
-          this.JadwalSempros = result.data.data
-          // console.log(result.data.data)
-
-        }).catch((err) => {
-          console.log(err)
-        });
-    },
-
     getData() {
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/get-sempro',
         { headers: { Authorization: `Bearer ${token}` } })
         .then((result) => {
-          this.Views = result.data.data,
+          this.Views = result.data,
             console.log(this.Views)
         }).catch((err) => {
           console.log(err.response)
@@ -440,7 +455,6 @@ export default {
   mounted() {
     this.getSempro();
     this.getData();
-    this.getJadwal();
   }
   // beforeMount() {
   //     this.toggleEveryDisplay();

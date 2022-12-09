@@ -38,6 +38,11 @@ class sempro extends Model
         return $this->belongsTo(RegisTA::class, 'ta_id', 'id');
     }
 
+    public function revisi()
+    {
+        return $this->HasOne(RevProposal::class, 'sempros_id', 'id');
+    }
+
     public function nilai()
     {
         return $this->HasOne(NilaiSempro::class, 'sempros_id', 'id');

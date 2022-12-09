@@ -20,7 +20,7 @@ class DosenController extends Controller
      */
     public function index()
     {
-        $Dosen = Dosen::join('users','dosens.users_id','users.id')->where('users_id',auth()->id())->get();
+        $Dosen = Dosen::join('users','dosens.users_id','users.id')->where('users_id',auth()->id())->first();
         $response =[
             'message' => 'List Dosen',
             'data'=> $Dosen

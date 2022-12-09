@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sempro;
 use App\Models\NilaiSempro;
+use App\Models\RevProposal;
 use App\Models\RegisTA;
 use Auth;
 use Illuminate\Database\QueryException;
@@ -324,11 +325,11 @@ class NilaiSemproController extends Controller
     }
 
     public function AllNilai(){
-        $data["sempros"] = Sempro::with('user.JadwalSempro','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4','nilais.dosen')
+        $sempros = Sempro::with('user.JadwalSempro','TA','nilais.dosen')
         ->get();
         $response=[
             'message' => 'Daftar Nilai Sempro',
-            'data'=> $data
+            'data'=> $sempros
         ];
         return response()->json($response, Response::HTTP_OK);
 

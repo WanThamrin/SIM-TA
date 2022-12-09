@@ -66,11 +66,7 @@
           </div>
           <div class="p-3 card-body">
             <p class="text-md font-weight-normal font-italic">{{dosens.name}}</p>
-            <p class="text-sm font-italic">
-              Bachelor Degree (Computer Science)
-              Universitas Brawijaya, Indonesia 2014
-              Master Degree (Computer Science) Universitas Brawijaya, Indonesia 2017
-            </p>
+           
             <hr class="my-4 horizontal gray-light" />
             <ul class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">

@@ -42,23 +42,23 @@
             @endphp
             <tr>
                 <td rowspan="4" style=" text-align: center; border: 1px solid #000">{{$no}}</td>
-                <td rowspan="4" style=" text-align: center; border: 1px solid #000">{{$sempro->user->name}}</td>
-                <td style=" text-align: center; border: 1px solid #000">{{$sempro->TA->dosen1->name}}</td>
+                <td rowspan="4" style=" text-align: center; border: 1px solid #000">{{$sempro->user ? $sempro->user->name : ''}}</td>
+                <td style=" text-align: center; border: 1px solid #000">{{$sempro->TA->dosen1 ? $sempro->TA->dosen1->name : ''}}</td>
                 <td style=" text-align: center; border: 1px solid #000">{{$dospem1 ? $dospem1->nilai_presentasi : ''}}</td>
                 <td style=" text-align: center; border: 1px solid #000">{{$dospem1 ? $dospem1->nilai_laporan : ''}}</td>
             </tr>
             <tr>
-                <td style=" text-align: center; border: 1px solid #000">{{$sempro->TA->dosen2->name}}</td>
+                <td style=" text-align: center; border: 1px solid #000">{{$sempro->TA->dosen2 ? $sempro->TA->dosen2->name : ''}}</td>
                 <td style=" text-align: center; border: 1px solid #000">{{$dospem2 ? $dospem2->nilai_presentasi : ''}}</td>
                 <td style=" text-align: center; border: 1px solid #000">{{$dospem2 ? $dospem2->nilai_laporan : ''}}</td>
             </tr>
             <tr>
-                <td style=" text-align: center; border: 1px solid #000">{{$sempro->TA->dosen3->name}}</td>
+                <td style=" text-align: center; border: 1px solid #000">{{$sempro->TA->dosen3 ? $sempro->TA->dosen3->name : ''}}</td>
                 <td style=" text-align: center; border: 1px solid #000">{{$dospeng1 ? $dospeng1->nilai_presentasi : ''}}</td>
                 <td style=" text-align: center; border: 1px solid #000">{{$dospeng1 ? $dospeng1->nilai_laporan : ''}}</td>
             </tr>
             <tr>
-                <td style=" text-align: center; border: 1px solid #000">{{$sempro->TA->dosen4->name}}</td>
+                <td style=" text-align: center; border: 1px solid #000">{{$sempro->TA->dosen4 ? $sempro->TA->dosen4->name : ''}}</td>
                 <td style=" text-align: center; border: 1px solid #000">{{$dospeng2 ? $dospeng2->nilai_presentasi : ''}}</td>
                 <td style=" text-align: center; border: 1px solid #000">{{$dospeng2 ? $dospeng2->nilai_laporan : ''}}</td>
             </tr>

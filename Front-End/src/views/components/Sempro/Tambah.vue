@@ -37,6 +37,7 @@
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label" >Proposal</label>
+                    <h3 class="text-danger text-sm mx-2">Limit 2 Mb</h3>
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="name" type="file" label="" name="proposal" @change="fileChange($event, 'proposal')"
@@ -46,6 +47,7 @@
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Slide Presentasi / Poster</label>
+                    <h3 class="text-danger text-sm mx-2">Limit 2 Mb</h3>
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="slide" type="file" label="" name="slide" @change="fileChange1($event, 'slide')"
@@ -55,6 +57,7 @@
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2"> 
                     <label for="nameInput" class="form-label">Persetujuan Dosen Pembimbing Utama</label>
+                    <h3 class="text-danger text-sm mx-2">Limit 2 Mb</h3>
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="berkas1" type="file" label="" @change="fileChange2($event, 'validasi_dospem1')"
@@ -64,6 +67,7 @@
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Persetujuan Dosen Pembimbing Pendamping</label>
+                    <h3 class="text-danger text-sm mx-2">Limit 2 Mb</h3>
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="berkas2" type="file" label=""  @change="fileChange3($event, 'validasi_dospem2')"

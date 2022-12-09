@@ -41,13 +41,22 @@ Route::post('/register', [AuthController::class,'admin']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::resource('/regis-ta', regisTAController::class)->except(['create','edit']);
+// Route::put('/regis-ta/{id}', [regisTAController::class,'update']);
+
+#superadmin
 Route::get('/get-data', [regisTAController::class,'getData']);
 Route::get('/get-data/{id}', [regisTAController::class,'getDetail']);
-// Route::delete('/get-data/{id}', [regisTAController::class,'delete']);
+Route::delete('/get-data/{id}', [regisTAController::class,'delete']);
+
 Route::get('/get-dospem', [regisTAController::class,'getDospem']);
 Route::get('/get-bimbingan', [regisTAController::class,'getBimbingan']);
 Route::post('/update-status1/{id}', [regisTAController::class,'updateStatus1']);
 Route::post('/update-status2/{id}', [regisTAController::class,'updateStatus2']);
+
+#dosen
+Route::resource('/beban-bimbingan', bebanBimbinganController::class)->except(['create','edit']);
+
+Route::resource('/riset', RisetController::class)->except(['create','edit']);
 
 Route::resource('/mahasiswa', MahasiswaController::class)->except(['create','edit']);
 Route::get('/get-mahasiswa', [MahasiswaController::class,'getMahasiswa']);
@@ -61,19 +70,26 @@ Route::get('/manage-dosen', [DosenController::class,'ManageDosen']);
 Route::get('/dosen-status/{id}', [DosenController::class,'updateStatus']);
 Route::get('/dosen-hapus/{id}', [DosenController::class,'hapusStatus']);
 
+#superadmin
 Route::get('/manage-superadmin', [DosenController::class,'ManageSuperAdmin']);
 Route::get('/dosen-supstatus/{id}', [DosenController::class,'updateStatusSup']);
 Route::get('/dosen-suphapus/{id}', [DosenController::class,'hapusStatusSup']);
 
+Route::resource('/relasi', RelasiController::class)->except(['create','edit']);
+Route::post('/relasi-delete/{id}', [RelasiController::class,'destroy']);
 
+Route::get('/all-nilai',  [NilaiSemproController::class,'AllNilai']);
+Route::get('/all-nilai/{id}',  [NilaiSemproController::class,'DetailAll']);
+
+#mahasiswa+admin(koorpro)
 Route::resource('/sempro', SemproController::class)->except(['create','edit']);
 Route::get('/get-sempro', [SemproController::class,'getData']);
 Route::get('/export-sempro', [SemproController::class,'export']);
 
 Route::resource('/rev-proposal', RevProposalController::class)->except(['create','edit']);
 
-
 Route::resource('/semhas', SemhasController::class)->except(['create','edit']);
+Route::get('/get-semhas', [SemhasController::class,'getData']);
 
 Route::resource('/jadwal-sempro', JadwalSemproController::class)->except(['create','edit']);
 
@@ -82,19 +98,10 @@ Route::resource('/jadwal-semhas', JadwalSemhasController::class)->except(['creat
 Route::resource('/nilai-sempro', NilaiSemproController::class)->except(['create','edit']);
 Route::get('/val-sempro',  [NilaiSemproController::class,'NilaiSempro']);
 
-
 // Route::get('/nilai-sempro/{id}/{dosen}', [NilaiSemproController::class,'showWithDosen']);
 
 Route::resource('/nilai-semhas', NilaiSemhasController::class)->except(['create','edit']);
 
-Route::resource('/beban-bimbingan', bebanBimbinganController::class)->except(['create','edit']);
-
-Route::resource('/riset', RisetController::class)->except(['create','edit']);
-
-Route::resource('/relasi', RelasiController::class)->except(['create','edit']);
-
-Route::get('/all-nilai',  [NilaiSemproController::class,'AllNilai']);
-Route::get('/all-nilai/{id}',  [NilaiSemproController::class,'DetailAll']);
 
 
     Route::get('/me', [AuthController::class,'me']);

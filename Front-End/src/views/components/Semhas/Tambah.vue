@@ -89,7 +89,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">BUKTI TANDA TERIMA PENDAFTARAN SIDANG
+                    <label for="nameInput" class="form-label">BUKTI Similarity
                       <h2 class="text-danger text-sm">Form. TA-009</h2>
                     </label>
                   </div>

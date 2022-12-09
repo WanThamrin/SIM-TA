@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="page-header min-height-200 border-radius-xl mt-4" style="
-      background-image: url('https://w0.peakpx.com/wallpaper/116/459/HD-wallpaper-microchip-neon-lines-black-background-chips-technology-backgrounds.jpg');
+    background-image: url('https://w0.peakpx.com/wallpaper/116/459/HD-wallpaper-microchip-neon-lines-black-background-chips-technology-backgrounds.jpg');
       ">
       <span class="mask bg-gradient-info opacity-2"></span>
-      <router-link :to="{name:'Notifications'}" class="btn btn-light mx-4 material-icons me-2" type="button">
+      <router-link :to="{ name: 'Notifications' }" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
     </div>
     <div class="row">
@@ -24,7 +24,7 @@
                 <div class="col-lg-9 my-1">
                   <!-- <input id="judul" type="text" placeholder="Masukkan Judul Pengumuman" class="input-group border border-info rounded py-2 px-2 text-sm" name="nama_riset" :isRequired="true"
                       v-model="Info.judul" /> -->
-                  <h6 class="mb-0 text-md  my-1 ">Pendaftaran Seminar Proposal</h6>
+                  <h6 class="mb-0 text-md  my-1 ">{{ Info.judul }}</h6>
                 </div>
               </div>
               <div class="row mb-3">
@@ -35,7 +35,7 @@
                 <div class="col-lg-9 my-2">
                   <!-- <input id="keyword" type="text" placeholder="Masukkan Keyword" class="input-group border border-info rounded py-2 px-2 text-sm" name="keyword"  :isRequired="true"
                       v-model="Info.keyword" /> -->
-                  <h6 class="mb-0 text-md  my-1 ">Seminar Proposal</h6>
+                  <h6 class="mb-0 text-md  my-1 ">{{ Info.keyword }}</h6>
                 </div>
               </div>
               <div class="row mb-3">
@@ -45,10 +45,9 @@
                 <div class="col-lg-9 my-1">
                   <!-- <input id="file" type="file" class="input-group border border-info rounded py-2 px-2 text-sm"  name="file" :isRequired="true"
                     v-on="Info.file"/> -->
-                  <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4">
-                    <i class="fas fa-file-pdf text-lg me-1" aria-hidden="true"></i>
-                    PDF
-                  </button>
+                  <a class="text-md my-2" :href="'http://127.0.0.1:8000/info/'+Info.file" target="_blank">
+                    <span><i class="fas fa-file-pdf text-md me-2" aria-hidden="true">PDF</i></span>
+                  </a>
                 </div>
               </div>
               <div class="row mb-3">
@@ -60,17 +59,8 @@
                   <!-- <textarea id="note" type="textarea" placeholder="Masukkan Keterangan"
                     class="input-group border border-info rounded py-2 px-2 text-sm" name="note" :isRequired="true"
                     v-model="Info.note" /> -->
-                    <h6 class="mb-0 text-md  my-1 ">Deadline Pembukaan Pendaftaran Seminar Proposal</h6>
+                  <h6 class="mb-0 text-md  my-1 ">{{ Info.note }}</h6>
                 </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-3 my-2">
-                  <label for="nameInput" class="form-label">Status Pengumuman</label>
-                </div>
-                <div class="col-lg-8 my-2">
-                  <p class="badge badge-sm bg-gradient-success">Sudah Disiarkan</p>
-                </div>
-                
               </div>
               <!-- <div class="text-end">
                   <MaterialButton class="mx-3" variant="outline" size="md" type="cancel">Cancel</MaterialButton>
@@ -87,7 +77,7 @@
 </template>
   
 <script>
-// import axios from "axios";
+import axios from "axios";
 
 // import MaterialInput from "@/components/MaterialInput.vue";
 // import MaterialButton from "@/components/MaterialButton.vue";
@@ -101,27 +91,28 @@ export default {
     // MaterialButton,
     // MaterialTextarea
   },
-  // data() {
-  //   return {
-  //     Info: {},
-  //   }
-  // },
-  // methods: {
-  //   store() {
-  //     axios.post(
-  //       'http://127.0.0.1:8000/api/Info',
-  //       this.Info
-  //     )
-  //       .then(() => {
-  //         this.$router.push({
-  //           name: 'Info'
-  //         })
+  data() {
+    return {
+      Info: {},
+    }
+  },
+  methods: {
+    getInfo() {
+      axios.get(
+        'http://127.0.0.1:8000/api/info/' + this.$route.params.id,
+      )
+        .then((result) => {
+          this.Info = result.data.data
+          // console.log(result.data.data)
 
-  //       }).catch((err) => {
-  //         console.log(err.response.data)
-  //       });
-  //   }
-  // }
+        }).catch((err) => {
+          console.log(err)
+        });
+    },
+  },
+  mounted() {
+    this.getInfo()
+  }
   // beforeMount() {
   //     this.toggleEveryDisplay();
   //     this.toggleHideConfig();

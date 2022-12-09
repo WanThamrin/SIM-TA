@@ -72,7 +72,7 @@
                     </td>
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                        <router-link :to="{ name: 'EyeInfo' }"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
+                        <router-link :to="{ name: 'EyeInfo', params: { id: Info.id } }"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
                             aria-hidden="true"></i>
                         </router-link>
                       </a>
@@ -192,7 +192,7 @@
                       </td>
                       <td class="text-center">
                         <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                          <router-link :to="{ name: 'EyeDoc-Sempro' }"><i
+                          <router-link :to="{ name: 'EyeDoc-Sempro', params: { id: DocSempro.id }}"><i
                               class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
@@ -283,7 +283,7 @@
                       </td>
                       <td class="text-center">
                         <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                          <router-link :to="{ name: 'EyeDoc-Semhas' }"><i
+                          <router-link :to="{ name: 'EyeDoc-Semhas', params: { id: DocSemha.id } }"><i
                               class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>

@@ -22,7 +22,8 @@ class RegisTA extends Model
         'dospem1',
         'dospem2',
         'dospeng1',
-        'dospeng1'
+        'dospeng2',
+
     ];
 
 /**

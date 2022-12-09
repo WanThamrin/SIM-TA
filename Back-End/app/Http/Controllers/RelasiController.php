@@ -82,15 +82,19 @@ class RelasiController extends Controller
     public function show($id)
     {
         $data['dospem1'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])
         ->where('dospem1',$id)->get();
 
         $data['dospem2'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])
         ->where('dospem2',$id)->get();
 
         $data['dospeng1'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])
         ->where('dospeng1',$id)->get();
 
         $data['dospeng2'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])
         ->where('dospeng2',$id)->get();
 
         $response=[
@@ -156,23 +160,24 @@ class RelasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        $Relasi = Relasi::findOrFail($id);
-
-        try {
-            $Relasi -> delete();
-            $response=[
-                'message' => 'Data Relasi telah dihapus',
-                'data'=> $Relasi
-            ];
-
-            return response()->json($response, Response::HTTP_OK);
-
-        } catch (QueryException $e) {
-            return response()->json([
-                'message' => "Gagal" . $e->errorInfo
+        $Relasi = RegisTA::findOrFail($id);
+        $Type = $request->type;
+        $Relasi->update([
+            $Type=>null,
+        ]);
+        if ($Type=='dospem1') {
+            $Relasi->update([
+                'status1'=>0,
             ]);
         }
+        if ($Type=='dospem2') {
+            $Relasi->update([
+                'status2'=>0,
+            ]);
+        }
+// dd($Relasi);
+        return $request->all();
     }
 }

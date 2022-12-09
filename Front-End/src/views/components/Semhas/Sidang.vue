@@ -32,10 +32,10 @@
                           </h6>
                           <span class="text-xs">{{ DocSemhas.keyword }}</span>
                         </div>
-                        <button class="btn btn-link" onclick="window.open({{ DocSemhas.file }})">
+                        <a class="text-md my-2" :href="('http://127.0.0.1:8000/DocSidang/' + DocSemhas.file)"
+                          target="_blank">
                           <span><i class="fas fa-file-pdf text-md me-2" aria-hidden="true"><br />PDF</i></span>
-                          {{ DocSemhas.file ? DocSemhas.file.name : '' }}
-                        </button>
+                        </a>
                       </li>
                     </ul>
                   </div>
@@ -58,29 +58,35 @@
                 </div>
                 <div class="card-body pt-4 p-3">
                   <ul class="list-group">
-                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg"
+                      v-for="(View, index) in Views.data" :key="index">
                       <div class="d-flex flex-column">
                         <h6 class="mb-3 text-md">Senin, 11/01/19</h6>
                         <span class="mb-2 text-md">
                           Judul Tugas Akhir:
-                          <span class="text-dark font-weight-bold ms-sm-2">Sistem Informasi Manajemen Tugas Akhir [Studi
-                            Kasus:ITK]</span>
+                          <span class="text-dark font-weight-bold ms-sm-2"> {{ View.t_a.judul }} </span>
                         </span>
                         <span class="mb-2 text-md">
                           Keyword:
-                          <span class="text-dark ms-sm-2 font-weight-bold">SIM-TA</span>
+                          <span class="text-dark ms-sm-2 font-weight-bold"> {{ View.t_a.keyword }} </span>
                         </span>
                         <span class="text-md">
-                          Tanggal Sidang Tugas Akhir:
-                          <span class="badge badge-sm bg-gradient-secondary">Menunggu Persetujuan</span>
+                          Tanggal Seminar Proposal:
+                          <span class="badge badge-sm bg-gradient-light text-dark"
+                            v-if="View.user.jadwal_semhas === null">
+                            Menunggu Konfirmasi
+                          </span>
+                          <span class="badge badge-sm bg-gradient-secondary" v-else>{{ View.user.jadwal_semhas.hari }}
+                            ({{ View.user.jadwal_semhas.jam_mulai }} - {{ View.user.jadwal_semhas.jam_akhir }})</span>
                         </span>
                       </div>
                     </li>
-                    <li
+                    <li  v-if="Views === null"
                       class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
                       <div class="d-flex flex-column">
                         <h6 class="col-md-auto text-danger text-md"> Belum ada pengajuan</h6>
-                        <router-link :to="{ name: 'Tambah-Sidang' }" class="text-dark text-gradient font-weight-light text-sm">
+                        <router-link :to="{ name: 'Tambah-Sidang' }"
+                          class="text-dark text-gradient font-weight-light text-sm">
                           Daftar Seminar</router-link>
                       </div>
                     </li>
@@ -143,8 +149,7 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">{{ Sidang.user.name }}</h6>
@@ -160,34 +165,44 @@
                         class="badge badge-sm bg-gradient-light text-dark">-</span> -->
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen1 === null"
-                      > - </span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen1 === null"> -
+                      </span>
                       <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen1.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen2 === null"
-                      > - </span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen2 === null"> -
+                      </span>
                       <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen2.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen3 === null"
-                      > - </span>
-                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen3 === null ? '-' : Sidang.t_a.dosen3.name}}</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen3 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen3 === null ? '-' :
+                          Sidang.t_a.dosen3.name
+                      }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen4 === null"
-                      > - </span>
-                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen4.name}}</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen4 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen4.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.user.jadwal_semhas === null">-</span>
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{ Sidang.user.jadwal_semhas.hari}} ({{ Sidang.user.jadwal_semhas.jam_mulai}}-{{ Sidang.user.jadwal_semhas.jam_akhir}})</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark"
+                        v-if="Sidang.user.jadwal_semhas === null">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                          Sidang.user.jadwal_semhas.hari
+                      }} ({{ Sidang.user.jadwal_semhas.jam_mulai }}-{{
+    Sidang.user.jadwal_semhas.jam_akhir
+}})</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.user.jadwal_semhas === null">-</span>
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{ Sidang.user.jadwal_semhas.type}} ({{ Sidang.user.jadwal_semhas.ruangan}})</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark"
+                        v-if="Sidang.user.jadwal_semhas === null">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                          Sidang.user.jadwal_semhas.type
+                      }} ({{ Sidang.user.jadwal_semhas.ruangan }})</span>
                     </td>
-                   
+
                   </tr>
                 </tbody>
               </table>
@@ -250,8 +265,7 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user2" />
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">{{ Sidang.user.name }}</h6>
@@ -267,37 +281,47 @@
                         class="badge badge-sm bg-gradient-light text-dark">-</span> -->
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen1 === null"
-                      > - </span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen1 === null"> -
+                      </span>
                       <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen1.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen2 === null"
-                      > - </span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen2 === null"> -
+                      </span>
                       <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen2.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen3 === null"
-                      > - </span>
-                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen3 === null ? '-' : Sidang.t_a.dosen3.name}}</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen3 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen3 === null ? '-' :
+                          Sidang.t_a.dosen3.name
+                      }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen4 === null"
-                      > - </span>
-                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen4.name}}</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.t_a.dosen4 === null"> -
+                      </span>
+                      <span class="text-secondary text-sm font-weight-bold" v-else>{{ Sidang.t_a.dosen4.name }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.user.jadwal_semhas === null">-</span>
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{ Sidang.user.jadwal_semhas.hari}} ({{ Sidang.user.jadwal_semhas.jam_mulai}}-{{ Sidang.user.jadwal_semhas.jam_akhir}})</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark"
+                        v-if="Sidang.user.jadwal_semhas === null">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                          Sidang.user.jadwal_semhas.hari
+                      }} ({{ Sidang.user.jadwal_semhas.jam_mulai }}-{{
+    Sidang.user.jadwal_semhas.jam_akhir
+}})</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-if="Sidang.user.jadwal_semhas === null">-</span>
-                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{ Sidang.user.jadwal_semhas.type}} ({{ Sidang.user.jadwal_semhas.ruangan}})</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark"
+                        v-if="Sidang.user.jadwal_semhas === null">-</span>
+                      <span class="badge badge-sm bg-gradient-light text-dark" v-else>{{
+                          Sidang.user.jadwal_semhas.type
+                      }} ({{ Sidang.user.jadwal_semhas.ruangan }})</span>
                     </td>
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                        <router-link :to="{ name: 'CreateSidang', params: { id: Sidang.id } }"><i class="fas fa-calendar text-gradient-dark fa-lg"
-                            aria-hidden="true"></i>
+                        <router-link :to="{ name: 'CreateSidang', params: { id: Sidang.id } }"><i
+                            class="fas fa-calendar text-gradient-dark fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
@@ -326,62 +350,105 @@ export default {
   data() {
     return {
       Sidangs: {
-        user: {},
-        t_a: {}
+        user: {
+          jadwal_semhas: {}
+        },
+        t_a: {
+          dosen1: {},
+          dosen2: {},
+          dosen3: {},
+          dosen4: {},
+
+        }
+      },
+
+        Views: {
+          user: {
+            jadwal_sempro: {}
+          },
+          t_a: {}
+        },
+        // profiles:{}
       }
-    }
-  },
-  components: {
-
-  },
-  methods: {
-    getSidang() {
-      let token = localStorage.getItem("token")
-      axios.get('http://127.0.0.1:8000/api/semhas',
-        { headers: { Authorization: `Bearer ${token}` } })
-        .then((result) => {
-          this.Sidangs = result.data,
-            console.log(this.Sidangs)
-        }).catch((err) => {
-          console.log(err.response)
-
-        })
     },
-  },
-  setup() {
-    let DocSemhass = ref([]);
+      components: {
 
-    onMounted(() => {
+    },
+    methods: {
 
-      axios.get('http://127.0.0.1:8000/api/doc-semhas')
-        .then((result) => {
-          DocSemhass.value = result.data
+      // getNama() {
+      //   let token = localStorage.getItem("token")
+      //   axios.get('http://127.0.0.1:8000/api/me',
+      //     { headers: { "Authorization": `Bearer ${token}` } })
+      //     .then((result) => {
+      //       this.profiles = result.data.data
+      //       console.log(this.profiles)
+      //     }).catch((err) => {
+      //       console.log(err.response)
+      //     })
+      // },
 
-        }).catch((err) => {
-          console.log(err.response)
+      getSidang() {
+        let token = localStorage.getItem("token")
+        axios.get('http://127.0.0.1:8000/api/semhas',
+          { headers: { Authorization: `Bearer ${token}` } })
+          .then((result) => {
+            this.Sidangs = result.data,
+              console.log(this.Sidangs)
+          }).catch((err) => {
+            console.log(err.response)
 
-        })
-    });
+          })
+      },
 
-    return {
-      DocSemhass,
-    };
-  },
-  mounted() {
-    this.getSidang();
-  }
-  // beforeMount() {
-  //     this.toggleEveryDisplay();
-  //     this.toggleHideConfig();
-  //     // body.classList.remove("bg-gray-100");
-  // },
-  // beforeUnmount() {
-  //     this.toggleEveryDisplay();
-  //     this.toggleHideConfig();
-  //     // body.classList.add("bg-gray-100");
-  // },
-  // methods: {
-  //     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
-  // },
-};
+      getData() {
+        let token = localStorage.getItem("token")
+        axios.get('http://127.0.0.1:8000/api/get-semhas',
+          { headers: { Authorization: `Bearer ${token}` } })
+          .then((result) => {
+            this.Views = result.data,
+              console.log(this.Views)
+          }).catch((err) => {
+            console.log(err.response)
+
+          })
+      },
+    },
+    setup() {
+      let DocSemhass = ref([]);
+
+      onMounted(() => {
+
+        axios.get('http://127.0.0.1:8000/api/doc-semhas')
+          .then((result) => {
+            DocSemhass.value = result.data
+
+          }).catch((err) => {
+            console.log(err.response)
+
+          })
+      });
+
+      return {
+        DocSemhass,
+      };
+    },
+    mounted() {
+      this.getSidang();
+      this.getData();
+    }
+    // beforeMount() {
+    //     this.toggleEveryDisplay();
+    //     this.toggleHideConfig();
+    //     // body.classList.remove("bg-gray-100");
+    // },
+    // beforeUnmount() {
+    //     this.toggleEveryDisplay();
+    //     this.toggleHideConfig();
+    //     // body.classList.add("bg-gray-100");
+    // },
+    // methods: {
+    //     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
+    // },
+  };
 </script>

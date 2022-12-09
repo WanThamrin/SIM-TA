@@ -22,20 +22,19 @@
                   <label for="nameInput" class="form-label">Judul Dokumen</label>
                 </div>
                 <div class="col-lg-9 my-1">
-                  <!-- <input id="judul" type="text" placeholder="Masukkan Judul Pengumuman" class="input-group border border-info rounded py-2 px-2 text-sm" name="nama_riset" :isRequired="true"
-                      v-model="Info.judul" /> -->
-                  <h6 class="mb-0 text-md  my-1 ">Persetujuan Dosen Pembimbing Utama</h6>
+
+                  <h6 class="mb-0 text-md  my-1 ">{{ DocSemhas.judul }}</h6>
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col-lg-3 my-2">
-                  <label for="nameInput" class="form-label">Keyword
+                  <label for="nameInput" class="form-label">Kata Kunci
                   </label>
                 </div>
                 <div class="col-lg-9 my-2">
                   <!-- <input id="keyword" type="text" placeholder="Masukkan Keyword" class="input-group border border-info rounded py-2 px-2 text-sm" name="keyword"  :isRequired="true"
-                      v-model="Info.keyword" /> -->
-                  <h6 class="mb-0 text-md  my-1 ">Form A1</h6>
+                      v-model="DocSemhas.keyword" /> -->
+                  <h6 class="mb-0 text-md  my-1 ">{{ DocSemhas.keyword }}</h6>
                 </div>
               </div>
               <div class="row mb-3">
@@ -45,20 +44,10 @@
                 <div class="col-lg-9 my-1">
                   <!-- <input id="file" type="file" class="input-group border border-info rounded py-2 px-2 text-sm"  name="file" :isRequired="true"
                     v-on="Info.file"/> -->
-                  <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4">
-                    <i class="fas fa-file-pdf text-lg me-1" aria-hidden="true"></i>
-                    PDF
-                  </button>
+                  <a class="text-md my-2" :href="'http://127.0.0.1:8000/DocSidang/' + DocSemhas.file" target="_blank">
+                    <span><i class="fas fa-file-pdf text-md me-2" aria-hidden="true">PDF</i></span>
+                  </a>
                 </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-3 my-2">
-                  <label for="nameInput" class="form-label">Status Dokumen</label>
-                </div>
-                <div class="col-lg-8 my-2">
-                  <p class="badge badge-sm bg-gradient-success">Sudah Disiarkan</p>
-                </div>
-                
               </div>
               <!-- <div class="text-end">
                   <MaterialButton class="mx-3" variant="outline" size="md" type="cancel">Cancel</MaterialButton>
@@ -75,7 +64,7 @@
 </template>
   
 <script>
-// import axios from "axios";
+import axios from "axios";
 
 // import MaterialInput from "@/components/MaterialInput.vue";
 // import MaterialButton from "@/components/MaterialButton.vue";
@@ -83,33 +72,34 @@
 // import { mapMutations } from "vuex";
 
 export default {
-  name: "EyeDoc-Semhas",
+  name: "EyeDoc-Sempro",
   components: {
     // MaterialInput,
     // MaterialButton,
     // MaterialTextarea
   },
-  // data() {
-  //   return {
-  //     Info: {},
-  //   }
-  // },
-  // methods: {
-  //   store() {
-  //     axios.post(
-  //       'http://127.0.0.1:8000/api/Info',
-  //       this.Info
-  //     )
-  //       .then(() => {
-  //         this.$router.push({
-  //           name: 'Info'
-  //         })
+  data() {
+    return {
+      DocSemhas: {},
+    }
+  },
+  methods: {
+    getDoc() {
+      axios.get(
+        'http://127.0.0.1:8000/api/doc-semhas/' + this.$route.params.id,
+      )
+        .then((result) => {
+          this.DocSemhas = result.data.data
+          // console.log(result.data.data)
 
-  //       }).catch((err) => {
-  //         console.log(err.response.data)
-  //       });
-  //   }
-  // }
+        }).catch((err) => {
+          console.log(err)
+        });
+    },
+  },
+  mounted() {
+    this.getDoc()
+  }
   // beforeMount() {
   //     this.toggleEveryDisplay();
   //     this.toggleHideConfig();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RegisTA;
+use App\Models\Mahasiswa;
 use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -20,9 +21,8 @@ class regisTAController extends Controller
     public function index()
     {
 #nampilinn sesuai user login
-        $RegisTA = RegisTA::join('users','regis_t_a_s.users_id','users.id')
-        ->where('users_id',auth()->id())
-        ->get();
+        $RegisTA = RegisTA::where('users_id',auth()->id())
+        ->first();
         $response =[
             'message' => 'List Form TA',
             'data'=> $RegisTA
@@ -33,9 +33,14 @@ class regisTAController extends Controller
 
     public function getData()
     {
-#nampilinn sesuai user login
-        $RegisTA = RegisTA::join('users','regis_t_a_s.users_id','users.id')
-        ->orderBy('name', 'ASC')->get();
+#with seelum join
+        $RegisTA = RegisTA::join('users','regis_t_a_s.users_id','users.id')->orderBy('name', 'ASC')
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
+        foreach($RegisTA as $ta){
+            $ta['ta_id'] = $ta->id;
+            // unset($ta->id);
+        }
+
         $response =[
             'message' => 'List Form TA',
             'data'=> $RegisTA
@@ -47,8 +52,9 @@ class regisTAController extends Controller
     public function getDetail($id)
     {
 #nampilinn sesuai user login
-        $RegisTA = RegisTA::where('users.id',$id)
+        $RegisTA = RegisTA::where('regis_t_a_s.id',$id)
         ->join('users','users.id','regis_t_a_s.users_id')
+        ->select(['regis_t_a_s.*','users.name','users.number','users.email'])
         ->orderBy('name', 'ASC')->first();
         $response =[
             'message' => 'List Form TA',
@@ -185,11 +191,13 @@ class regisTAController extends Controller
         // dd(Auth::id());
 
         $regis1['dospem1'] = RegisTA::where('status1',1)
+        ->with('user.JadwalSempro','user.JadwalSemhas')
         ->join('users','users.id','regis_t_a_s.users_id')
         ->where('dospem1',Auth::id())
         ->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
 
         $regis1['dospem2'] = RegisTA::where('status2',1)
+        ->with('user.JadwalSempro','user.JadwalSemhas')
         ->join('users','users.id','regis_t_a_s.users_id')
         ->where('dospem2',Auth::id())
         ->select(['regis_t_a_s.*','users.name','users.number','users.email'])->get();
@@ -211,7 +219,6 @@ class regisTAController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $RegisTA = RegisTA::findOrFail($id);
         $number=Auth::user()->number;
         $validator = Validator::make($request->all(), [
             // 'nama_mhs'=>['required'],
@@ -221,9 +228,7 @@ class regisTAController extends Controller
             'abstrak'=>['required'],
             // 'status1'=>['required'],
             // 'status2'=>['required'],
-            'keyword'=>['required'],
-            'dospem1'=>['required'],
-            'dospem2'=>['required']
+            'keyword'=>['required']
         ]);
 
         if ($validator->fails()) {
@@ -236,11 +241,11 @@ class regisTAController extends Controller
                 'users_id'=>auth()->id(),
             ]);
 
-            $response=[
-                'message' => 'Form telah dibuat',
-                'data'=> $RegisTA
-            ];
-            $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'Daftar Tugas Akhir']);
+        $response=[
+            'message' => 'Form telah dibuat',
+            'data'=> $RegisTA
+        ];
+            // $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'Daftar Tugas Akhir']);
 
 
             return response()->json($response, Response::HTTP_OK);

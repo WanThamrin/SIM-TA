@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RevProposal;
 use App\Models\RegisTA;
+use App\Models\sempro;
 use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class RevProposalController extends Controller
      */
     public function index()
     {
-        $RevProposal = RevProposal::with('user')->get();
+        $RevProposal = RevProposal::where('users_id',auth()->id())->first();
         $response =[
             'message' => 'List Revisi Proposal',
             'data'=> $RevProposal
@@ -46,56 +47,31 @@ class RevProposalController extends Controller
      */
     public function store(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     // 'nama_mhs'=>['required'],
-        //     // 'nim'=>['required'],
-        //     // 'niph'=>['required'],
-        //     'proposal'=>['required'],
-        //     'slide'=>['required'],
-        //     'validasi_dospem1'=>['required'],
-        //     'validasi_dospem2'=>['required']
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'file'=>['required'],
+            'note'=>['required'],
+        ]);
 
-        // if ($validator->fails()) {
-        //     return response()->json($validator->errors(),
-        //     Response::HTTP_UNPROCESSABLE_ENTITY);
-        // }
-
-        // try {
-        //     $TA = RegisTA::where('users_id',auth()->id())->first();
-        //     $RevProposal = RevProposal::create($request->all()+[
-        //         'users_id'=>auth()->id(),
-        //         'ta_id'=>$TA->id
-        //     ]);
-        //     $response=[
-        //         'message' => ' Form RevProposal telah dibuat',
-        //         'data'=> $RevProposal
-        //     ];
-
-        //     $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'seminar proposal']);
-
-        //     return response()->json($response, Response::HTTP_CREATED);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(),
+            Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         $file = $request->file('file')->getClientOriginalName();
-        $request->file('file')->move(public_path('RevProposal/file'),$file);
+        $request->file('file')->move(public_path('RevProposal'),$file);
 
             // dd($request->all()) ;
         try {
-            $TA = RegisTA::where('users_id',Auth::user()->id)->first();
-            // dd($TA->id);
+
             $RevProposal = RevProposal::create([
+                'users_id'=>auth()->id(),
                 'note' => $request->note,
-                'file'=>$file,
-                'users_id'=>Auth::user()->id,
-                'ta_id'=>$TA->id
-                // 'ta_id'=>$TA
+                'file' => $file
             ]);
             $response=[
                 'message' => ' Form RevProposal telah dibuat',
                 'data'=> $RevProposal
             ];
-
-            // $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'seminar proposal']);
 
             return response()->json($response, Response::HTTP_CREATED);
 
@@ -144,29 +120,29 @@ class RevProposalController extends Controller
     public function update(Request $request, $id)
     {
 
-        $file = $request->file('file')->getClientOriginalName();
-        $request->file('file')->move('public/Proposal/RevProposal',$file);
+        $RevProposal = RevProposal::findOrFail($id);
 
+        $validator = Validator::make($request->all(), [
+            'nama_riset'=>['required'],
+            'bidang_riset'=>['required'],
+            'note'=>['required'],
+            'keyword'=>['required']
 
-            // dd($request->all()) ;
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(),
+            Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         try {
-            $TA = RegisTA::where('users_id',Auth::user()->id)->first();
-            // dd($TA->id);
-            $RevProposal = RevProposal::create([
-                'note' => $request->note,
-                'file'=>$file,
-                'users_id'=>Auth::user()->id,
-                'ta_id'=>$TA->id
-                // 'ta_id'=>$TA
-            ]);
+            $RevProposal -> update($request->all());
             $response=[
-                'message' => ' Form RevProposal telah dibuat',
+                'message' => 'RevProposal telah diubah',
                 'data'=> $RevProposal
             ];
 
-            // $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'seminar proposal']);
-
-            return response()->json($response, Response::HTTP_CREATED);
+            return response()->json($response, Response::HTTP_OK);
 
         } catch (QueryException $e) {
             return response()->json([

@@ -41,12 +41,12 @@
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">Judul Tugas Akhir</label>
+                    <label for="validationCustom01" class="form-label">Judul Tugas Akhir</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="name" type="text" placeholder="Masukkan Judul TA"
+                    <input id="validationCustom01" type="text" placeholder="Masukkan Judul TA"
                       class="input-group border border-info rounded py-2 px-2 text-sm" v-model="tugas.judul"
-                      size="md" />
+                      size="md" :required="true" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -55,7 +55,8 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <textarea placeholder="Masukkan Keterangan Singkat mengenai Judul" v-model="tugas.abstrak"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md">  </textarea>
+                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md" :required="true"> 
+                     </textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -65,7 +66,7 @@
                   <div class="col-lg-9 my-1">
                     <input id="name" type="text" placeholder="Masukkan Kata Kunci"
                       class="input-group border border-info rounded py-2 px-2 text-sm" v-model="tugas.keyword"
-                      size="md" />
+                      size="md" :required="true"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -73,7 +74,8 @@
                     <label for="nameInput" class="form-label">Dosen Pembimbing Utama</label>
                   </div>
                   <div class="col-lg-9 my-2 ">
-                    <select v-model="tugas.dospem1" @change="checkDospem()" class="border border-info rounded py-2 px-2 text-sm">
+                    <select v-model="tugas.dospem1" @change="checkDospem()"
+                      class="border border-info rounded py-2 px-2 text-sm" :required="true">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
@@ -84,15 +86,18 @@
                     <label for="nameInput" class="form-label">Dosen Pembimbing Pendamping</label>
                   </div>
                   <div class="col-lg-9 my-2">
-                    <select v-model="tugas.dospem2" @change="checkDospem()" class="border border-info rounded py-2 px-2 text-sm">
+                    <select v-model="tugas.dospem2" @change="checkDospem()"
+                      class="border border-info rounded py-2 px-2 text-sm" :required="true">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
                   </div>
                 </div>
                 <div class="text-end">
-                  <MaterialButton class="mx-3" variant="outline" size="md" type="cancel">Cancel</MaterialButton>
-                  <MaterialButton size="md" v-model="submit" type="submit">Submit</MaterialButton>
+                  <MaterialButton class="mx-3" variant="outline" size="md" type="cancel"
+                    >Cancel</MaterialButton>
+                  <MaterialButton size="md" name="submit" type="submit" 
+                  >Submit</MaterialButton>
                 </div>
               </form>
             </div>
@@ -106,6 +111,7 @@
 
 <script>
 import axios from 'axios';
+// import $ from 'jquery'; 
 import Swal from 'sweetalert2';
 
 import MaterialButton from "@/components/MaterialButton.vue";
@@ -142,6 +148,7 @@ export default {
       }
     },
 
+
     getNama() {
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/me',
@@ -172,19 +179,24 @@ export default {
       axios.post(
         'http://127.0.0.1:8000/api/regis-ta',
         this.tugas,
-        { headers: { Authorization: `Bearer ${token}` } },
-        console.log(token),
+        { headers: { Authorization: `Bearer ${token}` } })
 
-      )
-        .then(() => {
-          this.$router.push({
-            name: 'Bimbingan'
-          })
-        }).catch((err) => {
+      .then((result) => {
+        console.log(result),
+        Swal.fire(
+            'Permintaan Telah Diproses!',
+            'Silahkan Tunggu Konfirmasi',
+            'success'),
+      
+        this.$router.push({
+            name: 'Bimbingan'  
+        })
+     
+      }).catch((err) => {
           console.log(err.response.data)
         });
-    }
-  },
+  }
+},
 
   mounted() {
     this.getNama()

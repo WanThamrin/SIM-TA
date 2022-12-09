@@ -52,7 +52,7 @@ class MahasiswaController extends Controller
 
     public function detailMahasiswa($id)
     {
-        $Mahasiswa = User::with('mahasiswa','TA')->where('id',$id)->first();
+        $Mahasiswa = Mahasiswa::with('mahasiswa')->where('ta_id',$id)->first();
         $response =[
             'message' => 'List Mahasiswa',
             'data'=> $Mahasiswa
