@@ -41,6 +41,7 @@ Route::post('/register', [AuthController::class,'admin']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::resource('/regis-ta', regisTAController::class)->except(['create','edit']);
+Route::post('/regis-ta/update-by-user', [regisTAController::class,'updateByUser']);
 // Route::put('/regis-ta/{id}', [regisTAController::class,'update']);
 
 #superadmin

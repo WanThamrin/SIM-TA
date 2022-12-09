@@ -283,4 +283,26 @@ class regisTAController extends Controller
             ]);
         }
     }
+
+    public function updateByUser(Request $request)
+    {
+        $number=Auth::user()->number;
+        try {
+            $RegisTA = RegisTA::where('users_id',Auth::user()->id)->first();
+            $RegisTA->update($request->all());
+            $response=[
+                'message' => 'Form telah dibuat',
+                'data'=> $RegisTA
+            ];
+
+
+            return response()->json($response, Response::HTTP_CREATED);
+
+        } catch (QueryException $e) {
+        //   dd($e);
+            return response()->json([
+                'message' => "Gagal" . $e->errorInfo
+            ]);
+        }
+    }
 }

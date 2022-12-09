@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Mahasiswa;
+use App\Models\RegisTA;
 use App\Models\Dosen;
 use Auth;
 use Illuminate\Database\QueryException;
@@ -61,7 +62,8 @@ class AuthController extends Controller
     public function me()
     {
         return response()->json([
-            "data" => Auth::user()
+            "data" => Auth::user(),
+            "tugas_akhir" => RegisTA::where('users_id',Auth::user()->id)->first()
         ], 200);
     }
 
