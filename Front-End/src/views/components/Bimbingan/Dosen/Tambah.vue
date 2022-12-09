@@ -17,7 +17,7 @@
           <div class="card-body">
             <p class="text-muted">Form Lengkapi Data Profile</p>
             <div class="live-preview">
-              <form @submit.prevent="">
+              <form @submit.prevent="store()">
                 <div class="row mb-3 ">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Nama Dosen</label>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">NIM</label>
+                    <label for="nameInput" class="form-label">NIP</label>
                   </div>
                   <div class="text-info col-lg-9 my-1  py-2 px-2 font-weight-bolder">
                     {{ profiles.number }}
@@ -41,13 +41,14 @@
                     </label>
                   </div>
                   <div class="col-lg-9 my-2">
-                    <input id="status" type="text" placeholder="Masukkan status"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" name="status"
-                      :isRequired="true" />
-                    <!-- v-model="Dosen.status"  -->
+                    <!-- <input id="status" type="text"  placeholder="Masukkan status"
+                      class="input-group border border-info rounded py-2 px-2 text-sm"/>
+                     -->
+                     <input id="note" type="text" label="" name="note"
+                     class="input-group border border-info rounded py-2 px-2 text-sm"  v-model="isDosen.note">
                   </div>
                 </div>
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Sertifikasi
                       <h2 class="text-danger text-sm">ex. A</h2>
@@ -57,9 +58,9 @@
                     <input id="status" type="text" placeholder="Masukkan status"
                       class="input-group border border-info rounded py-2 px-2 text-sm" name="status"
                       :isRequired="true" />
-                    <!-- v-model="Dosen.status"  -->
+                    v-model="Dosen.status" 
                   </div>
-                </div>
+                </div> -->
                 <!-- <div class="row mb-3">
                   <div class="col-lg-3 my-2">
                     <label for="nameInput" class="form-label">Foto Pribadi</label>
@@ -94,7 +95,8 @@ export default {
   name: "tambah-dosen",
   data() {
     return {
-      profiles: {}
+      profiles: {},
+      isDosen : {}
     };
   },
 
@@ -113,10 +115,29 @@ export default {
         { headers: { "Authorization": `Bearer ${token}` } })
         .then((result) => {
           this.profiles = result.data.data
-          console.log(this.profiles)
+          this.isDosen = result.data.dosen
+          console.log(this.isDosen)
         }).catch((err) => {
           console.log(err.response)
         })
+    },
+
+    store() {
+      let token = localStorage.getItem("token")
+      axios.post(
+        'http://127.0.0.1:8000/api/dosen-update-profile',
+        this.isDosen,
+        { headers: { Authorization: `Bearer ${token}` } })
+
+        .then((result) => {
+          console.log(result)
+          this.$router.push({
+            name: 'Profile'
+          })
+
+        }).catch((err) => {
+          console.log(err.response.data)
+        });
     },
 
     NumbersOnly(evt) {

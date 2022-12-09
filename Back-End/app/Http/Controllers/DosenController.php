@@ -289,4 +289,9 @@ class DosenController extends Controller
             ]);
         }
     }
+
+    public function updateProfile(Request $request)
+    {
+        return Dosen::where('users_id',Auth::user()->id)->update(['note' => $request->note]);
+    }
 }

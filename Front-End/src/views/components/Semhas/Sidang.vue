@@ -325,7 +325,7 @@
                         </router-link>
                       </a>
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                        <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
+                        <router-link :to="{ name: 'EditJadSemhas', params: { id: Sidang.id } }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
                             aria-hidden="true"></i>
                         </router-link>
                       </a>

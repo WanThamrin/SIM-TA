@@ -75,6 +75,7 @@ Route::get('/dosen-hapus/{id}', [DosenController::class,'hapusStatus']);
 Route::get('/manage-superadmin', [DosenController::class,'ManageSuperAdmin']);
 Route::get('/dosen-supstatus/{id}', [DosenController::class,'updateStatusSup']);
 Route::get('/dosen-suphapus/{id}', [DosenController::class,'hapusStatusSup']);
+Route::post('/dosen-update-profile', [DosenController::class,'updateProfile']);
 
 Route::resource('/relasi', RelasiController::class)->except(['create','edit']);
 Route::post('/relasi-delete/{id}', [RelasiController::class,'destroy']);
@@ -86,11 +87,13 @@ Route::get('/all-nilai/{id}',  [NilaiSemproController::class,'DetailAll']);
 Route::resource('/sempro', SemproController::class)->except(['create','edit']);
 Route::get('/get-sempro', [SemproController::class,'getData']);
 Route::get('/export-sempro', [SemproController::class,'export']);
+Route::post('/jadwal-sempro-update', [SemproController::class,'updateJadwalSempro']);
 
 Route::resource('/rev-proposal', RevProposalController::class)->except(['create','edit']);
 
 Route::resource('/semhas', SemhasController::class)->except(['create','edit']);
 Route::get('/get-semhas', [SemhasController::class,'getData']);
+Route::post('/jadwal-semhas-update', [SemhasController::class,'updateJadwalSemhas']);
 
 Route::resource('/jadwal-sempro', JadwalSemproController::class)->except(['create','edit']);
 

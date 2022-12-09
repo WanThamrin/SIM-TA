@@ -18,6 +18,7 @@ import EyeDocSempro from "../views/components/Pengumuman/Dokumen/Sempro/EyeDoc.v
 import DocSemhas from "../views/components/Pengumuman/Dokumen/Semhas/Doc.vue";
 import EditDocSemhas from "../views/components/Pengumuman/Dokumen/Semhas/edit.vue";
 import CreateSidang from "../views/components/Semhas/Jadwal/Create.vue";
+import EditJadSemhas from "../views/components/Semhas/Jadwal/Edit.vue";
 import EyeDocSemhas from "../views/components/Pengumuman/Dokumen/Semhas/EyeDoc.vue";
 import Sempro from "../views/components/Sempro/Sempro.vue";
 import TambahSempro from "../views/components/Sempro/Tambah.vue";
@@ -188,6 +189,11 @@ const routes = [
     path: "/createsidang/:id",
     name: "CreateSidang",
     component: CreateSidang,
+  },
+  {
+    path: "/edit-jadsemhas/:id",
+    name: "EditJadSemhas",
+    component: EditJadSemhas,
   },
   {
     path: "/sidang",

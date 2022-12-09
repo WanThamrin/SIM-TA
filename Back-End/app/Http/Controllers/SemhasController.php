@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\semhas;
 use App\Models\RegisTA;
 use App\Models\Mahasiswa;
+use App\Models\JadwalSemhas;
 
 use Auth;
 use Illuminate\Database\QueryException;
@@ -263,5 +264,13 @@ class SemhasController extends Controller
 
             ]);
         }
+    }
+
+    
+    public function updateJadwalSemhas(Request $request)
+    {
+        $jadwalSemhas = JadwalSemhas::findOrFail($request->id);
+
+        return $jadwalSemhas->update($request->all());
     }
 }

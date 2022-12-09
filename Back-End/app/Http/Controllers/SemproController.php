@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalSempro;
 use App\Models\Sempro;
 use App\Models\RegisTA;
 use App\Models\Mahasiswa;
@@ -254,5 +255,12 @@ class SemproController extends Controller
                 'message' => "Gagal" . $e->errorInfo
             ]);
         }
+    }
+
+    public function updateJadwalSempro(Request $request)
+    {
+        $jadwalSempro = JadwalSempro::findOrFail($request->id);
+
+        return $jadwalSempro->update($request->all());
     }
 }

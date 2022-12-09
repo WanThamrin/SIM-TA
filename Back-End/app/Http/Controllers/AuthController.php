@@ -50,8 +50,6 @@ class AuthController extends Controller
                 "token" => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
         }
-
-        return response()->json($response, Response::HTTP_OK);
     }
 
     /**
@@ -63,7 +61,8 @@ class AuthController extends Controller
     {
         return response()->json([
             "data" => Auth::user(),
-            "tugas_akhir" => RegisTA::where('users_id',Auth::user()->id)->first()
+            "tugas_akhir" => RegisTA::where('users_id',Auth::user()->id)->first(),
+            "dosen" => Dosen::where('users_id',Auth::user()->id)->first()
         ], 200);
     }
 

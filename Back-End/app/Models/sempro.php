@@ -40,7 +40,7 @@ class sempro extends Model
 
     public function revisi()
     {
-        return $this->HasOne(RevProposal::class, 'sempros_id', 'id');
+        return $this->HasOne(RevProposal::class, 'users_id', 'users_id');
     }
 
     public function nilai()
