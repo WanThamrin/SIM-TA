@@ -47,7 +47,11 @@
           </div>
           <div class="col-lg-8">
             <button @click="$router.push({ name: 'Tambah-Sempro' })" class="btn btn-dark mx-3" type="button"
-              :disabled="checked">
+            v-if="status.status === 1">
+              <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Seminar Proposal
+            </button>
+            <button @click="$router.push({ name: 'Tambah-Sempro' })" class="btn btn-dark mx-3" type="button"
+            v-else disabled>
               <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Seminar Proposal
             </button>
             <!-- Button trigger modal -->
@@ -80,7 +84,8 @@
                         </span>
                         <span class="text-md">
                           Tanggal Seminar Proposal:
-                          <span class="badge badge-sm bg-gradient-light text-dark" v-if="View.user.jadwal_sempro === null"> 
+                          <span class="badge badge-sm bg-gradient-light text-dark"
+                            v-if="View.user.jadwal_sempro === null">
                             Menunggu Konfirmasi
                           </span>
                           <span class="badge badge-sm bg-gradient-secondary" v-else>{{ View.user.jadwal_sempro.hari }}
@@ -88,7 +93,7 @@
                         </span>
                       </div>
                     </li>
-                    <li v-if="!Views !== null"
+                    <!-- <li v-if="!Views !== null"
                       class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
                       <div class="d-flex flex-column">
                         <h6 class="col-md-auto text-danger text-md"> Belum ada pengajuan</h6>
@@ -96,7 +101,7 @@
                           class="text-dark text-gradient font-weight-light text-sm">
                           Daftar Seminar</router-link>
                       </div>
-                    </li>
+                    </li> -->
                     <!-- <li
                       class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
                       <div class="d-flex flex-column">
@@ -225,10 +230,14 @@
     </div>
   </div>
   <div class="container-fluid mx-2 row">
-    <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="checkbox" v-model="checked">
-      <label class="form-check-label text-lg" for="checkbox">Tutup Pendaftaran Seminar Proposal</label>
-    </div>
+    <button @click=upStatus(1) class="btn btn-dark mx-3" type="button"
+     v-if="status.status === 0">
+      <i class="fas fa-lock-open m-0 p-0 me-2"></i>Buka Pendaftaran
+    </button>
+    <!-- Button trigger modal -->
+    <button @click=upStatus(0) class="btn btn-primary mx-3" type="button" v-else>
+      <i class="fas fa-lock m-0 p-0 me-2"></i>Tutup Pendaftaran
+    </button>
   </div>
   <!-- POV Dosen -->
   <!-- v-if="profiles.role == 'dosen'" -->
@@ -335,7 +344,7 @@
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0" href="javascript:;">
                         <router-link :to="{ name: 'Create', params: { id: Sempro.id } }"><i
-                            class="fas fa-calendar fa-lg" aria-hidden="true"></i>
+                            class="fas fa-calendar-plus fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
@@ -386,26 +395,46 @@ export default {
         t_a: {}
       },
 
-      // profiles: {},
+      status: {},
       checked: true
     }
 
   },
   components: {
     // MaterialButton,
+    // semhasindex0
   },
   methods: {
-    // getNama() {
-    //   let token = localStorage.getItem("token")
-    //   axios.get('http://127.0.0.1:8000/api/me',
-    //     { headers: { "Authorization": `Bearer ${token}` } })
-    //     .then((result) => {
-    //       this.profiles = result.data.data
-    //       console.log(this.profiles)
-    //     }).catch((err) => {
-    //       console.log(err.response)
-    //     })
-    // },
+    getStatus() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/status',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.status = result.data.data[1]
+          console.log(this.status)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+
+    upStatus(status) {
+      let token = localStorage.getItem("token")
+      axios.post(
+        'http://127.0.0.1:8000/api/status-update',
+        {
+          status:status,
+          type:'sempro'
+        },
+        { headers: { Authorization: `Bearer ${token}` } })
+
+        .then((result) => {
+          console.log(result)
+          this.$router.go()
+
+        }).catch((err) => {
+          console.log(err.response.data)
+        });
+    },
 
     getSempro() {
       let token = localStorage.getItem("token")
@@ -455,6 +484,7 @@ export default {
   mounted() {
     this.getSempro();
     this.getData();
+    this.getStatus();
   }
   // beforeMount() {
   //     this.toggleEveryDisplay();

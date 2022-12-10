@@ -58,6 +58,11 @@ class SemproController extends Controller
         $sempro = Sempro::with('user.JadwalSempro','revisi','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4')
         ->where('users_id',auth()->id())
         ->get();
+
+        foreach ($sempro as $key => $data) {
+            $data['sempro'] = Sempro::with('user')->where('sempro',$data->id)->count();
+        }
+
         $response =[
             'message' => 'List Sempro',
             'data'=> $sempro
@@ -259,7 +264,12 @@ class SemproController extends Controller
 
     public function updateJadwalSempro(Request $request)
     {
+
         $jadwalSempro = JadwalSempro::findOrFail($request->id);
+        $TA = RegisTA::where('users_id',$jadwalSempro->users_id)->update([
+            'dospeng1'=> $request->dospeng1,
+            'dospeng2'=> $request->dospeng2
+        ]);
 
         return $jadwalSempro->update($request->all());
     }

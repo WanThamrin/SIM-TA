@@ -19,6 +19,7 @@ use App\Http\Controllers\RelasiController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\NilaiSemproController;
 use App\Http\Controllers\NilaiSemhasController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\AuthController;
 
 /*
@@ -38,6 +39,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class,'login']);
 Route::post('/register', [AuthController::class,'admin']);
+Route::post('/login-admin', [AuthController::class,'loginadmin']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::resource('/regis-ta', regisTAController::class)->except(['create','edit']);
@@ -88,6 +90,9 @@ Route::resource('/sempro', SemproController::class)->except(['create','edit']);
 Route::get('/get-sempro', [SemproController::class,'getData']);
 Route::get('/export-sempro', [SemproController::class,'export']);
 Route::post('/jadwal-sempro-update', [SemproController::class,'updateJadwalSempro']);
+
+Route::get('/status', [StatusController::class,'index']);
+Route::post('/status-update', [StatusController::class,'update']);
 
 Route::resource('/rev-proposal', RevProposalController::class)->except(['create','edit']);
 

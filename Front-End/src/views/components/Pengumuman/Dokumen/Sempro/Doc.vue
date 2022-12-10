@@ -76,6 +76,7 @@
 </template>
   
 <script>
+import Swal from 'sweetalert2';
 import axios from "axios";
 import $ from 'jquery';
 
@@ -114,6 +115,9 @@ export default {
           this.$router.push({
             name: 'Notifications'
           })
+          Swal.fire(
+            'Form Berkas akan di Publish',
+            'success')
 
         }).catch((err) => {
           console.log(err.response.data)

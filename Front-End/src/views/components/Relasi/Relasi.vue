@@ -1,5 +1,9 @@
 <template>
   <div class="container-fluid py-2">
+    <span class="my-2 badge badge-sm bg-gradient-success">-</span><span class="text-md m-2 font-weight-bold">Total Dosen
+      Pembimbing/Penguji Utama</span>
+    <br /><span class="badge badge-sm bg-gradient-info">-</span><span class="text-md m-2 font-weight-bold">Total Dosen
+      Pembimbing/Penguji Pendamping</span>
     <div class="row my-4">
       <div class="col-12">
         <div class="card my-4">
@@ -16,9 +20,9 @@
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Nama Dosen
                     </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
+                    <!-- <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Sertifikasi
-                    </th>
+                    </th> -->
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Pembimbing I
                     </th>
@@ -43,39 +47,38 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                            alt="user1" />
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{dosen.name}}</h6>
+                          <h6 class="mb-0 text-sm">{{ dosen.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
-                            NIPH. <span>{{dosen.number}}</span>
+                            NIPH. <span>{{ dosen.number }}</span>
                           </p>
                         </div>
                       </div>
                     </td>
-                    <td class="align-middle text-center">
+                    <!-- <td class="align-middle text-center">
                       <span class="text-sm font-weight-medium">A</span>
-                    </td>
+                    </td> -->
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-success">{{dosen.dospem1}} /10</span>
+                      <span class="badge badge-sm bg-gradient-success">{{ dosen.dospem1 }}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-secondary">{{dosen.dospem2}} /10</span>
+                      <span class="badge badge-sm bg-gradient-info">{{ dosen.dospem2 }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-secondary">{{dosen.dospeng1}} /10</span>
+                      <span class="badge badge-sm bg-gradient-success">{{ dosen.dospeng1 }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="badge badge-sm bg-gradient-success">{{dosen.dospeng2}} /10</span>
+                      <span class="badge badge-sm bg-gradient-info">{{ dosen.dospeng2 }}</span>
                     </td>
                     <!-- <td class="align-middle text-center">
                       <span class="text-secondary text-sm font-weight-medium">21/06/2020 (13.00-16.00)</span>
                     </td> -->
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
-                        <router-link :to="{ name: 'Lihat', params: { id: dosen.id }  }"><i class="fas fa-regular fa-eye text-gradient-dark fa-lg"
-                            aria-hidden="true"></i>
+                        <router-link :to="{ name: 'Lihat', params: { id: dosen.id } }"><i
+                            class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
                     </td>
@@ -96,24 +99,24 @@ import axios from 'axios';
 export default {
   name: "Relasi",
   data() {
-    return{
-      dosens:{}
+    return {
+      dosens: {}
     };
   },
   methods: {
     getDosen() {
-            let token = localStorage.getItem("token")
-            axios.get('http://127.0.0.1:8000/api/get-dosen',
-                { headers: { "Authorization": `Bearer ${token}` } })
-                .then((result) => {
-                    this.dosens = result.data.data
-                    console.log(this.dosens)
-                }).catch((err) => {
-                    console.log(err.response)
-                })
-        },
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/get-dosen',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.dosens = result.data.data
+          console.log(this.dosens)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
   },
-  mounted(){
+  mounted() {
     this.getDosen();
   }
 };

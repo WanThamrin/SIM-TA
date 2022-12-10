@@ -196,6 +196,8 @@
 <script>
 // import MaterialInput from "@/components/MaterialInput.vue";
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 
 import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
@@ -250,6 +252,9 @@ export default {
           this.$router.push({
             name: 'Sidang'
           })
+          Swal.fire(
+            'Penjadwalan telah dilakukan',
+            'success')
 
         }).catch((err) => {
           console.log(err.response.data)

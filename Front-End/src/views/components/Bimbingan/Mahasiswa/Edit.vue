@@ -94,10 +94,11 @@
                   </div>
                 </div>
                 <div class="text-end">
-                  <MaterialButton class="mx-3" variant="outline" size="md" type="cancel"
+                  <MaterialButton class="mx-3" variant="outline" size="md" type="cancel" 
+                   @click="$router.push({ name: 'Profile' })"
                     >Cancel</MaterialButton>
                   <MaterialButton size="md" name="submit" type="submit" 
-                  >Submit</MaterialButton>
+                  >Update</MaterialButton>
                 </div>
               </form>
             </div>

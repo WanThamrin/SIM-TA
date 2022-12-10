@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="page-header min-height-200 border-radius-xl mt-4" style="
-   background-image: url('https://images.unsplash.com/photo-1537498425277-c283d32ef9db?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcHV0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60');
+    background-image: url('https://images.unsplash.com/photo-1537498425277-c283d32ef9db?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcHV0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60');
     ">
       <span class="mask bg-gradient-warning opacity-6"></span>
-      <router-link :to="{name:'Sidang'}" class="btn btn-light mx-4 material-icons me-2" type="button">
+      <router-link :to="{name:'ManageData'}" class="btn btn-light mx-4 material-icons me-2" type="button">
         arrow_back</router-link>
     </div>
     <div class="row">
@@ -196,8 +196,6 @@
 <script>
 // import MaterialInput from "@/components/MaterialInput.vue";
 import axios from 'axios';
-import Swal from 'sweetalert2';
-
 
 import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
@@ -251,11 +249,8 @@ export default {
         .then((result) => {
           console.log(result)
           this.$router.push({
-            name: 'Sidang'
+            name: 'ManageData'
           })
-          Swal.fire(
-            'Edit Penjadwalan telah dilakukan',
-            'success')
 
         }).catch((err) => {
           console.log(err.response.data)

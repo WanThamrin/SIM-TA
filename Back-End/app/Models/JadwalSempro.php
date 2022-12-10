@@ -20,8 +20,6 @@ class JadwalSempro extends Model
         'hari',
         'jam_mulai',
         'jam_akhir',
-        'dospeng1',
-        'dospeng2',
         'type',
         'ruangan'
     ];

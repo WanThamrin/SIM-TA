@@ -92,7 +92,7 @@
                   Catatan :
                   <span class="badge badge-sm bg-gradient-light text-dark text-xxs" v-if="dosen.note==null">Belum ada note
                   </span>
-                  <span class="badge badge-sm bg-gradient-success text-xxs" v-else>{{dosen.note}}</span>
+                  <span class="text-link text-md" v-else>{{dosen.note}}</span>
                 </span>
               </div>
             </li>

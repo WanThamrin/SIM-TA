@@ -8,23 +8,21 @@
         <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6">
             <mini-statistics-card :title="{ text: 'Tugas Akhir', value: '20 Mahasiswa' }"
-              detail="<span class='text-success text-sm font-weight-bolder'>+55%</span> than last week" :icon="{
+              :icon="{
                 name: 'weekend',
                 color: 'text-white',
                 background: 'dark',
               }" />
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
-            <mini-statistics-card :title="{ text: 'Seminar Proposal', value: '20 Mahasiswa' }"
-              detail="<span class='text-success text-sm font-weight-bolder'>+3%</span> than last month" :icon="{
+            <mini-statistics-card :title="{ text: 'Seminar Proposal', value: '20 Mahasiswa' }" :icon="{
                 name: 'cast_for_education',
                 color: 'text-white',
                 background: 'primary',
               }" />
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
-            <mini-statistics-card :title="{ text: 'Seminar Hasil', value: '20 Mahasiswa' }"
-              detail="<span class='text-danger text-sm font-weight-bolder'>-2%</span> than yesterday" :icon="{
+            <mini-statistics-card :title="{ text: 'Seminar Hasil', value: '20 Mahasiswa' }" :icon="{
                 name: 'cast_for_education',
                 color: 'text-white',
                 background: 'success',
@@ -32,94 +30,18 @@
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
             <mini-statistics-card :title="{ text: 'Wisuda', value: '20 Mahasiswa' }"
-              detail="<span class='text-success text-sm font-weight-bolder'>+5%</span> Just updated" :icon="{
+               :icon="{
                 name: 'school',
                 color: 'text-white',
                 background: 'info',
               }" />
           </div>
         </div>
-        <!-- <div class="row mt-4">
-          <div class="col-lg-4 col-md-6 mt-4">
-            <chart-holder-card
-              title="Website Views"
-              subtitle="Last Campaign Performance"
-              update="campaign sent 2 days ago"
-            >
-              <reports-bar-chart
-                :chart="{
-                  labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-                  datasets: {
-                    label: 'Sales',
-                    data: [50, 20, 10, 22, 50, 10, 40],
-                  },
-                }"
-              />
-            </chart-holder-card>
-          </div>
-          <div class="col-lg-4 col-md-6 mt-4">
-            <chart-holder-card
-              title="Daily Sales"
-              subtitle="(<span class='font-weight-bolder'>+15%</span>) increase in today sales."
-              update="updated 4 min ago"
-              color="success"
-            >
-              <reports-line-chart
-                :chart="{
-                  labels: [
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec',
-                  ],
-                  datasets: {
-                    label: 'Mobile apps',
-                    data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-                  },
-                }"
-              />
-            </chart-holder-card>
-          </div>
-          <div class="col-lg-4 mt-4">
-            <chart-holder-card
-              title="Completed Tasks"
-              subtitle="Last Campaign Performance"
-              update="just updated"
-              color="dark"
-            >
-              <reports-line-chart
-                id="tasks-chart"
-                :chart="{
-                  labels: [
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec',
-                  ],
-                  datasets: {
-                    label: 'Mobile apps',
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                  },
-                }"
-              />
-            </chart-holder-card>
-          </div>
-        </div> -->
       </div>
     </div>
 
-    <div class="row ">
-      <div class=" card col-lg-8 col-md-6 mb-md-0 mb-4 my-4">
+    <div class="row  ">
+      <div class=" card justify-content-center col-lg-8 col-md-6 mb-md-0 mb-4 my-4 ">
         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center font-weight-bolder">
           <div class="bg-gradient-light shadow-success border-radius-lg pt-4 pb-3">
             <h5 class="text-black text-capitalize ps-3">Pengumuman</h5>
@@ -156,7 +78,7 @@
           </ul>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
+      <!-- <div class="col-lg-4 col-md-6">
         <timeline-list title="Progress" description="<i class='fa fa-arrow-up text-success' aria-hidden='true'></i>
         <span class='font-weight-bold'>24%</span> this month">
           <timeline-item :icon="{
@@ -172,7 +94,7 @@
             class: 'text-info',
           }" title="Daftar Tugas Akhir" date-time="21 DEC 9:34 PM" />
         </timeline-list>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -181,32 +103,22 @@ import axios from 'axios';
 // import { onMounted, ref } from "vue";
 
 import MiniStatisticsCard from "./components/MiniStatisticsCard.vue";
-import TimelineList from "@/examples/Cards/TimelineList.vue";
-import TimelineItem from "@/examples/Cards/TimelineItem.vue";
-import logoXD from "@/assets/img/small-logos/logo-xd.svg";
-import logoAtlassian from "@/assets/img/small-logos/logo-atlassian.svg";
-import logoSlack from "@/assets/img/small-logos/logo-slack.svg";
-import logoSpotify from "@/assets/img/small-logos/logo-spotify.svg";
-import logoJira from "@/assets/img/small-logos/logo-jira.svg";
-import logoInvision from "@/assets/img/small-logos/logo-invision.svg";
-import team1 from "@/assets/img/team-1.jpg";
-import team2 from "@/assets/img/team-2.jpg";
-import team3 from "@/assets/img/team-3.jpg";
-import team4 from "@/assets/img/team-4.jpg";
+// import TimelineList from "@/examples/Cards/TimelineList.vue";
+// // import TimelineItem from "@/examples/Cards/TimelineItem.vue";
+// import logoXD from "@/assets/img/small-logos/logo-xd.svg";
+// import logoAtlassian from "@/assets/img/small-logos/logo-atlassian.svg";
+// import logoSlack from "@/assets/img/small-logos/logo-slack.svg";
+// import logoSpotify from "@/assets/img/small-logos/logo-spotify.svg";
+// import logoJira from "@/assets/img/small-logos/logo-jira.svg";
+// import logoInvision from "@/assets/img/small-logos/logo-invision.svg";
+// import team1 from "@/assets/img/team-1.jpg";
+// import team2 from "@/assets/img/team-2.jpg";
+// import team3 from "@/assets/img/team-3.jpg";
+// import team4 from "@/assets/img/team-4.jpg";
 export default {
   name: "dashboard-default",
   data() {
     return {
-      logoXD,
-      team1,
-      team2,
-      team3,
-      team4,
-      logoAtlassian,
-      logoSlack,
-      logoSpotify,
-      logoJira,
-      logoInvision,
       profiles: {},
       Infos: {}
     };
@@ -214,6 +126,8 @@ export default {
 
   methods: {
     getNama() {
+      
+      console.log(localStorage.getItem('profile'), 'dashboardni')
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/me',
         { headers: { "Authorization": `Bearer ${token}` } })
@@ -221,7 +135,10 @@ export default {
           this.profiles = result.data.data
           console.log(this.profiles)
         }).catch((err) => {
-          console.log(err.response)
+          this.$router.push({
+              name: '/'
+            })
+          console.log(err.response,'jhgggg')
         })
     },
     getInfo() {
@@ -241,8 +158,8 @@ export default {
 
   components: {
     MiniStatisticsCard,
-    TimelineList,
-    TimelineItem,
+    // TimelineList,
+    // TimelineItem,
   },
 };
 </script>

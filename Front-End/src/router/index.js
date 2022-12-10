@@ -41,19 +41,28 @@ import DetailData from "../views/components/Manage_Data/Tugas_Akhir/Detail.vue";
 import EditSempro from "../views/components/Manage_Data/Sempro/Edit.vue";
 import LihatSempro from "../views/components/Manage_Data/Sempro/Lihat.vue";
 import JadSempro from "../views/components/Manage_Data/Sempro/Jadwal/Create.vue";
+import SemproEditJad from "../views/components/Manage_Data/Sempro/Jadwal/edit.vue";
+import SemproLihatJad from "../views/components/Manage_Data/Sempro/Jadwal/Lihat.vue";
 import EditSidang from "../views/components/Manage_Data/Sidang/Edit.vue";
 import LihatSidang from "../views/components/Manage_Data/Sidang/Lihat.vue";
 import JadSidang from "../views/components/Manage_Data/Sidang/Jadwal/Create.vue";
-import Billing from "../views/Billing.vue";
+import SidangEditJad from "../views/components/Manage_Data/Sidang/Jadwal/Edit.vue";
+import SidangLihatJad from "../views/components/Manage_Data/Sidang/Jadwal/Lihat.vue";
 import Notifications from "../views/Notifications.vue";
 import Profile from "../views/Profile.vue"; 
 import SignIn from "../views/SignIn.vue";
+import IsAdmin from "../views/SignInAdmin.vue";
 
 const routes = [
   {
     path: "/",
     name: "/",
     redirect: "/sign-in",
+  },
+  {
+    path: "/is-admin",
+    name: "IsAdmin",
+    component: IsAdmin,
   },
   {
     path: "/dashboard",
@@ -181,6 +190,16 @@ const routes = [
     component: Create,
   },
   {
+    path: "/sempro-editjad/:id",
+    name: "SemproEditJad",
+    component: SemproEditJad,
+  },
+  {
+    path: "/sempro-lihatjad/:id",
+    name: "SemproLihatJad",
+    component: SemproLihatJad,
+  },
+  {
     path: "/edit-jadsempro/:id",
     name: "EditJadSempro",
     component: EditJadSempro,
@@ -191,7 +210,7 @@ const routes = [
     component: CreateSidang,
   },
   {
-    path: "/edit-jadsemhas/:id",
+    path: "/edit-jadsidang/:id",
     name: "EditJadSemhas",
     component: EditJadSemhas,
   },
@@ -266,6 +285,16 @@ const routes = [
     component: JadSidang,
   },
   {
+    path: "/sidang-editjad/:id",
+    name: "SidangEditJad",
+    component: SidangEditJad,
+  },
+  {
+    path: "/sidang-lihatjad/:id",
+    name: "SidangLihatJad",
+    component: SidangLihatJad,
+  },
+  {
     path: "/edit-sidang/:id",
     name: "EditSidang",
     component: EditSidang,
@@ -279,11 +308,6 @@ const routes = [
     path: "/detail-data/:id",
     name: "Detail-Data",
     component: DetailData,
-  },
-  {
-    path: "/billing",
-    name: "Billing",
-    component: Billing,
   },
 
   {

@@ -154,15 +154,15 @@
                       </td>
                       <!-- , params: { id: Sempro.id } -->
                       <td class="text-center">
-                        <a class="btn btn-link text-dark mb-0" href="javascript:;" >
+                        <a class="btn btn-link text-dark mb-0" href="javascript:;">
                           <!-- Button trigger modal -->
                           <router-link :to="{ name: 'LihatSempro', params: { id: Sempro.id } }"><i
                               class="fas fa-eye text-dark me-0 fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
                         <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                          <router-link :to="{ name: 'EditSempro', params: { id: Sempro.id } }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
-                              aria-hidden="true"></i>
+                          <router-link :to="{ name: 'EditSempro', params: { id: Sempro.id } }"><i
+                              class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
                         <a class="btn btn-link mb-0 " href="javascript:;">
@@ -233,8 +233,8 @@
                           </router-link>
                         </a>
                         <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                          <router-link :to="{ name: 'EditSidang', params: { id: Sidang.id } }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
-                              aria-hidden="true"></i>
+                          <router-link :to="{ name: 'EditSidang', params: { id: Sidang.id } }"><i
+                              class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
                         <a class="btn btn-link mb-0 " href="javascript:;">
@@ -338,16 +338,18 @@
                       <td class="text-center">
                         <a class="btn btn-link text-dark mb-0" href="javascript:;">
                           <router-link :to="{ name: 'JadSempro', params: { id: Sempro.id } }"><i
-                              class="fas fa-calendar fa-lg" aria-hidden="true"></i>
+                              class="fas fa-calendar-plus fa-lg" aria-hidden="true"></i>
+                          </router-link>
+                        </a>
+                        <a class="btn btn-link text-dark mb-0" href="javascript:;">
+                          <router-link :to="{ name: 'SemproLihatJad', params: { id: Sempro.id } }"><i
+                              class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
                         <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                          <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
-                              aria-hidden="true"></i>
+                          <router-link :to="{ name: 'SemproEditJad', params: { id: Sempro.id } }"><i
+                              class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                           </router-link>
-                        </a>
-                        <a class="btn btn-link mb-0 " href="javascript:;">
-                          <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
@@ -425,16 +427,18 @@
                       <td class="text-center">
                         <a class="btn btn-link text-dark mb-0" href="javascript:;">
                           <router-link :to="{ name: 'CreateSidang', params: { id: Sidang.id } }"><i
-                              class="fas fa-calendar text-gradient-dark fa-lg" aria-hidden="true"></i>
+                              class="fas fa-calendar-plus text-gradient-dark fa-lg" aria-hidden="true"></i>
+                          </router-link>
+                        </a>
+                        <a class="btn btn-link text-dark mb-0" href="javascript:;">
+                          <router-link :to="{ name: 'SidangLihatJad', params: { id: Sidang.id } }"><i
+                              class="fas fa-regular fa-eye text-gradient-dark fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
                         <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                          <router-link :to="{ name: '' }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
-                              aria-hidden="true"></i>
+                          <router-link :to="{ name: 'SidangEditJad', params: { id: Sidang.id } }"><i
+                              class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                           </router-link>
-                        </a>
-                        <a class="btn btn-link mb-0 " href="javascript:;">
-                          <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
@@ -480,7 +484,7 @@ export default {
         t_a: {}
       },
 
-      Berkas:{}
+      Berkas: {}
     }
 
   },

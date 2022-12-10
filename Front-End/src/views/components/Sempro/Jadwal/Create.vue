@@ -101,7 +101,7 @@
                     <label for="nameInput" class="form-label">Dosen Penguji Utama</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <select v-model="JadwalSempros.dospeng1" @change="checkDospeng()"
+                    <select v-model="JadwalSempros.dospeng1" @change="checkDospeng()" 
                       class="border border-info rounded py-2 px-2 text-sm" :required="true">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
@@ -241,6 +241,7 @@ export default {
         { headers: { Authorization: `Bearer ${token}` } })
         .then((result) => {
           this.Sempro = result.data.data
+          this.getDosen(this.Sempro)
           console.log(this.Sempro)
         }).catch((err) => {
           console.log(err.response)
@@ -248,13 +249,21 @@ export default {
         })
     },
 
-    getDosen() {
+    getDosen(Sempro) {
       let token = localStorage.getItem("token")
+      let arrayDosen = []
+      let dospem1 = Sempro.t_a.dospem1
+      let dospem2 = Sempro.t_a.dospem2
+
       axios.get('http://127.0.0.1:8000/api/get-dosen',
         { headers: { "Authorization": `Bearer ${token}` } })
         .then((result) => {
-          this.dosens = result.data.data
-          console.log(this.dosens)
+          result.data.data.forEach(data=>{
+            if (data.id!=dospem1 && data.id!=dospem2) {
+              arrayDosen.push(data)
+            }
+          })
+          this.dosens = arrayDosen
         }).catch((err) => {
           console.log(err.response)
         })
@@ -272,6 +281,9 @@ export default {
           this.$router.push({
             name: 'Sempro'
           })
+          Swal.fire(
+            'Penjadwalan telah dilakukan',
+            'success')
 
         }).catch((err) => {
           console.log(err.response.data)
@@ -281,7 +293,6 @@ export default {
 
   mounted() {
     this.getSempro();
-    this.getDosen();
 
   }
 

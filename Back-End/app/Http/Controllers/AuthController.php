@@ -52,6 +52,21 @@ class AuthController extends Controller
         }
     }
 
+    // public function loginadmin(Request $request)
+    // {
+    //     if (!Auth::attempt($request->only('email', 'password'))) {
+    //         return $this->errorResponse('Unauthorized', 401);
+    //     }
+
+    //     $user = User::where('email', $request['email'])->firstOrFail();
+
+    //     $token = $user->createToken('auth_token')->plainTextToken;
+    //     return $this->successResponse([
+    //         'message' => 'Authentikasi Berhasil',
+    //         'token' => $token,
+    //         'role' => $user->role,
+    //     ]);
+    // }
     /**
      * Show the form for creating a new resource.
      *
@@ -74,7 +89,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'number' => '0000',
 
-            'role' => 'admin',
+            'role' => 'dosen',
             'password' => $request->password,
         ]);
 

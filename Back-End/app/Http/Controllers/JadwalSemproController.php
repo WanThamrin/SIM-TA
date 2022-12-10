@@ -60,8 +60,6 @@ class JadwalSemproController extends Controller
             'hari'=>['required'],
             'jam_mulai'=>['required'],
             'jam_akhir'=>['required'],
-            'dospeng1'=>['required'],
-            'dospeng2'=>['required'],
             'type'=>['required'],
             'ruangan'=>['required']
         ]);
@@ -71,7 +69,10 @@ class JadwalSemproController extends Controller
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-
+            $TA = RegisTA::where('users_id',$sempro->users_id)->update([
+                'dospeng1'=> $request->dospeng1,
+                'dospeng2'=> $request->dospeng2
+            ]);
             $JadwalSempro = JadwalSempro::create($request->all()+['users_id'=>$sempro->users_id]);
             $response=[
                 'message' => 'Jadwal Sempro telah dibuat',

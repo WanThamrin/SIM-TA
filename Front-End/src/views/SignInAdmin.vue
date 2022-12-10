@@ -86,44 +86,7 @@
               <a href="https://if.itk.ac.id/" class="font-weight-bold" target="_blank">Informatika ITK</a>
             </div>
           </div>
-          <!-- <div class="col-12 col-md-6">
-            <ul
-              class="nav nav-footer justify-content-center justify-content-lg-end"
-            >
-              <li class="nav-item">
-                <a
-                  href="https://www.creative-tim.com"
-                  class="nav-link text-white"
-                  target="_blank"
-                  >Creative Tim</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  href="https://www.creative-tim.com/presentation"
-                  class="nav-link text-white"
-                  target="_blank"
-                  >About Us</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  href="https://www.creative-tim.com/blog"
-                  class="nav-link text-white"
-                  target="_blank"
-                  >Blog</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  href="https://www.creative-tim.com/license"
-                  class="nav-link pe-0 text-white"
-                  target="_blank"
-                  >License</a
-                >
-              </li>
-            </ul>
-          </div> -->
+
         </div>
       </div>
     </footer>
@@ -183,59 +146,37 @@ export default {
     },
     store() {
       axios.post(
-        'https://api-gerbang2.itk.ac.id/api/siakad/login',
+        'http://127.0.0.1:8000/api/login',
         this.login
       )
         .then((res) => {
-          let email = ""
-          let phone = ""
-          let role = ""
-          if (res.data.data.biodata.MA_Email) {
-            email = res.data.data.biodata.MA_Email
-            phone = res.data.data.biodata.MA_TelpMhs
-            role = "user"
-          } else {
-            email = res.data.data.biodata.PE_Email
-            phone = res.data.data.biodata.PE_Telepon
-            role = "dosen"
-          }
-          let request = {
-            email: email,
-            phone: phone,
-            role: role,
-            number: res.data.data.XNAMA,
-            name: res.data.data.USERDESC
-          }
-          axios.post(
-            'http://127.0.0.1:8000/api/login',
-            request
-          ).then((ress) => {
-            localStorage.setItem('token', ress.data.token);
-            let token = localStorage.getItem("token")
-            axios.get(
-              'http://127.0.0.1:8000/api/me',
-              { headers: { Authorization: `Bearer ${token}` } }
-            ).then((ress) => {
-              localStorage.setItem('profile', JSON.stringify(ress.data.data))
-              console.log(JSON.stringify(ress.data.data), 'res')
-              console.log(localStorage.getItem('profile'), 'bhgygy')
-              this.$router
-                .push({ name: '/Dashboard' })
-                .then(() => { this.$router.go() })
-            })
+          localStorage.setItem('token', res.data.token);
+          console.log(res)
+          this.$router.push({
+            name: 'Dashboard'
           })
           // localStorage.removeItem('profile')
-
-
-
-        }).catch((err) => {
-          this.isLogin = true
-          this.messageError = err.response.data.message
-          console.log(err.response.data, 'token error')
-          // alert(err.response.data.message)
-        });
-    },
-    ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
+          let token = localStorage.getItem("token")
+          axios.get(
+            'http://127.0.0.1:8000/api/me',
+            { headers: { Authorization: `Bearer ${token}`}}
+          ).then((ress) => {
+              localStorage.setItem(
+                'profile', 
+                JSON.stringify(ress.data.data))
+                console.log(JSON.stringify(ress.data.data),'res')
+                // console.log(localStorage.getItem('profile'),'bhgygy')
+            })
+            
+    }).catch((err) => {
+      this.isLogin = true
+      this.messageError = err.response.data.message
+      console.log(err.response.data)
+      // alert(err.response.data.message)
+    })
+        ;
   },
+  ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
+},
 };
 </script>

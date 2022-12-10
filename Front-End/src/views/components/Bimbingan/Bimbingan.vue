@@ -1,14 +1,19 @@
 <template>
     <!-- POV Mahasiswa -->
     <!-- v-if="profiles.role == 'user'" -->
-    <div  class="container-fluid">
-        <div class="page-header min-height-200 border-radius-xl mt-4" style="background-image: url('https://media.istockphoto.com/photos/businessman-working-modern-compter-document-management-system-virtual-picture-id1368237807?k=20&m=1368237807&s=612x612&w=0&h=9lEc3lJFgkrCTO1aHcSHYO2Z22PFKX53YYUDy9Rsaqc=')
+    <div class="container-fluid" v-if=" role == 'user'">
+    <div class="page-header min-height-200 border-radius-xl mt-4" style="
+    background-image:url('https://media.istockphoto.com/photos/businessman-working-modern-compter-document-management-system-virtual-picture-id1368237807?k=20&m=1368237807&s=612x612&w=0&h=9lEc3lJFgkrCTO1aHcSHYO2Z22PFKX53YYUDy9Rsaqc=')
       ">
             <span class="mask bg-gradient-info opacity-2"></span>
             <router-link :to="{ name: 'Tables' }" class="btn btn-light mx-4 mt-8" type="button">
                 <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Tugas Akhir
             </router-link>
         </div>
+        <span class="my-2 badge badge-sm bg-gradient-success">-</span><span class="text-md m-2 font-weight-bold">Total
+            Dosen Pembimbing Utama</span>
+        <br /><span class="badge badge-sm bg-gradient-info">-</span><span class="text-md m-2 font-weight-bold">Total
+            Dosen Pembimbing Pendamping</span>
         <div class="row my-4">
             <div class="col-12">
                 <div class="card my-4">
@@ -95,10 +100,11 @@
             </div>
         </div>
     </div>
+    {{role}}
 
     <!-- POV Dosen -->
     <!-- v-if="profiles.role == 'dosen'" -->
-    <div class="container-fluid py-4">
+    <div class="container-fluid py-4" v-if=" role == 'dosen'">
         <div class="row">
             <div class="col-16">
                 <div class="row mt-4">
@@ -580,6 +586,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import { onMounted, ref } from "vue";
 
@@ -588,6 +595,8 @@ import setTooltip from "@/assets/js/tooltip.js";
 
 export default {
     name: "Bimbingan",
+    inject: ['is_admin', 'is_superadmin', 'role'],
+
     data() {
         return {
             RegisTAs: {
@@ -606,18 +615,6 @@ export default {
     },
 
     methods: {
-
-        // getNama() {
-        //     let token = localStorage.getItem("token")
-        //     axios.get('http://127.0.0.1:8000/api/me',
-        //         { headers: { "Authorization": `Bearer ${token}` } })
-        //         .then((result) => {
-        //             this.profiles = result.data.data
-        //             console.log(this.profiles)
-        //         }).catch((err) => {
-        //             console.log(err.response)
-        //         })
-        // },
 
         getTugas() {
             let token = localStorage.getItem("token")
@@ -752,6 +749,9 @@ export default {
                         this.$router.push({
                             name: 'Bimbingan'
                         })
+                        Swal.fire(
+                            'Mata Kuliah Berhasil dihapus',
+                            'success')
 
                     }).catch((err) => {
                         console.log(err.response.data);
@@ -769,6 +769,9 @@ export default {
                     .then(() => {
                         Risets.value.splice(Risets.value.indexOf(id), 1);
                         this.drop()
+                        Swal.fire(
+                            'Topik Penelitian Berhasil dihapus',
+                            'success')
 
                     }).catch((err) => {
                         console.log(err.response.data);

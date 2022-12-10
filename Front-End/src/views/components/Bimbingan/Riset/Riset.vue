@@ -76,6 +76,7 @@
 </template>
   
 <script>
+import Swal from 'sweetalert2';
 import axios from "axios";
 
 // import MaterialInput from "@/components/MaterialInput.vue";
@@ -106,6 +107,9 @@ export default {
           this.$router.push({
             name: 'Bimbingan'
           })
+          Swal.fire(
+            'Topik Penelitian Berhasil ditambah',
+            'success')
 
         }).catch((err) => {
           console.log(err.response.data)

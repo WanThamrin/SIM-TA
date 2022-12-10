@@ -11,14 +11,13 @@
       <div class="row gx-4">
         <div class="col-auto">
           <div class="" style="width: 150px">
-            <img src="@/assets/img/bruce-mars.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" />
+            <img src="@/assets/img/user.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" />
           </div>
         </div>
         <div class="col-auto my-auto">
           <div class="h-100">
             <h5 class="mb-1">{{ dosens.name }}</h5>
             <p class="mb-0 font-weight-normal text-sm"> Dosen Informatika </p>
-            <h6 class="mb-1">Sertifikasi A </h6>
           </div>
         </div>
       </div>
@@ -114,7 +113,7 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
@@ -177,7 +176,7 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
@@ -240,7 +239,7 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
@@ -303,7 +302,7 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="@/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                          <img src="@/assets/img/user.jpg" class="avatar avatar-sm me-3 border-radius-lg"
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">

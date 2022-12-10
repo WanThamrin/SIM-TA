@@ -101,7 +101,8 @@
                     <label for="nameInput" class="form-label">Dosen Penguji Utama</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <select v-model="JadwalSempros.dospeng1" class="border border-info rounded py-2 px-2 text-sm">
+                    <select v-model="JadwalSempros.dospeng1" @change="checkDospeng()" 
+                    class="border border-info rounded py-2 px-2 text-sm">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
@@ -112,7 +113,8 @@
                     <label for="nameInput" class="form-label">Dosen Penguji Pendamping</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <select v-model="JadwalSempros.dospeng2" class="border border-info rounded py-2 px-2 text-sm">
+                    <select v-model="JadwalSempros.dospeng2" @change="checkDospeng()" 
+                    class="border border-info rounded py-2 px-2 text-sm">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                     </select>
@@ -188,6 +190,7 @@
 <script>
 // import MaterialInput from "@/components/MaterialInput.vue";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
@@ -216,6 +219,20 @@ export default {
   },
 
   methods:{
+    checkDospeng() {
+      if (this.JadwalSempros.dospeng1 == this.JadwalSempros.dospeng2) {
+        Swal.fire(
+          "Error!",
+          "Dosen Penguji Tidak Boleh Sama!",
+          "error"
+        ).then((result) => {
+          if (result.value) {
+            this.JadwalSempros.dospeng2 = null
+          }
+        });
+        this.JadwalSempros.dospeng2 = null
+      }
+    },
   getSempro() {
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/sempro/'+ this.$route.params.id,
@@ -223,6 +240,8 @@ export default {
         .then((result) => {
           this.Sempro = result.data.data
           this.JadwalSempros = result.data.data.user.jadwal_sempro
+          this.JadwalSempros.dospeng1 = result.data.data.t_a.dospeng1
+          this.JadwalSempros.dospeng2 = result.data.data.t_a.dospeng2
           console.log(this.Sempro)
         }).catch((err) => {
           console.log(err.response)
@@ -254,6 +273,9 @@ export default {
           this.$router.push({
             name: 'Sempro'
           })
+          Swal.fire(
+            'Edit Penjadwalan telah dilakukan',
+            'success')
 
         }).catch((err) => {
           console.log(err.response.data)

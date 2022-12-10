@@ -110,9 +110,11 @@ class DosenController extends Controller
     public function detailDosen($id)
     {
         $Dosen = User::with('bimbingan','riset')->where('id',$id)->first();
+        // dd($Dosen);
+        $dosen = Dosen::where('users_id', $Dosen->id)->first();
         $response =[
             'message' => 'List Dosen',
-            'data'=> $Dosen
+            'data'=>[ 'data' => $Dosen, 'detail' => $dosen]
         ];
 
         return response()->json($response, Response::HTTP_OK);

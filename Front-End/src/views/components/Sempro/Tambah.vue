@@ -90,6 +90,8 @@
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 import $ from 'jquery';
 
 
@@ -146,6 +148,9 @@ export default {
           this.$router.push({
             name: 'Sempro'
           })
+          Swal.fire(
+            'Pendaftaran telah dilakukan',
+            'success')
 
         }).catch((err) => {
           console.log(err.response.data)

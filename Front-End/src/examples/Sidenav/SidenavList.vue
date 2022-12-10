@@ -48,7 +48,8 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      
+      <li class="nav-item" v-if="is_superadmin && role == 'dosen' || role == 'user' || role == 'dosen'">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="penilaian"
           navText="Penilaian">
           <template v-slot:icon>
@@ -56,7 +57,7 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="is_superadmin">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="relasi" 
         navText="Relasi">
           <template v-slot:icon>
@@ -64,47 +65,7 @@
           </template>
         </sidenav-collapse>
       </li>
-      <!-- <li class="nav-item">
-        <sidenav-collapse
-          url="#"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="yudisium"
-          navText="Yudisium"
-        >
-          <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5">school</i>
-          </template>
-        </sidenav-collapse>
-      </li> -->
-      <!-- <li class="nav-item">
-        <sidenav-collapse
-          url="/"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="billing"
-          navText="Billing"
-        >
-          <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5">receipt_long</i>
-          </template>
-        </sidenav-collapse>
-      </li>
-      <li class="nav-item">
-        <sidenav-collapse
-          url="/"
-          :aria-controls="''"
-          v-bind:collapse="false"
-          collapseRef="rtl-page"
-          navText="Rtl"
-        >
-          <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5"
-              >format_textdirection_r_to_l</i
-            >
-          </template>
-        </sidenav-collapse>
-      </li> -->
+      {{is_superadmin}} {{is_admin}} {{role}}
       <li class="nav-item">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="notifications"
           navText="Pengumuman">
@@ -141,12 +102,13 @@
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="sign-in" navText="Keluar">
+        <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="sign-in" @click="logout()" navText="Sign Out">
           <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5" @click="logout">logout</i>
+            <i class="material-icons-round opacity-10 fs-5" >logout</i>
           </template>
         </sidenav-collapse>
       </li>
+      {{is_admin}}
       <!-- <li class="nav-item">
         <sidenav-collapse
           url="/"
@@ -171,6 +133,7 @@ export default {
   props: {
     cardBg: String
   },
+  inject: ['is_admin','is_superadmin','role'],
   data() {
     return {
       title: "SIM-TA",
@@ -181,8 +144,12 @@ export default {
 
   methods: {
     logout() {
+      console.log("logout")
+      // localStorage.removeItem('profile')
+      localStorage.removeItem('token')
       this.getData()
       this.$router.push('/')
+      
     }
   },
 

@@ -44,9 +44,14 @@
             </div>
           </div>
           <div class="col-lg-8">
-            <router-link :to="{ name: 'Tambah-Sidang' }" class="btn btn-dark mx-3" type="button">
+            <button @click="$router.push({ name: 'Tambah-Sidang' })" class="btn btn-dark mx-3" type="button"
+            v-if="status.status === 1">
               <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Sidang Tugas Akhir
-            </router-link>
+            </button>
+            <button @click="$router.push({ name: 'Tambah-Sidang' })" class="btn btn-dark mx-3" type="button"
+            v-else disabled>
+              <i class="fas fa-plus m-0 p-0 me-2"></i>Daftar Sidang Tugas Akhir
+            </button>
             <!-- Nilai-Semhas -->
             <!-- <router-link :to="{ name: '' }" class="btn btn-dark mx-3 disabled ">
               <i class="fas fa-duotone fa-hashtag m-0 p-0 me-2"></i>Lihat Nilai
@@ -81,7 +86,7 @@
                         </span>
                       </div>
                     </li>
-                    <li  v-if="Views === null"
+                    <!-- <li  v-if="Views === null"
                       class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg justify-content-center text-center">
                       <div class="d-flex flex-column">
                         <h6 class="col-md-auto text-danger text-md"> Belum ada pengajuan</h6>
@@ -89,7 +94,7 @@
                           class="text-dark text-gradient font-weight-light text-sm">
                           Daftar Seminar</router-link>
                       </div>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
               </div>
@@ -212,11 +217,14 @@
       </div>
     </div>
 
-    <div class=" row mx-2 my-2">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-        <label class="form-check-label text-lg" for="flexSwitchCheckChecked">Buka Pendaftaran Sidang Tugas Akhir</label>
-      </div>
+    <div class="container-fluid mx-2 row">
+      <button @click=upStatus(1) class="btn btn-dark mx-3" type="button" v-if="status.status === 0">
+        <i class="fas fa-lock-open m-0 p-0 me-2"></i>Buka Pendaftaran
+      </button>
+      <!-- Button trigger modal -->
+      <button @click=upStatus(0) class="btn btn-primary mx-3" type="button" v-else>
+        <i class="fas fa-lock m-0 p-0 me-2"></i>Tutup Pendaftaran
+      </button>
     </div>
 
     <div class="row my-4">
@@ -321,12 +329,12 @@
                     <td class="text-center">
                       <a class="btn btn-link text-dark mb-0" href="javascript:;">
                         <router-link :to="{ name: 'CreateSidang', params: { id: Sidang.id } }"><i
-                            class="fas fa-calendar text-gradient-dark fa-lg" aria-hidden="true"></i>
+                            class="fas fa-calendar-plus text-gradient-dark fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
                       <a class="btn btn-link text-dark mb-0 " href="javascript:;">
-                        <router-link :to="{ name: 'EditJadSemhas', params: { id: Sidang.id } }"><i class="fas fa-pencil-alt text-dark me-0 fa-lg"
-                            aria-hidden="true"></i>
+                        <router-link :to="{ name: 'EditJadSemhas', params: { id: Sidang.id } }"><i
+                            class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
                     </td>
@@ -362,93 +370,114 @@ export default {
         }
       },
 
-        Views: {
-          user: {
-            jadwal_sempro: {}
-          },
-          t_a: {}
+      Views: {
+        user: {
+          jadwal_sempro: {}
         },
-        // profiles:{}
-      }
-    },
-      components: {
-
-    },
-    methods: {
-
-      // getNama() {
-      //   let token = localStorage.getItem("token")
-      //   axios.get('http://127.0.0.1:8000/api/me',
-      //     { headers: { "Authorization": `Bearer ${token}` } })
-      //     .then((result) => {
-      //       this.profiles = result.data.data
-      //       console.log(this.profiles)
-      //     }).catch((err) => {
-      //       console.log(err.response)
-      //     })
-      // },
-
-      getSidang() {
-        let token = localStorage.getItem("token")
-        axios.get('http://127.0.0.1:8000/api/semhas',
-          { headers: { Authorization: `Bearer ${token}` } })
-          .then((result) => {
-            this.Sidangs = result.data,
-              console.log(this.Sidangs)
-          }).catch((err) => {
-            console.log(err.response)
-
-          })
+        t_a: {}
       },
-
-      getData() {
-        let token = localStorage.getItem("token")
-        axios.get('http://127.0.0.1:8000/api/get-semhas',
-          { headers: { Authorization: `Bearer ${token}` } })
-          .then((result) => {
-            this.Views = result.data,
-              console.log(this.Views)
-          }).catch((err) => {
-            console.log(err.response)
-
-          })
-      },
-    },
-    setup() {
-      let DocSemhass = ref([]);
-
-      onMounted(() => {
-
-        axios.get('http://127.0.0.1:8000/api/doc-semhas')
-          .then((result) => {
-            DocSemhass.value = result.data
-
-          }).catch((err) => {
-            console.log(err.response)
-
-          })
-      });
-
-      return {
-        DocSemhass,
-      };
-    },
-    mounted() {
-      this.getSidang();
-      this.getData();
+      status:{}
+      // profiles:{}
     }
-    // beforeMount() {
-    //     this.toggleEveryDisplay();
-    //     this.toggleHideConfig();
-    //     // body.classList.remove("bg-gray-100");
-    // },
-    // beforeUnmount() {
-    //     this.toggleEveryDisplay();
-    //     this.toggleHideConfig();
-    //     // body.classList.add("bg-gray-100");
-    // },
-    // methods: {
-    //     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
-    // },
-  };
+  },
+  components: {
+
+  },
+  methods: {
+
+    getStatus() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/status',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.status = result.data.data[0]
+          console.log(this.status)
+        }).catch((err) => {
+          console.log(err.response)
+        })
+    },
+    upStatus(status) {
+      let token = localStorage.getItem("token")
+      axios.post(
+        'http://127.0.0.1:8000/api/status-update',
+        {
+          status: status,
+          type: 'semhas'
+        },
+        { headers: { Authorization: `Bearer ${token}` } })
+
+        .then((result) => {
+          console.log(result)
+          this.$router.go()
+
+        }).catch((err) => {
+          console.log(err.response.data)
+        });
+    },
+
+    getSidang() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/semhas',
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then((result) => {
+          this.Sidangs = result.data,
+            console.log(this.Sidangs)
+        }).catch((err) => {
+          console.log(err.response)
+
+        })
+    },
+
+    getData() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/get-semhas',
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then((result) => {
+          this.Views = result.data,
+            console.log(this.Views)
+        }).catch((err) => {
+          console.log(err.response)
+
+        })
+    },
+  },
+  setup() {
+    let DocSemhass = ref([]);
+
+    onMounted(() => {
+
+      axios.get('http://127.0.0.1:8000/api/doc-semhas')
+        .then((result) => {
+          DocSemhass.value = result.data
+
+        }).catch((err) => {
+          console.log(err.response)
+
+        })
+    });
+
+    return {
+      DocSemhass,
+    };
+  },
+  mounted() {
+    this.getSidang();
+    this.getData();
+    this.getStatus();
+
+  }
+  // beforeMount() {
+  //     this.toggleEveryDisplay();
+  //     this.toggleHideConfig();
+  //     // body.classList.remove("bg-gray-100");
+  // },
+  // beforeUnmount() {
+  //     this.toggleEveryDisplay();
+  //     this.toggleHideConfig();
+  //     // body.classList.add("bg-gray-100");
+  // },
+  // methods: {
+  //     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
+  // },
+};
 </script>

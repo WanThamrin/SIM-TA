@@ -183,14 +183,13 @@ export default {
 
       .then((result) => {
         console.log(result),
-        Swal.fire(
-            'Permintaan Telah Diproses!',
-            'Silahkan Tunggu Konfirmasi',
-            'success'),
-      
         this.$router.push({
             name: 'Bimbingan'  
         })
+        Swal.fire(
+            'Permintaan Telah Diproses!',
+            'Silahkan Tunggu Konfirmasi',
+            'success')
      
       }).catch((err) => {
           console.log(err.response.data)

@@ -55,6 +55,7 @@
   
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 // import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialButton from "@/components/MaterialButton.vue";
@@ -87,6 +88,9 @@ export default {
           this.$router.push({
             name: 'Bimbingan'
           })
+          Swal.fire(
+            'Mata Kuliah Berhasil ditambah',
+            'success')
 
         }).catch((err) => {
           console.log(err.response.data)
