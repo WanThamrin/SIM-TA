@@ -18,14 +18,9 @@
         <div class="col-auto my-auto">
           <div class="h-100">
             <h5 class="mb-1">{{ profiles.name }}</h5>
-            <p class="mb-0 font-weight-normal text-sm"> Informatika</p>
+            <span v-if="role=='dosen'" class="mb-0 font-weight-normal text-sm"> Dosen Informatika</span>
+            <span v-if="role=='user'" class="mb-0 font-weight-normal text-sm"> Mahasiswa Informatika</span>
             <div class="align-middle text-center ">
-              <!-- <router-link :to="{ }" class="btn btn-light disabled m-2 p-2 me-0" type="button">
-                <a class="text-normal text-black">Edit
-                </a>
-              </router-link> -->
-
-
             </div>
           </div>
         </div>
@@ -34,14 +29,9 @@
           <div class="p-3 pb-0 card-header">
             <div class="row">
               <div class="col-md-8 d-flex align-items-center">
-                <h6 class="mb-0">Informasi Profil</h6>
+                <h5 class="mb-0">Informasi Profil</h5>
               </div>
               <div class="col-md-4 text-end">
-
-                <!-- <a :href="action.route">
-                  <i class="text-sm fas fa-user-edit text-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
-                    :title="action.tooltip"></i>
-                </a> -->
               </div>
             </div>
           </div>
@@ -57,18 +47,9 @@
                 <strong class="text-dark">Email :</strong> {{ profiles.email }}
               </li>
               <li class="pb-0 border-0 list-group-item ps-0">
-                <!-- <strong class="text-sm text-dark">Social:</strong> &nbsp;
-          <a
-            v-for="({ icon, link }, index) of social"
-            :key="index"
-            class="py-0 mb-0 btn-simple ps-1 pe-2"
-            :href="link"
-          >
-            <i :class="`fa fa-brands ${icon}`"></i>
-          </a> -->
               </li>
             </ul>
-          </div>
+          </div> 
 
           <hr class="vertical dark" />
 
@@ -77,7 +58,7 @@
       <div v-if="profiles.role == 'dosen'" class="card card-plain h-100 col-12">
         <!-- POV Informasi TA -->
         <div class="p-3 pb-0 card-header">
-          <h6 class="mb-0">Informasi Tugas Akhir
+          <h6 class="mb-0">Keterangan Tambahan
             <router-link :to="{ name: 'Tambah-Dosen' }" class="btn btn-success m-2 p-2" type="button">
               <a class="fas fa-pencil text-normal text-white">Edit Data
               </a>
@@ -103,13 +84,19 @@
         <!-- POV Informasi TA -->
         <div class="p-3 pb-0 card-header">
           <h6 class="mb-0">Informasi Tugas Akhir
-            <router-link :to="{ name: 'Edit-Mhs' }" class="btn btn-success m-2 p-2" type="button">
+            <router-link :to="{ name: 'Tables' }" class="btn btn-info m-2 p-2" type="button" v-if="tasks===null">
+              <a class="fas fa-pencil text-normal text-white">Daftar Tugas Akhir
+              </a>
+            </router-link>
+            <router-link :to="{ name: 'Edit-Mhs' }" class="btn btn-success m-2 p-2" type="button" v-else>
               <a class="fas fa-pencil text-normal text-white">Edit Data
               </a>
             </router-link>
           </h6>
         </div>
-        <div class="card-body pt-4 p-3">
+        <div class="card-body pt-4 p-3" v-if="tasks===null">
+        </div>
+        <div class="card-body pt-4 p-3" v-else>
           <ul class="list-group">
             <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
               <div class="d-flex flex-column">
@@ -171,12 +158,15 @@
 <script>
 //   import DefaultProjectCard from "./components/DefaultProjectCard.vue";
 import axios from 'axios';
+
 // import { onMounted, ref } from "vue";
 
 // import ProfileInfoCard1 from "../../ProfileInfoCard.vue";
 
 export default {
   name: "Profile",
+  inject: ['is_admin','is_superadmin','role'],
+
   data() {
     return {
       profiles: {},

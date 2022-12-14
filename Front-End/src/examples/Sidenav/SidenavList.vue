@@ -14,7 +14,7 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="is_admin && role == 'dosen' || role == 'user' || role == 'dosen'">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="bimbingan"
           navText="Bimbingan">
           <template v-slot:icon>
@@ -32,7 +32,7 @@
           
         </sidenav-collapse>
       </li> -->
-      <li class="nav-item">
+      <li class="nav-item" v-if="is_admin && role == 'dosen' || role == 'user' || role == 'dosen'">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="sempro"
           navText="Seminar Proposal">
           <template v-slot:icon>
@@ -40,7 +40,7 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="is_admin && role == 'dosen' || role == 'user' || role == 'dosen'">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="sidang"
           navText="Sidang Tugas Akhir">
           <template v-slot:icon>
@@ -49,7 +49,7 @@
         </sidenav-collapse>
       </li>
       
-      <li class="nav-item" v-if="is_superadmin && role == 'dosen' || role == 'user' || role == 'dosen'">
+      <li class="nav-item" v-if="is_admin && role == 'dosen' || is_superadmin && role == 'dosen' || role == 'dosen'">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="penilaian"
           navText="Penilaian">
           <template v-slot:icon>
@@ -57,7 +57,7 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item" v-if="is_superadmin">
+      <li class="nav-item" v-if="is_superadmin && role == 'dosen'">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="relasi" 
         navText="Relasi">
           <template v-slot:icon>
@@ -65,8 +65,7 @@
           </template>
         </sidenav-collapse>
       </li>
-      {{is_superadmin}} {{is_admin}} {{role}}
-      <li class="nav-item">
+      <li class="nav-item" v-if="is_admin && role == 'dosen' || is_superadmin && role == 'dosen'">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="notifications"
           navText="Pengumuman">
           <template v-slot:icon>
@@ -87,14 +86,14 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="is_admin && role == 'dosen' || is_superadmin && role == 'dosen'">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="manage-data" navText="Manage Data">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">description</i>
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="is_superadmin && role == 'dosen'">
         <sidenav-collapse url="#" :aria-controls="''" v-bind:collapse="false" collapseRef="manage" navText="Manage User">
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">manage_accounts</i>
@@ -108,7 +107,8 @@
           </template>
         </sidenav-collapse>
       </li>
-      {{is_admin}}
+      
+      {{is_superadmin}} {{is_admin}} {{role}}
       <!-- <li class="nav-item">
         <sidenav-collapse
           url="/"
@@ -145,7 +145,7 @@ export default {
   methods: {
     logout() {
       console.log("logout")
-      // localStorage.removeItem('profile')
+      // localStorage.removeItem('profile') 
       localStorage.removeItem('token')
       this.getData()
       this.$router.push('/')

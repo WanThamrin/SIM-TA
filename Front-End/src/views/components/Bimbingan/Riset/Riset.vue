@@ -23,7 +23,7 @@
                     <label for="nameInput" class="form-label"> Nama Topik Riset</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="nama_riset" type="text" placeholder="Masukkan Nama Mata Kuliah" class="input-group border border-info rounded py-2 px-2 text-sm" name="nama_riset" :isRequired="true"
+                    <input id="nama_riset" type="text" placeholder="Masukkan Nama Riset" class="input-group border border-info rounded py-2 px-2 text-sm" name="nama_riset" :isRequired="true"
                       v-model="Riset.nama_riset" />
                       
                   </div>
@@ -35,13 +35,13 @@
                     </label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="bidang_riset" type="text" placeholder="Masukkan bidang_riset" class="input-group border border-info rounded py-2 px-2 text-sm" name="bidang_riset"  :isRequired="true"
+                    <input id="bidang_riset" type="text" placeholder="Masukkan bidang riset" class="input-group border border-info rounded py-2 px-2 text-sm" name="bidang_riset"  :isRequired="true"
                       v-model="Riset.bidang_riset" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">kata Kunci Topik Penelitian / Riset
+                    <label for="nameInput" class="form-label">Kata Kunci Topik Penelitian / Riset
                       <h2 class="text-danger text-sm">ex. SIM-TA</h2>
                     </label>
                   </div>
@@ -109,6 +109,7 @@ export default {
           })
           Swal.fire(
             'Topik Penelitian Berhasil ditambah',
+            'You clicked the button!',
             'success')
 
         }).catch((err) => {

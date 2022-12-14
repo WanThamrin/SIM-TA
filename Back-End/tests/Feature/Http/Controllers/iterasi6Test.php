@@ -22,8 +22,6 @@ class iterasi6Test extends TestCase
                 ->post(url('api/rev-proposal'), [
                     'note' => 'Bab 1 di revisi',
                     'file'=> UploadedFile::fake()->create('laporan.pdf', 1024) ,
-
-
                 ]);
             $response->assertStatus(200);
     }

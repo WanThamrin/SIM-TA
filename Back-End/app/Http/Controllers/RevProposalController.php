@@ -29,6 +29,16 @@ class RevProposalController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
+    public function DetailRevisi($id)
+    {
+        $RevProposal = RevProposal::where('users_id',$id)->first();
+        $response =[
+            'message' => 'List Revisi Proposal',
+            'data'=> $RevProposal
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -60,7 +70,7 @@ class RevProposalController extends Controller
         $file = $request->file('file')->getClientOriginalName();
         $request->file('file')->move(public_path('RevProposal'),$file);
 
-            // dd($request->all()) ;
+
         try {
 
             $RevProposal = RevProposal::create([
@@ -120,14 +130,9 @@ class RevProposalController extends Controller
     public function update(Request $request, $id)
     {
 
-        $RevProposal = RevProposal::findOrFail($id);
-
         $validator = Validator::make($request->all(), [
-            'nama_riset'=>['required'],
-            'bidang_riset'=>['required'],
+            'file'=>['required'],
             'note'=>['required'],
-            'keyword'=>['required']
-
         ]);
 
         if ($validator->fails()) {
@@ -135,14 +140,23 @@ class RevProposalController extends Controller
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        $file = $request->file('file')->getClientOriginalName();
+        $request->file('file')->move(public_path('RevProposal'),$file);
+
+
         try {
-            $RevProposal -> update($request->all());
+
+            $RevProposal = RevProposal::update([
+                'users_id'=>auth()->id(),
+                'note' => $request->note,
+                'file' => $file
+            ]);
             $response=[
-                'message' => 'RevProposal telah diubah',
+                'message' => ' Form RevProposal telah dibuat',
                 'data'=> $RevProposal
             ];
 
-            return response()->json($response, Response::HTTP_OK);
+            return response()->json($response, Response::HTTP_CREATED);
 
         } catch (QueryException $e) {
             return response()->json([

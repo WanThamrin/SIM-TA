@@ -28,9 +28,6 @@
                       Keyword Pengumuman
                     </th>
                     <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                      Status
-                    </th>
-                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                       Keterangan
                     </th>
                     <!-- <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
@@ -63,9 +60,6 @@
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-sm font-weight-medium">{{ Info.keyword }}</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-sm font-weight-medium">{{ Info.judul }}</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-sm font-weight-medium">{{ Info.time }}</span>
@@ -147,9 +141,6 @@
                         Keyword Dokumen
                       </th>
                       <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                        Status
-                      </th>
-                      <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                         Keterangan
                       </th>
                       <!-- <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
@@ -183,9 +174,6 @@
                       </td>
                       <td class="align-middle text-center">
                         <span class="text-sm font-weight-medium">{{ DocSempro.keyword }} </span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-sm font-weight-medium">{{ DocSempro.judul }} </span>
                       </td>
                       <td class="align-middle text-center">
                         <span class="text-secondary text-sm font-weight-medium">{{ DocSempro.time }}</span>
@@ -238,9 +226,6 @@
                         Keyword Dokumen
                       </th>
                       <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
-                        Status
-                      </th>
-                      <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
                         Keterangan
                       </th>
                       <!-- <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-7">
@@ -276,9 +261,6 @@
                         <span class="text-sm font-weight-medium">{{ DocSemha.keyword }} </span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-sm font-weight-medium">{{ DocSemha.judul }} </span>
-                      </td>
-                      <td class="align-middle text-center">
                         <span class="text-secondary text-sm font-weight-medium">{{ DocSemha.time }}</span>
                       </td>
                       <td class="text-center">
@@ -309,7 +291,7 @@
     </div>
 
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-8 mx-auto">
         <div class="card mt-4">
           <div class="card-header p-3">
@@ -398,8 +380,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="position-fixed bottom-1 end-1 z-index-2">
+    </div> -->
+    <!-- <div class="position-fixed bottom-1 end-1 z-index-2">
       <material-snackbar v-if="snackbar === 'success'" title="Material Dashboard" date="11 mins ago"
         description="Hello, world! This is a notification message." :icon="{ component: 'done', color: 'white' }"
         color="success" :close-handler="closeSnackbar" />
@@ -412,7 +394,7 @@
       <material-snackbar v-if="snackbar === 'danger'" title="Material Dashboard" date="11 mins ago"
         description="Hello, world! This is a notification message." :icon="{ component: 'campaign', color: 'white' }"
         color="danger" :close-handler="closeSnackbar" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -420,8 +402,8 @@
 import axios from 'axios';
 // import { onMounted, ref } from "vue";
 
-import MaterialAlert from "@/components/MaterialAlert.vue";
-import MaterialSnackbar from "@/components/MaterialSnackbar.vue";
+// import MaterialAlert from "@/components/MaterialAlert.vue";
+// import MaterialSnackbar from "@/components/MaterialSnackbar.vue";
 import setNavPills from "@/assets/js/nav-pills.js";
 
 // import MaterialPagination from "@/components/MaterialPagination.vue";
@@ -439,8 +421,8 @@ export default {
     };
   },
   components: {
-    MaterialAlert,
-    MaterialSnackbar,
+    // MaterialAlert,
+    // MaterialSnackbar,
     // MaterialPagination,
     // MaterialPaginationItem
   },
@@ -492,7 +474,7 @@ export default {
         'http://127.0.0.1:8000/api/info/' + id
       )
         .then(() => {
-          this.Infos.value.splice(this.Infos.value.indexOf(id), 1);
+          this.Infos.data.splice(this.Infos.data.findIndex((item)=>item.id===id),1);
           this.$router.go()
 
         }).catch((err) => {

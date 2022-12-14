@@ -1,8 +1,8 @@
 <template>
     <!-- POV Mahasiswa -->
     <!-- v-if="profiles.role == 'user'" -->
-    <div class="container-fluid" v-if=" role == 'user'">
-    <div class="page-header min-height-200 border-radius-xl mt-4" style="
+    <div class="container-fluid" v-if="role == 'user'">
+        <div class="page-header min-height-200 border-radius-xl mt-4" style="
     background-image:url('https://media.istockphoto.com/photos/businessman-working-modern-compter-document-management-system-virtual-picture-id1368237807?k=20&m=1368237807&s=612x612&w=0&h=9lEc3lJFgkrCTO1aHcSHYO2Z22PFKX53YYUDy9Rsaqc=')
       ">
             <span class="mask bg-gradient-info opacity-2"></span>
@@ -100,11 +100,10 @@
             </div>
         </div>
     </div>
-    {{role}}
 
     <!-- POV Dosen -->
     <!-- v-if="profiles.role == 'dosen'" -->
-    <div class="container-fluid py-4" v-if=" role == 'dosen'">
+    <div class="container-fluid py-4" v-if="role == 'dosen'">
         <div class="row">
             <div class="col-16">
                 <div class="row mt-4">
@@ -270,9 +269,10 @@
                                         <th class="text-center text-dark opacity-2"></th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     <!-- v-for="(RegisTA, index) in RegisTAs.data" :key="index" -->
-                                    <tr v-for="(RegisTA, index) in RegisTAs.dospem1" :key="index">
+                                    <tr v-for="(RegisTA, index) in RegisTAs.dospem1.user" :key="index">
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
@@ -469,7 +469,7 @@
                                                         class="avatar avatar-sm me-3 border-radius-lg" alt="user1" />
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ Bimbingan.name }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ Bimbingan.user.name }}</h6>
                                                     <p class="text-sm text-secondary mb-0">
                                                         {{ Bimbingan.email }}
                                                     </p>
@@ -483,10 +483,20 @@
                                             <span class="text-sm font-weight-normal">{{ Bimbingan.keyword }}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-info text-sm font-weight-medium">23/04/2022</span>
+                                            <span class="badge badge-sm bg-gradient-light text-dark"
+                                                v-if="Bimbingan.user.jadwal_sempro === null"> -
+                                            </span>
+                                            <span class="text-info text-sm font-weight-medium" v-else>{{
+                                                   Bimbingan.user.jadwal_sempro.hari
+                                            }}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-info text-sm font-weight-medium">23/08/2022</span>
+                                            <span class="badge badge-sm bg-gradient-light text-dark"
+                                                v-if="Bimbingan.user.jadwal_semhas === null"> -
+                                            </span>
+                                            <span class="text-info text-sm font-weight-medium" v-else>{{
+                                                   Bimbingan.user.jadwal_semhas.hari
+                                            }}</span>
                                         </td>
                                         <td class="align-middle">
                                             <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
@@ -560,10 +570,20 @@
                                             <span class="text-sm font-weight-normal">{{ Bimbingan.keyword }}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-info text-sm font-weight-medium">23/04/2022</span>
+                                            <span class="badge badge-sm bg-gradient-light text-dark"
+                                                v-if="Bimbingan.user.jadwal_sempro === null"> -
+                                            </span>
+                                            <span class="text-info text-sm font-weight-medium" v-else>{{
+                                                   Bimbingan.user.jadwal_sempro.hari
+                                            }}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-info text-sm font-weight-medium">23/08/2022</span>
+                                            <span class="badge badge-sm bg-gradient-light text-dark"
+                                                v-if="Bimbingan.user.jadwal_semhas === null"> -
+                                            </span>
+                                            <span class="text-info text-sm font-weight-medium" v-else>{{
+                                                   Bimbingan.user.jadwal_semhas.hari
+                                            }}</span>
                                         </td>
                                         <td class="align-middle">
                                             <a class="btn btn-link text-dark mb-0 px-0" href="javascript:;">
@@ -654,17 +674,17 @@ export default {
                 })
         },
 
-        getMahasiswa() {
-            let token = localStorage.getItem("token")
-            axios.get('http://127.0.0.1:8000/api/get-mahasiswa',
-                { headers: { "Authorization": `Bearer ${token}` } })
-                .then((result) => {
-                    this.mahasiwas = result.data.data
-                    console.log(this.mahasiwas)
-                }).catch((err) => {
-                    console.log(err.response)
-                })
-        },
+        // getMahasiswa() {
+        //     let token = localStorage.getItem("token")
+        //     axios.get('http://127.0.0.1:8000/api/get-mahasiswa',
+        //         { headers: { "Authorization": `Bearer ${token}` } })
+        //         .then((result) => {
+        //             this.mahasiwas = result.data.data
+        //             console.log(this.mahasiwas)
+        //         }).catch((err) => {
+        //             console.log(err.response)
+        //         })
+        // },
 
         updateStatus(id, status) {
             console.log(id, status)
@@ -742,18 +762,15 @@ export default {
                 axios.delete(
                     'http://127.0.0.1:8000/api/beban-bimbingan/' + id,
                     { headers: { "Authorization": `Bearer ${token}` } }
-
                 )
                     .then(() => {
-                        bebanBimbingans.value.splice(bebanBimbingans.value.indexOf(id), 1);
-                        this.$router.push({
-                            name: 'Bimbingan'
-                        })
+                        bebanBimbingans.value.data.splice(bebanBimbingans.value.data.findIndex((item)=>item.id===id),1);
+                        // bebanBimbingans.value.data.splice(1,1);
                         Swal.fire(
-                            'Mata Kuliah Berhasil dihapus',
+                            'Mata Kuliah Berhasil dihapus','done',
                             'success')
-
-                    }).catch((err) => {
+                    })
+                    .catch((err) => {
                         console.log(err.response.data);
                     });
         }

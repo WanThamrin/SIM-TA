@@ -208,7 +208,9 @@ export default {
         },
       },
       JadwalSempros: {
-        semproId: this.$route.params.id
+        semproId: this.$route.params.id,
+        dospeng1:"",
+        dospeng2:"",
       },
       dosens: {}
 
@@ -241,8 +243,12 @@ export default {
         { headers: { Authorization: `Bearer ${token}` } })
         .then((result) => {
           this.Sempro = result.data.data
+          if(result.data.data.user.jadwal_sempro != null){
+            this.JadwalSempros = result.data.data.user.jadwal_sempro
+            this.JadwalSempros.dospeng1 = result.data.data.t_a.dospeng1
+            this.JadwalSempros.dospeng2 = result.data.data.t_a.dospeng2
+          }
           this.getDosen(this.Sempro)
-          console.log(this.Sempro)
         }).catch((err) => {
           console.log(err.response)
 
@@ -282,7 +288,7 @@ export default {
             name: 'Sempro'
           })
           Swal.fire(
-            'Penjadwalan telah dilakukan',
+            'Penjadwalan telah dilakukan','Done',
             'success')
 
         }).catch((err) => {

@@ -1,7 +1,7 @@
 <template>
   <!-- POV Mahasiswa -->
   <!-- v-if="profiles.role == 'user'" -->
-  <div class="container-fluid py-2">
+  <div class="container-fluid py-2" v-if=" role == 'user'">
     <div class="row">
       <div class="col-12">
         <div class="row mt-4">
@@ -217,7 +217,7 @@
       </div>
     </div>
 
-    <div class="container-fluid mx-2 row">
+    <div class="container-fluid mx-2 row" v-if=" is_admin && role == 'dosen'">
       <button @click=upStatus(1) class="btn btn-dark mx-3" type="button" v-if="status.status === 0">
         <i class="fas fa-lock-open m-0 p-0 me-2"></i>Buka Pendaftaran
       </button>
@@ -227,7 +227,7 @@
       </button>
     </div>
 
-    <div class="row my-4">
+    <div class="row my-4" v-if=" is_admin && role == 'dosen'">
       <div class="col-12">
         <div class="card my-4">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -327,12 +327,12 @@
                       }} ({{ Sidang.user.jadwal_semhas.ruangan }})</span>
                     </td>
                     <td class="text-center">
-                      <a class="btn btn-link text-dark mb-0" href="javascript:;">
+                      <a class="btn btn-link text-dark mb-0" href="javascript:;" v-if="Sidang.user.jadwal_semhas === null">
                         <router-link :to="{ name: 'CreateSidang', params: { id: Sidang.id } }"><i
                             class="fas fa-calendar-plus text-gradient-dark fa-lg" aria-hidden="true"></i>
                         </router-link>
                       </a>
-                      <a class="btn btn-link text-dark mb-0 " href="javascript:;">
+                      <a class="btn btn-link text-dark mb-0 " href="javascript:;" v-else>
                         <router-link :to="{ name: 'EditJadSemhas', params: { id: Sidang.id } }"><i
                             class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                         </router-link>
@@ -355,6 +355,7 @@ import { onMounted, ref } from "vue";
 
 export default {
   name: "sidang",
+  inject: ['is_admin', 'is_superadmin', 'role'],
   data() {
     return {
       Sidangs: {

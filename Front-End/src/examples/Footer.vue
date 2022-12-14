@@ -14,11 +14,12 @@
               href="https://if.itk.ac.id/"
               class="font-weight-bold"
               target="_blank"
-              >Informatika ITK</a
+              > Informatika ITK</a
             >
             
           </div>
         </div>
+        <!-- Ridwan Thamrin - -->
         <!-- <div class="col-lg-6">
           <ul
             class="nav nav-footer justify-content-center justify-content-lg-end"

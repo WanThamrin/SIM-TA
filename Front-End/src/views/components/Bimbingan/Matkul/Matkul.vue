@@ -23,8 +23,8 @@
                     <label for="nameInput" class="form-label">Nama Mata Kuliah</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="mata_kuliah" type="text" placeholder="Masukkan Nama Mata Kuliah" class="input-group border border-info rounded py-2 px-2 text-sm" name="mata_kuliah"  :isRequired="true"
-                      v-model="bebanBimbingan.mata_kuliah" />
+                    <input id="mata_kuliah" type="text" placeholder="Masukkan Nama Mata Kuliah" class="input-group border border-info rounded py-2 px-2 text-sm" name="mata_kuliah"  
+                      v-model="bebanBimbingan.mata_kuliah" :isRequired="true" />
                       
                   </div>
                 </div>
@@ -35,8 +35,8 @@
                     </label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <textarea id="catatan" type="textarea" placeholder="Masukkan Catatan" class="input-group border border-info rounded py-2 px-2 text-sm" name="catatan" size="md" :isRequired="true"
-                      v-model="bebanBimbingan.catatan" />
+                    <textarea id="catatan" type="textarea" placeholder="Masukkan Catatan" class="input-group border border-info rounded py-2 px-2 text-sm" name="catatan" size="md" 
+                      v-model="bebanBimbingan.catatan" :isRequired="true"/>
                   </div>
                 </div>
                 <div class="text-end">
@@ -90,6 +90,7 @@ export default {
           })
           Swal.fire(
             'Mata Kuliah Berhasil ditambah',
+            'You clicked the button!',
             'success')
 
         }).catch((err) => {

@@ -11,11 +11,11 @@
       <div class="col-xxl-12">
         <div class="card card-body mx-3 mx-md-4 mt-n6">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Edit Daftar Seminar Proposal</h4>
+            <h4 class="card-title mb-0 flex-grow-1">Form Jadwal Seminar Proposal</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
-            <p class="text-muted">Form Edit Seminar Proposal</p>
+            <p class="text-muted">Form Jadwal Seminar Proposal</p>
             <div class="live-preview">
               <form @submit.prevent="store()">
                 <!-- <input type="text" label="" name="users_id" size="md"

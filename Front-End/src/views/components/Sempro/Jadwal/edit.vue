@@ -101,7 +101,7 @@
                     <label for="nameInput" class="form-label">Dosen Penguji Utama</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <select v-model="JadwalSempros.dospeng1" @change="checkDospeng()" 
+                    <select v-model="JadwalSempros.dospeng1" @change="checkDospeng()"  :required="true" 
                     class="border border-info rounded py-2 px-2 text-sm">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
@@ -113,7 +113,7 @@
                     <label for="nameInput" class="form-label">Dosen Penguji Pendamping</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <select v-model="JadwalSempros.dospeng2" @change="checkDospeng()" 
+                    <select v-model="JadwalSempros.dospeng2" @change="checkDospeng()"  :required="true"
                     class="border border-info rounded py-2 px-2 text-sm">
                       <option v-for="(dosen, index) in dosens" :key="index" :value="dosen.id">{{ dosen.name }}</option>
                       <option class="d-lg-none">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
@@ -125,7 +125,7 @@
                     <label for="nameInput" class="form-label ">Jadwal Seminar Proposal</label>
                   </div>
                   <div class="col-lg my-1">
-                    <input id="jadwal" type="date" min="today" label="" name="jadwal" size="md"
+                    <input id="jadwal" type="date" min="today" label="" name="jadwal" size="md" :required="true"
                       class="border border-info rounded py-2 px-2 text-sm" v-model="JadwalSempros.hari">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
@@ -133,7 +133,7 @@
                     <label for="nameInput" class="form-label text-danger">Jam Mulai</label>
                   </div>
                   <div class="col-lg my-1">
-                    <input id="jadwal" type="time" label="" name="jadwal" size="md"
+                    <input id="jadwal" type="time" label="" name="jadwal" size="md" :required="true"
                       class="border border-info rounded py-2 px-2 text-sm" v-model="JadwalSempros.jam_mulai">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
@@ -141,7 +141,7 @@
                     <label for="nameInput" class="form-label text-danger">Jam Akhir</label>
                   </div>
                   <div class="col-lg my-1">
-                    <input id="jadwal" type="time" label="" name="jadwal" size="md"
+                    <input id="jadwal" type="time" label="" name="jadwal" size="md" :required="true"
                       class="border border-info rounded py-2 px-2 text-sm"  v-model="JadwalSempros.jam_akhir">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
@@ -243,19 +243,30 @@ export default {
           this.JadwalSempros.dospeng1 = result.data.data.t_a.dospeng1
           this.JadwalSempros.dospeng2 = result.data.data.t_a.dospeng2
           console.log(this.Sempro)
+          this.getDosen(this.Sempro)
+
         }).catch((err) => {
           console.log(err.response)
 
         })
     },
 
-    getDosen() {
+    getDosen(Sempro) {
+      console.log(Sempro.t_a)
+
       let token = localStorage.getItem("token")
+      let arrayDosen = []
+      let dospem1 = Sempro.t_a.dospem1
+      let dospem2 = Sempro.t_a.dospem2
       axios.get('http://127.0.0.1:8000/api/get-dosen',
         { headers: { "Authorization": `Bearer ${token}` } })
         .then((result) => {
-          this.dosens = result.data.data
-          console.log(this.dosens)
+          result.data.data.forEach(data=>{
+            if (data.id!=dospem1 && data.id!=dospem2) {
+              arrayDosen.push(data)
+            }
+          })
+          this.dosens = arrayDosen
         }).catch((err) => {
           console.log(err.response)
         })
@@ -274,7 +285,7 @@ export default {
             name: 'Sempro'
           })
           Swal.fire(
-            'Edit Penjadwalan telah dilakukan',
+            'Edit Penjadwalan telah dilakukan','Done',
             'success')
 
         }).catch((err) => {
@@ -285,7 +296,7 @@ export default {
 
  mounted() {
     this.getSempro();
-    this.getDosen();
+    // this.getDosen();
     // this.getJadwal();
 
   }

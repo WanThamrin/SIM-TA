@@ -165,7 +165,7 @@
                               class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
-                        <a class="btn btn-link mb-0 " href="javascript:;">
+                        <a class="btn btn-link mb-0 " href="javascript:;" @click.prevent="hapus(Sempro.id)">
                           <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
                         </a>
                       </td>
@@ -237,7 +237,7 @@
                               class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
-                        <a class="btn btn-link mb-0 " href="javascript:;">
+                        <a class="btn btn-link mb-0 " href="javascript:;"  @click.prevent="drop(Sidang.id)">
                           <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
                         </a>
                       </td>
@@ -426,7 +426,7 @@
                       </td>
                       <td class="text-center">
                         <a class="btn btn-link text-dark mb-0" href="javascript:;">
-                          <router-link :to="{ name: 'CreateSidang', params: { id: Sidang.id } }"><i
+                          <router-link :to="{ name: 'JadSidang', params: { id: Sidang.id } }"><i
                               class="fas fa-calendar-plus text-gradient-dark fa-lg" aria-hidden="true"></i>
                           </router-link>
                         </a>
@@ -477,14 +477,11 @@ export default {
       },
       Finals: {},
 
-      FileSempros: {},
-
       Sidangs: {
         user: {},
         t_a: {}
       },
 
-      Berkas: {}
     }
 
   },
@@ -503,19 +500,6 @@ export default {
         })
     },
 
-    // getBerkas() {
-    //   let token = localStorage.getItem("token")
-    //   axios.get('http://127.0.0.1:8000/api/sempro/'+id,
-    //     { headers: { Authorization: `Bearer ${token}` } })
-    //     .then((result) => {
-    //       this.Berkas = result.data,
-    //         console.log(this.Berkas)
-    //     }).catch((err) => {
-    //       console.log(err.response)
-
-    //     })
-    // },
-
     getFinal() {
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/get-data',
@@ -529,18 +513,7 @@ export default {
         })
     },
 
-    getDokumen() {
-      let token = localStorage.getItem("token")
-      axios.get('http://127.0.0.1:8000/api/sempro/' + this.$route.params.id,
-        { headers: { Authorization: `Bearer ${token}` } })
-        .then((result) => {
-          this.FileSempros = result.data.data
-          console.log(this.FileSempros)
-        }).catch((err) => {
-          console.log(err.response)
-
-        })
-    },
+    
     getSidang() {
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/semhas',
@@ -566,13 +539,40 @@ export default {
         }).catch((err) => {
           console.log(err.response.data);
         });
-    }
+    },
+
+    drop(id) {
+      let token = localStorage.getItem("token")
+      axios.delete(
+        'http://127.0.0.1:8000/api/semhas/' + id,
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then(() => {
+          this.Sidangs.value.splice(this.Sidangs.value.indexOf(id), 1);
+          this.drop()
+          this.$router.go()
+        }).catch((err) => {
+          console.log(err.response.data);
+        });
+    },
+
+    hapus(id) {
+      let token = localStorage.getItem("token")
+      axios.delete(
+        'http://127.0.0.1:8000/api/sempro/' + id,
+        { headers: { Authorization: `Bearer ${token}` } })
+        .then(() => {
+          this.Sempros.value.splice(this.Sempros.value.indexOf(id), 1);
+          this.hapus()
+          this.$router.go()
+        }).catch((err) => {
+          console.log(err.response.data);
+        });
+    },
   },
   mounted() {
     this.getSempro()
     this.getSidang()
     this.getFinal()
-    // this.getSupDosen()
 
     setNavPills();
   }

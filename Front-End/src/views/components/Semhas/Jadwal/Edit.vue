@@ -131,7 +131,7 @@
                     <label for="nameInput" class="form-label ">Jadwal Sidang Tugas Akhir</label>
                   </div>
                   <div class="col-lg my-1">
-                    <input id="jadwal" type="date" min="today" label="" name="jadwal" size="md"
+                    <input id="jadwal" type="date" min="today" label="" name="jadwal" size="md" :required="true"
                       class="border border-info rounded py-2 px-2 text-sm" v-model="JadwalSidangs.hari">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
@@ -139,7 +139,7 @@
                     <label for="nameInput" class="form-label text-danger">Jam Mulai</label>
                   </div>
                   <div class="col-lg my-1">
-                    <input id="jadwal" type="time" label="" name="jadwal" size="md"
+                    <input id="jadwal" type="time" label="" name="jadwal" size="md" :required="true"
                       class="border border-info rounded py-2 px-2 text-sm" v-model="JadwalSidangs.jam_mulai">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
@@ -147,7 +147,7 @@
                     <label for="nameInput" class="form-label text-danger">Jam Akhir</label>
                   </div>
                   <div class="col-lg my-1">
-                    <input id="jadwal" type="time" label="" name="jadwal" size="md"
+                    <input id="jadwal" type="time" label="" name="jadwal" size="md" :required="true"
                       class="border border-info rounded py-2 px-2 text-sm"  v-model="JadwalSidangs.jam_akhir">
                     <!-- <h6 class="mb-0 text-md  my-1">Sisca Sabyan S.Kom M.Kom</h6> -->
                   </div>
@@ -172,7 +172,7 @@
                     </label>
                   </div>
                   <div class="col-lg-9 my-2">
-                    <input id="Keterangan" type="text" placeholder="Masukkan Keterangan" 
+                    <input id="Keterangan" type="text" placeholder="Masukkan Keterangan"  :required="true"
                     class="input-group border border-info rounded py-2 px-2 text-sm" name="Keterangan" 
                     v-model="JadwalSidangs.ruangan" :isRequired="true"
                        />
@@ -254,7 +254,7 @@ export default {
             name: 'Sidang'
           })
           Swal.fire(
-            'Edit Penjadwalan telah dilakukan',
+            'Edit Penjadwalan telah dilakukan', 'Done',
             'success')
 
         }).catch((err) => {

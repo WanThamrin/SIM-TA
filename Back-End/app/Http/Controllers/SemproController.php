@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JadwalSempro;
 use App\Models\Sempro;
+use App\Models\Semhas;
 use App\Models\RegisTA;
 use App\Models\Mahasiswa;
 use Auth;
@@ -32,6 +33,19 @@ class SemproController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
+    public function coba()
+    {
+        $sempros = Sempro::all()->count();
+        $semhas = Semhas::all()->count();
+        $regis = RegisTA::all()->count();
+
+        $response =[
+            'message' => 'aaaa',
+            'data'=>[ 'sempro' => $sempros, 'semhas' => $semhas, 'Task'=> $regis]
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
     // public function NilaiSempro()
     // {
     //     // dd(auth());
@@ -59,10 +73,6 @@ class SemproController extends Controller
         ->where('users_id',auth()->id())
         ->get();
 
-        foreach ($sempro as $key => $data) {
-            $data['sempro'] = Sempro::with('user')->where('sempro',$data->id)->count();
-        }
-
         $response =[
             'message' => 'List Sempro',
             'data'=> $sempro
@@ -79,12 +89,6 @@ class SemproController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'proposal' => 'required|mimes:pdf|max:50000',
-        //     'slide' => 'required|mimes:pdf|max:50000',
-        //     'validasi_dospem1' => 'required|mimes:pdf|max:50000',
-        //     'validasi_dospem2' => 'required|mimes:pdf|max:50000',
-        // ]);
 
         $proposal = $request->file('proposal')->getClientOriginalName();
         $request->file('proposal')->move(public_path('Sempro/proposal'),$proposal);
@@ -98,11 +102,9 @@ class SemproController extends Controller
         $validasi_dospem2 = $request->file('validasi_dospem2')->getClientOriginalName();
         $request->file('validasi_dospem2')->move(public_path('Sempro/validasi_dospem2'),$validasi_dospem2);
 
-
-            // dd($request->all()) ;
         try {
             $TA = RegisTA::where('users_id',Auth::user()->id)->first();
-            // dd($TA->id);
+
             $sempro = Sempro::create([
                 'proposal'=>$proposal ,
                 'slide'=>$slide,
@@ -110,7 +112,6 @@ class SemproController extends Controller
                 'validasi_dospem2' => $validasi_dospem2,
                 'users_id'=>Auth::user()->id,
                 'ta_id'=>$TA->id
-                // 'ta_id'=>$TA
             ]);
             $response=[
                 'message' => ' Form sempro telah dibuat',

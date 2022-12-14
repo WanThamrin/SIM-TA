@@ -17,7 +17,7 @@ class DocSemhasController extends Controller
      */
     public function index()
     {
-        $DocSemhas = Doc_Semhas::orderBy('judul', 'ASC')->get();
+        $DocSemhas = Doc_Semhas::orderBy('id', 'ASC')->get();
         $response =[
             'message' => 'List DocSemhas',
             'data'=> $DocSemhas

@@ -10,12 +10,12 @@
       <div class="row gx-4">
         <div class="col-auto">
           <div class="position-relative" style="width: 200px">
-            <img src="@/assets/img/bruce-mars.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" />
+            <img src="@/assets/img/user.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" />
           </div>
         </div>
         <div class="col-auto my-auto">
           <div class="h-100">
-            <h5 class="mb-1">{{dosens.name}}</h5>
+            <h5 class="mb-1">{{dosens.bio.name}}</h5>
             <p class="mb-0 font-weight-normal text-sm"> Dosen Informatika</p>
           </div>
         </div>
@@ -65,18 +65,18 @@
             </div>
           </div>
           <div class="p-3 card-body">
-            <p class="text-md font-weight-normal font-italic">{{dosens.name}}</p>
+            <p class="text-md font-weight-normal font-italic">{{dosens.bio.name}}</p>
            
             <hr class="my-4 horizontal gray-light" />
             <ul class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">NIP/NIPH :</strong> {{dosens.number}}
+                <strong class="text-dark">NIP/NIPH :</strong> {{dosens.bio.number}}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Mobile:</strong> 084128141410
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Email:</strong> {{dosens.email}}
+                <strong class="text-dark">Email:</strong> {{dosens.bio.email}}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Kapasitas Pembimbing Utama: </strong>
@@ -87,7 +87,8 @@
                 <span class="badge badge-sm bg-gradient-success">2/10</span>
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Note:</strong> <a href="/">https://chat.whatsapp.com/E9QnNuDlttBBSqAXFgAA37</a>
+                <strong class="text-dark">Note:</strong> <span class="badge badge-sm bg-gradient-light text-dark" v-if="dosens.detail == null" >-</span>
+                <span v-else>{{dosens.detail.note}}</span>
               </li>
               <li class="pb-0 border-0 list-group-item ps-0">
                 <!-- <strong class="text-sm text-dark">Social:</strong> &nbsp;
@@ -129,7 +130,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(riset, idx) in dosens.riset" :key="idx">
+                    <tr v-for="(riset, idx) in dosens.bio.riset" :key="idx">
                       <td class="align-middle text-center">
                         <span class="text-sm font-weight-normal">{{ riset.keyword }}</span>
                       </td>
@@ -165,7 +166,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(bimbingan, key) in dosens.bimbingan" :key="key">
+                    <tr v-for="(bimbingan, key) in dosens.bio.bimbingan" :key="key">
                       <td class="align-middle text-center">
                         <span class="text-sm font-weight-normal">{{ bimbingan.mata_kuliah }}</span>
                       </td>
@@ -202,7 +203,10 @@ export default {
     return{
       // bebanBimbingans: {},
       // Risets:{},
-      dosens:{}
+      dosens:{
+        bio:{},
+        detail:{}
+      }
     }
     
   },

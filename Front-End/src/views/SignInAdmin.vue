@@ -165,6 +165,9 @@ export default {
                 'profile', 
                 JSON.stringify(ress.data.data))
                 console.log(JSON.stringify(ress.data.data),'res')
+                this.$router
+                .push({ name: 'Dashboard' })
+                .then(() => { this.$router.go() })
                 // console.log(localStorage.getItem('profile'),'bhgygy')
             })
             

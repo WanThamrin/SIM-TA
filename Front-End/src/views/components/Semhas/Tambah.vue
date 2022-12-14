@@ -40,7 +40,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="laporan" type="file" label="" name="laporan" @change="fileChange($event, 'laporan')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md" :required="true" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -51,7 +51,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="bimbingan" type="file" label="" name="bimbingan" @change="fileChange1($event, 'bimbingan')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md" :required="true" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -62,7 +62,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="berkas1" type="file" label="" @change="fileChange2($event, 'validasi_sidang1')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas1" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas1" size="md" :required="true" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -73,7 +73,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="berkas2" type="file" label=""  @change="fileChange3($event, 'validasi_sidang2')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas2" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas2" size="md" :required="true" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -84,7 +84,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="berkas2" type="file" label=""  @change="fileChange4($event, 'validasi_sempro')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas3" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas3" size="md"  :required="true"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -95,7 +95,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="berkas2" type="file" label=""  @change="fileChange5($event, 'bukti')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas4" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas4" size="md"  :required="true"/>
                   </div>
                 </div>
                 <div class="text-end">

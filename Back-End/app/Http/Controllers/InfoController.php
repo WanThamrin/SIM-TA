@@ -17,7 +17,7 @@ class InfoController extends Controller
      */
     public function index()
     {
-        $Info = Info::orderBy('time', 'DESC')->get();
+        $Info = Info::orderBy('id', 'ASC')->get();
         $response =[
             'message' => 'List Info',
             'data'=> $Info
@@ -45,40 +45,13 @@ class InfoController extends Controller
      */
     public function store(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'judul'=>['required'],
-        //     'keyword'=>['required'],
-        //     'file'=>['required'],
-        //     'note'=>['required'],
-        //     'status'=>['required'],
-        //     'hari'=>['required'],
-        //     'jam'=>['required'],
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json($validator->errors(),
-        //     Response::HTTP_UNPROCESSABLE_ENTITY);
-        // }
-        // return $request->all();
-
-        // $validatedData = $request->validate([
-        //     'file' => 'required|csv,txt,xlx,xls,pdf|max:2048',
-
-        //    ]);
-        // return  $request->all();
-
-
         $file = $request->file('file')->getClientOriginalName();
         $request->file('file')->move(public_path('info'),$file);
 
-            // dd($request->all()) ;
         try {
             $Info = Info::create([
                 'judul' => $request->judul,
                 'keyword' => $request->keyword,
-                // 'status' => $request->status,
-                // 'hari' => $request->hari,
-                // 'jam' => $request->jam,
                 'note' => $request->note,
                 'file' => $file
 

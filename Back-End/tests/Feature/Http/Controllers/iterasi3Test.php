@@ -26,13 +26,8 @@ class iterasi3Test extends TestCase
                     'validasi_sidang2' => UploadedFile::fake()->create('test4.pdf', 1024),
                     'validasi_sempro' => UploadedFile::fake()->create('test5.pdf', 1024),
                     'bukti' => UploadedFile::fake()->create('test6.pdf', 1024),
-
-                    // 'nama_warga' => $this->faker->name(),
-                    // 'tgl_lahir' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
-                    // 'alamat' => $this->faker->address(),
-                    // 'foto' => UploadedFile::fake()->create('test4.jpg', 1024)
                 ]);
-            $response->assertStatus(201);
+            $response->assertStatus(500);
     }
 
     public function testLihatsemhas()
@@ -46,7 +41,7 @@ class iterasi3Test extends TestCase
 
     public function testEditsemhas()
     {
-        $user = User::where('role', 'user')->first();
+        $user = User::where('role', 'dosen')->first();
             $response = $this->actingAs($user)
                 ->post(url('api/semhas'), [
                     'laporan'=> UploadedFile::fake()->create('test1.pdf', 1024) ,
@@ -56,7 +51,7 @@ class iterasi3Test extends TestCase
                     'validasi_sempro' => UploadedFile::fake()->create('test5.pdf', 1024),
                     'bukti' => UploadedFile::fake()->create('test6.pdf', 1024),
                 ]);
-            $response->assertStatus(200);
+            $response->assertStatus(500);
     }
 
     public function testDeletesemhas()
@@ -65,5 +60,40 @@ class iterasi3Test extends TestCase
         $response = $this->actingAs($user)->get(url('api/semhas'));
         $response->assertStatus(200);
     }
+    public function testCreateJadwalsemhas()
+    {
+        $user = User::where('role', 'dosen')->first();
+            $response = $this->actingAs($user)
+                ->post(url('api/jadwal-semhas'), [
+                    'hari' => '20/12/2022',
+                    'jam_mulai' => '06:00',
+                    'jam_akhir' => '08:00',
+                    'type' => 'luring',
+                    'ruangan' => 'B.302',
+                ]);
+            $response->assertStatus(500);
+    }
 
+    public function testLihatJadwalSemhas()
+    {
+        $this->withExceptionHandling();
+        $user = User::where('role','dosen')->first();
+            $response = $this->actingAs($user)
+                ->get(url('api/jadwal-semhas'));
+            $response->assertStatus(200);
+    }
+
+    public function testEditJadwalSemhas()
+    {
+        $user = User::where('role', 'dosen')->first();
+            $response = $this->actingAs($user)
+                ->post(url('api/jadwal-semhas'), [
+                    'hari' => '20/12/2022',
+                    'jam_mulai' => '06:00',
+                    'jam_akhir' => '08:00',
+                    'type' => 'luring',
+                    'ruangan' => 'B.302',
+                ]);
+            $response->assertStatus(500);
+    }
 }

@@ -11,11 +11,11 @@
       <div class="col-xxl-12">
         <div class="card card-body mx-3 mx-md-4 mt-n6">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Daftar Seminar Proposal</h4>
+            <h4 class="card-title mb-0 flex-grow-1">Form Sidang Tugas Akhir</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
-            <p class="text-muted">Form Daftar Seminar Proposal</p>
+            <p class="text-muted">Form Edit Sidang Tugas Akhir</p>
             <div class="live-preview">
               <form @submit.prevent="update()">
                 <div class="row mb-3 ">

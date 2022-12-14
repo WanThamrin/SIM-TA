@@ -1,40 +1,74 @@
 <template>
   <div class="py-4 container-fluid">
     <div class="row mb-4">
-      <h4 class="mb-4"> Selamat Datang di SIM-TA ,
+      <h4 class="mb-4"> Selamat Datang di SIM-TA , 
         <span>{{ profiles.name }}</span>
       </h4>
       <div class="col-lg-12 position-relative z-index-2">
         <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <mini-statistics-card :title="{ text: 'Tugas Akhir', value: '20 Mahasiswa' }"
-              :icon="{
-                name: 'weekend',
-                color: 'text-white',
-                background: 'dark',
-              }" />
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                      Tugas Akhir</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ Total.Task }} Mahasiswa</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="material-icons-round opacity-10 fs-5">weekend</i>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
-            <mini-statistics-card :title="{ text: 'Seminar Proposal', value: '20 Mahasiswa' }" :icon="{
-                name: 'cast_for_education',
-                color: 'text-white',
-                background: 'primary',
-              }" />
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                      Seminar Proposal</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ Total.sempro }} Mahasiswa</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="material-icons-round opacity-10 fs-5">cast_for_education</i>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
-            <mini-statistics-card :title="{ text: 'Seminar Hasil', value: '20 Mahasiswa' }" :icon="{
-                name: 'cast_for_education',
-                color: 'text-white',
-                background: 'success',
-              }" />
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                      Sidang Tugas Akhir</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ Total.semhas }} Mahasiswa</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="material-icons-round opacity-10 fs-5">school</i>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
-            <mini-statistics-card :title="{ text: 'Wisuda', value: '20 Mahasiswa' }"
-               :icon="{
-                name: 'school',
-                color: 'text-white',
-                background: 'info',
-              }" />
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                      Wisuda</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ Total.semhas }} Mahasiswa</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="material-icons-round opacity-10 fs-5">school</i>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -57,7 +91,7 @@
                   <span class="text-dark font-weight-bold ms-sm-2">{{ Info.keyword }}</span>
                 </span>
                 <span class="mb-2 text-md">
-                  Waktu: 
+                  Waktu:
                   <span class="text-dark m-2 ms-sm-2 font-weight-bold">{{ Info.time }}</span>
                 </span>
                 <span class="text-md">
@@ -66,35 +100,18 @@
                 </span>
                 <span class="text-md">
                   File:
-                  <a class="btn btn-link text-sm mb-0" :href="'http://127.0.0.1:8000/info/'+Info.file" target="_blank" >
-                    <i class="fas fa-file-pdf text-lg me-2" aria-hidden="true"><span
-                      class="m-2">{{ Info.file }}</span></i>
-                    
+                  <a class="btn btn-link text-sm mb-0" :href="'http://127.0.0.1:8000/info/' + Info.file" target="_blank">
+                    <i class="fas fa-file-pdf text-lg me-2" aria-hidden="true"><span class="m-2">{{ Info.file
+                    }}</span></i>
+
                   </a>
                 </span>
-              <!-- <a href= "http://127.0.0.1:8000/api/storage/app/public/Info/file_1670090385.pdf">aaaa</a> -->
+                <!-- <a href= "http://127.0.0.1:8000/api/storage/app/public/Info/file_1670090385.pdf">aaaa</a> -->
               </div>
             </li>
           </ul>
         </div>
       </div>
-      <!-- <div class="col-lg-4 col-md-6">
-        <timeline-list title="Progress" description="<i class='fa fa-arrow-up text-success' aria-hidden='true'></i>
-        <span class='font-weight-bold'>24%</span> this month">
-          <timeline-item :icon="{
-            component: 'cast_for_education',
-            class: 'text-success',
-          }" title="Seminar Hasil" date-time="22 DEC 7:20 PM" />
-          <TimelineItem :icon="{
-            component: 'cast_for_education',
-            class: 'text-danger',
-          }" title="Seminar Proposal" date-time="21 DEC 11 PM" />
-          <TimelineItem :icon="{
-            component: 'collections_bookmark',
-            class: 'text-info',
-          }" title="Daftar Tugas Akhir" date-time="21 DEC 9:34 PM" />
-        </timeline-list>
-      </div> -->
     </div>
   </div>
 </template>
@@ -102,31 +119,20 @@
 import axios from 'axios';
 // import { onMounted, ref } from "vue";
 
-import MiniStatisticsCard from "./components/MiniStatisticsCard.vue";
-// import TimelineList from "@/examples/Cards/TimelineList.vue";
-// // import TimelineItem from "@/examples/Cards/TimelineItem.vue";
-// import logoXD from "@/assets/img/small-logos/logo-xd.svg";
-// import logoAtlassian from "@/assets/img/small-logos/logo-atlassian.svg";
-// import logoSlack from "@/assets/img/small-logos/logo-slack.svg";
-// import logoSpotify from "@/assets/img/small-logos/logo-spotify.svg";
-// import logoJira from "@/assets/img/small-logos/logo-jira.svg";
-// import logoInvision from "@/assets/img/small-logos/logo-invision.svg";
-// import team1 from "@/assets/img/team-1.jpg";
-// import team2 from "@/assets/img/team-2.jpg";
-// import team3 from "@/assets/img/team-3.jpg";
-// import team4 from "@/assets/img/team-4.jpg";
+
 export default {
   name: "dashboard-default",
   data() {
     return {
       profiles: {},
-      Infos: {}
+      Infos: {},
+      Total: {}
     };
   },
 
   methods: {
     getNama() {
-      
+
       console.log(localStorage.getItem('profile'), 'dashboardni')
       let token = localStorage.getItem("token")
       axios.get('http://127.0.0.1:8000/api/me',
@@ -136,9 +142,9 @@ export default {
           console.log(this.profiles)
         }).catch((err) => {
           this.$router.push({
-              name: '/'
-            })
-          console.log(err.response,'jhgggg')
+            name: '/'
+          })
+          console.log(err.response, 'jhgggg')
         })
     },
     getInfo() {
@@ -149,15 +155,28 @@ export default {
         }).catch((err) => {
           console.log(err.response)
         })
+    },
+
+    getTotal() {
+      let token = localStorage.getItem("token")
+      axios.get('http://127.0.0.1:8000/api/coba',
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((result) => {
+          this.Total = result.data.data
+          console.log(this.Total)
+        }).catch((err) => {
+          console.log(err.response)
+        })
     }
   },
   mounted() {
     this.getNama()
     this.getInfo()
+    this.getTotal()
   },
 
   components: {
-    MiniStatisticsCard,
+    // MiniStatisticsCard,
     // TimelineList,
     // TimelineItem,
   },

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\StatusPendaftaran;
 
 
@@ -18,4 +19,6 @@ class StatusController extends Controller
         return response()->json(['data'=>StatusPendaftaran::where('type',$request->type)
         ->update(['status'=>$request->status])], 200);
     }
+
+
 }

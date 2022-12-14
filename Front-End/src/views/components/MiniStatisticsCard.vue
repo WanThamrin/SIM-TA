@@ -14,7 +14,7 @@
       </div>
       <div class="pt-1" :class="isRTL ? 'text-start' : 'text-end'">
         <p class="text-sm mb-0 text-capitalize">{{ title.text }}</p>
-        <h4 class="mb-0">{{ title.value }}</h4>
+        <h4 class="mb-0"></h4>
       </div>
     </div>
     <hr class="dark horizontal my-0" />
@@ -39,7 +39,7 @@ export default {
       type: Object,
       required: true,
       text: String,
-      value: [Number, String],
+      value: [],
     },
     detail: {
       type: String,

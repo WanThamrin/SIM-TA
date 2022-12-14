@@ -24,6 +24,7 @@ import Sempro from "../views/components/Sempro/Sempro.vue";
 import TambahSempro from "../views/components/Sempro/Tambah.vue";
 import NilaiSempro from "../views/components/Sempro/Nilai/Lihat.vue";
 import RevisiSempro from "../views/components/Sempro/Nilai/Revisi.vue";
+import EditRevisi from "../views/components/Sempro/Nilai/Edit.vue";
 import Create from "../views/components/Sempro/Jadwal/Create.vue";
 import EditJadSempro from "../views/components/Sempro/Jadwal/edit.vue";
 import Matkul from "../views/components/Bimbingan/Matkul/Matkul.vue";
@@ -33,6 +34,7 @@ import TambahSidang from "../views/components/Semhas/Tambah.vue";
 import Penilaian from "../views/components/Penilaian/Penilaian.vue";
 import Nilai from "../views/components/Penilaian/Nilai.vue";
 import LihatNilai from "../views/components/Penilaian/Lihat.vue";
+import RevisiNilai from "../views/components/Penilaian/Revisi.vue";
 import Relasi from "../views/components/Relasi/Relasi.vue";
 import Lihat from "../views/components/Relasi/Lihat.vue";
 import Manage from "../views/components/Manage_User/Manage.vue";
@@ -60,8 +62,8 @@ const routes = [
     redirect: "/sign-in",
   },
   {
-    path: "/is-admin",
-    name: "IsAdmin",
+    path: "/is-superadmin",
+    name: "IsSuperAdmin",
     component: IsAdmin,
   },
   {
@@ -70,7 +72,7 @@ const routes = [
     component: Dashboard,
   },
   {
-    path: "/tables",
+    path: "/bimbingan/regis-ta",
     name: "Tables",
     component: Tables,
   },
@@ -80,37 +82,42 @@ const routes = [
     component: Bimbingan,
   },
   {
-    path: "/edit-matkul/:id",
+    path: "/bimbingan/riset",
+    name: "Riset",
+    component: Riset,
+  },
+  {
+    path: "/bimbingan/edit-matkul/:id",
     name: "Edit-Matkul",
     component: EditMatkul,
   },
   {
-    path: "/edit-riset/:id",
+    path: "/bimbingan/edit-riset/:id",
     name: "Edit-Riset",
     component: EditRiset,
   },
   {
-    path: "/matkul",
+    path: "/bimbingan/matkul",
     name: "Matkul",
     component: Matkul,
   },
   {
-    path: "/detail-dosen/:id",
-    name: "Detail-Dosen",
-    component: DetailDosen,
-  },
-  {
-    path: "/tambah-dosen",
-    name: "Tambah-Dosen",
-    component: TambahDosen,
-  },
-  {
-    path: "/detail-mahasiswa/:id",
+    path: "/bimbingan/detail-mahasiswa/:id",
     name: "Detail-Mahasiswa",
     component: DetailMhs,
   },
   {
-    path: "/edit-mahasiswa",
+    path: "/bimbingan/detail-dosen/:id",
+    name: "Detail-Dosen",
+    component: DetailDosen,
+  },
+  {
+    path: "/profile/tambah-dosen",
+    name: "Tambah-Dosen",
+    component: TambahDosen,
+  },
+  {
+    path: "/profile/edit-mahasiswa",
     name: "Edit-Mhs",
     component: EditMhs,
   },
@@ -120,52 +127,47 @@ const routes = [
     component: TambahMhs,
   },
   {
-    path: "/riset",
-    name: "Riset",
-    component: Riset,
-  },
-  {
-    path: "/Info",
+    path: "/notifications/Info",
     name: "Info",
     component: Info,
   },
   {
-    path: "/edit-Info/:id",
+    path: "/notifications/edit-Info/:id",
     name: "Edit-Info",
     component: EditInfo,
   },
   {
-    path: "/edit-docsempro/:id",
+    path: "/notifications/edit-docsempro/:id",
     name: "Edit-DocSempro",
     component: EditDocSempro,
   },
   {
-    path: "/edit-docsemhas/:id",
+    path: "/notifications/edit-docsemhas/:id",
     name: "Edit-DocSemhas",
     component: EditDocSemhas,
   },
   {
-    path: "/eye-info/:id",
+    path: "/notifications/eye-info/:id",
     name: "EyeInfo",
     component: EyeInfo,
   },
   {
-    path: "/docsempro",
+    path: "/notifications/docsempro",
     name: "Doc-Sempro",
     component: DocSempro,
   },
   {
-    path: "/eye-docsempro/:id",
+    path: "/notifications/eye-docsempro/:id",
     name: "EyeDoc-Sempro",
     component: EyeDocSempro,
   },
   {
-    path: "/docsemhas",
+    path: "/notifications/docsemhas",
     name: "Doc-Semhas",
     component: DocSemhas,
   },
   {
-    path: "/eye-docsemhas/:id",
+    path: "/notifications/eye-docsemhas/:id",
     name: "EyeDoc-Semhas",
     component: EyeDocSemhas,
   },
@@ -175,42 +177,42 @@ const routes = [
     component: Sempro,
   },
   {
-    path: "/tambah-sempro",
+    path: "/sempro/tambah-sempro",
     name: "Tambah-Sempro",
     component: TambahSempro,
   },
   {
-    path: "/nilai-sempro",
+    path: "/sempro/nilai-sempro",
     name: "Nilai-Sempro",
     component: NilaiSempro,
   },
   {
-    path: "/create/:id",
+    path: "/sempro/create/:id",
     name: "Create",
     component: Create,
   },
   {
-    path: "/sempro-editjad/:id",
+    path: "/manage-data/sempro-editjad/:id",
     name: "SemproEditJad",
     component: SemproEditJad,
   },
   {
-    path: "/sempro-lihatjad/:id",
+    path: "/manage-data/sempro-lihatjad/:id",
     name: "SemproLihatJad",
     component: SemproLihatJad,
   },
   {
-    path: "/edit-jadsempro/:id",
+    path: "/sempro/edit-jadsempro/:id",
     name: "EditJadSempro",
     component: EditJadSempro,
   },
   {
-    path: "/createsidang/:id",
+    path: "/sidang/createsidang/:id",
     name: "CreateSidang",
     component: CreateSidang,
   },
   {
-    path: "/edit-jadsidang/:id",
+    path: "/sidang/edit-jadsidang/:id",
     name: "EditJadSemhas",
     component: EditJadSemhas,
   },
@@ -220,7 +222,7 @@ const routes = [
     component: Sidang,
   },
   {
-    path: "/tambah-sidang",
+    path: "/sidang/tambah-sidang",
     name: "Tambah-Sidang",
     component: TambahSidang,
   },
@@ -230,12 +232,17 @@ const routes = [
     component: Penilaian,
   },
   {
-    path: "/nilai/:id",
+    path: "/penilaian/nilai/:id",
     name: "Nilai",
     component: Nilai,
   },
   {
-    path: "/lihat-nilai/:id",
+    path: "/penilaian/revisi-nilai/:id",
+    name: "RevisiNilai",
+    component: RevisiNilai,
+  },
+  {
+    path: "/penilaian/lihat-nilai/:id",
     name: "LihatNilai",
     component: LihatNilai,
   },
@@ -260,52 +267,57 @@ const routes = [
     component: ManageData,
   },
   {
-    path: "/jad-sempro/:id",
+    path: "/manage-data/jad-sempro/:id",
     name: "JadSempro",
     component: JadSempro,
   },
   {
-    path: "/edit-sempro/:id",
+    path: "/manage-data/edit-sempro/:id",
     name: "EditSempro",
     component: EditSempro,
   },
   {
-    path: "/lihat-sempro/:id",
+    path: "/manage-data/lihat-sempro/:id",
     name: "LihatSempro",
     component: LihatSempro,
   },
   {
-    path: "/revisi-sempro",
+    path: "/sempro/nilai-sempro/revisi-sempro",
     name: "RevisiSempro",
     component: RevisiSempro,
   },
   {
-    path: "/jad-sidang/:id",
+    path: "/sempro/nilai-sempro/edit-revisi",
+    name: "EditRevisi",
+    component: EditRevisi,
+  },
+  {
+    path: "/manage-data/jad-sidang/:id",
     name: "JadSidang",
     component: JadSidang,
   },
   {
-    path: "/sidang-editjad/:id",
+    path: "/manage-data/sidang-editjad/:id",
     name: "SidangEditJad",
     component: SidangEditJad,
   },
   {
-    path: "/sidang-lihatjad/:id",
+    path: "/manage-data/sidang-lihatjad/:id",
     name: "SidangLihatJad",
     component: SidangLihatJad,
   },
   {
-    path: "/edit-sidang/:id",
+    path: "/manage-data/edit-sidang/:id",
     name: "EditSidang",
     component: EditSidang,
   },
   {
-    path: "/lihat-sidang/:id",
+    path: "/manage-data/lihat-sidang/:id",
     name: "LihatSidang",
     component: LihatSidang,
   },
   {
-    path: "/detail-data/:id",
+    path: "/manage-data/detail-data/:id",
     name: "Detail-Data",
     component: DetailData,
   },

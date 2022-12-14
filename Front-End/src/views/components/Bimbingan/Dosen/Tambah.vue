@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="page-header min-height-200 border-radius-xl mt-4" style="
-      background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg');
+    background-image: url('https://t3.ftcdn.net/jpg/02/90/89/76/360_F_290897614_7RdAsk2GmumcGWZ2qklmV74hKlNmznSx.jpg');
     ">
       <span class="mask bg-gradient-info opacity-2"></span>
       <router-link :to="{ name: 'Profile' }" class="btn btn-light mx-4 material-icons me-2" type="button">
@@ -48,34 +48,13 @@
                      class="input-group border border-info rounded py-2 px-2 text-sm"  v-model="isDosen.note">
                   </div>
                 </div>
-                <!-- <div class="row mb-3">
-                  <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">Sertifikasi
-                      <h2 class="text-danger text-sm">ex. A</h2>
-                    </label>
-                  </div>
-                  <div class="col-lg-9 my-2">
-                    <input id="status" type="text" placeholder="Masukkan status"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" name="status"
-                      :isRequired="true" />
-                    v-model="Dosen.status" 
-                  </div>
-                </div> -->
-                <!-- <div class="row mb-3">
-                  <div class="col-lg-3 my-2">
-                    <label for="nameInput" class="form-label">Foto Pribadi</label>
-                  </div>
-                  <div class="col-lg-9 my-1">
-                    <input id="foto" type="file" label="" name="foto"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md" />
-                  </div>
-                </div> -->
                 <div class="text-end">
                   <MaterialButton class="mx-3" variant="outline" size="md" type="cancel">Cancel</MaterialButton>
                   <MaterialButton size="md" type="submit">Submit</MaterialButton>
                 </div>
               </form>
             </div>
+            {{profiles}}
             <div class="d-none code-view"></div>
           </div>
         </div>
@@ -87,12 +66,13 @@
 <script>
 import axios from 'axios';
 
-// import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialButton from "@/components/MaterialButton.vue";
 // import { mapMutations } from "vuex";
 
 export default {
   name: "tambah-dosen",
+  // inject: ['is_admin','is_superadmin','role'],
+
   data() {
     return {
       profiles: {},
@@ -105,9 +85,6 @@ export default {
     MaterialButton,
   },
 
-  // var demo = new Vue({
-  // el: '#demo',
-  // //data: data,
   methods: {
     getNama() {
       let token = localStorage.getItem("token")

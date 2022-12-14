@@ -41,7 +41,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="name" type="file" label="" name="proposal" @change="fileChange($event, 'proposal')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md" :required="true"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -51,7 +51,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="slide" type="file" label="" name="slide" @change="fileChange1($event, 'slide')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" size="md"  :required="true"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -61,7 +61,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="berkas1" type="file" label="" @change="fileChange2($event, 'validasi_dospem1')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas1" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas1" size="md"  :required="true"/>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -71,7 +71,7 @@
                   </div>
                   <div class="col-lg-9 my-1">
                     <input id="berkas2" type="file" label=""  @change="fileChange3($event, 'validasi_dospem2')"
-                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas2" size="md" />
+                      class="input-group border border-info rounded py-2 px-2 text-sm" name="Berkas2" size="md" :required="true" />
                   </div>
                 </div>
                 <div class="text-end">

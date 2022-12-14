@@ -88,13 +88,16 @@ Route::get('/all-nilai/{id}',  [NilaiSemproController::class,'DetailAll']);
 #mahasiswa+admin(koorpro)
 Route::resource('/sempro', SemproController::class)->except(['create','edit']);
 Route::get('/get-sempro', [SemproController::class,'getData']);
-Route::get('/export-sempro', [SemproController::class,'export']);
+
 Route::post('/jadwal-sempro-update', [SemproController::class,'updateJadwalSempro']);
+Route::get('/coba', [SemproController::class,'coba']);
 
 Route::get('/status', [StatusController::class,'index']);
 Route::post('/status-update', [StatusController::class,'update']);
 
 Route::resource('/rev-proposal', RevProposalController::class)->except(['create','edit']);
+Route::get('/detail-proposal/{id}', [RevProposalController::class,'DetailRevisi']);
+
 
 Route::resource('/semhas', SemhasController::class)->except(['create','edit']);
 Route::get('/get-semhas', [SemhasController::class,'getData']);

@@ -142,6 +142,18 @@
           <ul class="list-group">
             <li class="list-group-item border-0 d-flex p-4 mb-2  border-radius-lg">
               <div class="d-flex flex-column">
+                <span class="">
+                  <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;">
+                    <!--  -->
+                    <router-link :to="{ name: 'EditRevisi' }">
+                      <i class="fas fa-pencil-alt text-dark me-0 fa-lg" aria-hidden="true"></i>
+                    </router-link>
+                  </a>
+                  <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:"
+                    >
+                    <i class="far fa-trash-alt me-0 fa-lg" aria-hidden="true"></i>
+                  </a>
+                </span>
                 <span class="mb-2 text-md">
                   Note Revisi:
                   <span class="text-dark font-weight-bold ms-sm-2">{{ Revisi.note }}</span>
@@ -149,10 +161,11 @@
                 <span class="mb-2 text-md">
                   File Revisi Proposal:
                   <a class="text-md my-2" :href="('http://127.0.0.1:8000/RevProposal/' + Revisi.file)" target="_blank">
-                    <span><i class="fas fa-file-pdf text-md me-2" aria-hidden="true"><span
-                      class="m-2">{{ Revisi.note }}</span></i></span>
+                    <span><i class="fas fa-file-pdf text-md me-2" aria-hidden="true"><span class="m-2">{{ Revisi.note
+                    }}</span></i></span>
                   </a>
                 </span>
+                
               </div>
             </li>
           </ul>

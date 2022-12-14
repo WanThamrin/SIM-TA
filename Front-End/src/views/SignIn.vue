@@ -220,7 +220,7 @@ export default {
               console.log(JSON.stringify(ress.data.data), 'res')
               console.log(localStorage.getItem('profile'), 'bhgygy')
               this.$router
-                .push({ name: '/Dashboard' })
+                .push({ name: 'Dashboard' })
                 .then(() => { this.$router.go() })
             })
           })

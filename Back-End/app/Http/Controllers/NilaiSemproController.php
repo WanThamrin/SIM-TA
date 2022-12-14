@@ -66,7 +66,6 @@ class NilaiSemproController extends Controller
             $q->where('id', auth()->id());
         } )
         ->first();
-        // dd($data["Sempro"] );
 
         $data['dospem1'] = NilaiSempro::where('sempros_id',$data['Sempro']->id)
         ->where('dosen_id',$data["Sempro"]->TA->dospem1)->first();
@@ -84,7 +83,7 @@ class NilaiSemproController extends Controller
             'message' => 'List Sempro',
             'data'=> $data
         ];
-        // dd($data["Sempro"]->TA);
+
 
         return response()->json($response, Response::HTTP_OK);
     }
@@ -153,20 +152,7 @@ class NilaiSemproController extends Controller
     public function update(Request $request, $id)
     {
         $number=Auth::user()->number;
-
-
-
-
-        // $sempro= Sempro::with('user','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4','user.JadwalSempro')
-        // ->where("id", $id)
-        // ->update ([
-        //     'nilai' => $request->NilaiSempro
-        // ]);
         $validator = Validator::make($request->all(), [
-            // 'nama_mhs'=>['required'],
-            // 'nim'=>['required'],
-            // 'niph'=>['required'],
-            // 'laporan'=>['required'],
             'nilai1'=>['required'],
             'nilai2'=>['required'],
             'nilai3'=>['required'],
@@ -179,11 +165,6 @@ class NilaiSemproController extends Controller
             return response()->json($validator->errors(),
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        // dd($request->all());
-        // try {
-            // $NilaiSempro = NilaiSempro::create($request->all()+[
-            //     'sempros_id'=>$sempro->sempros_id
-            // ]);
             $sempro = Sempro::find($id);
             $NilaiSempro = NilaiSempro::updateOrCreate(
                 [
@@ -207,13 +188,6 @@ class NilaiSemproController extends Controller
             ];
 
             return response()->json($response, Response::HTTP_CREATED);
-
-        // } catch (QueryException $e) {
-        // //   dd($e);
-        //     return response()->json([
-        //         'message' => "Gagal" . $e->errorInfo
-        //     ]);
-        // }
     }
 
     /**

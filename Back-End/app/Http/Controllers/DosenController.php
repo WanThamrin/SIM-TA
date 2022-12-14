@@ -52,6 +52,25 @@ class DosenController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
+    public function detailDosen($id)
+    {
+        $Dosen = User::with('bimbingan','riset')->where('id',$id)->first();
+        // dd($Dosen);
+        $dosen = Dosen::where('users_id', $Dosen->id)->first();
+
+        // foreach ($Dosen as $key => $data) {
+        //     $data['dospem1'] = RegisTA::with('user')->where('dospem1',$data->id)->count();
+        //     $data['dospem2'] = RegisTA::with('user')->where('dospem2',$data->id)->count();
+        // }
+
+        $response =[
+            'message' => 'List Dosen',
+            'data'=>[ 'bio' => $Dosen, 'detail' => $dosen]
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
     public function ManageDosen()
     {
         $Dosen['admin'] = User::with('bimbingan','riset')->where('role','dosen')->where('is_admin',1)->get();
@@ -107,18 +126,7 @@ class DosenController extends Controller
     }
 
 
-    public function detailDosen($id)
-    {
-        $Dosen = User::with('bimbingan','riset')->where('id',$id)->first();
-        // dd($Dosen);
-        $dosen = Dosen::where('users_id', $Dosen->id)->first();
-        $response =[
-            'message' => 'List Dosen',
-            'data'=>[ 'data' => $Dosen, 'detail' => $dosen]
-        ];
 
-        return response()->json($response, Response::HTTP_OK);
-    }
 
     /**
      * Store a newly created resource in storage.

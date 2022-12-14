@@ -21,11 +21,7 @@ class iterasi1Test extends TestCase
             $response = $this->actingAs($user)
                 ->post(url('api/beban-bimbingan'), [
                     'mata_kuliah' => 'Start Up',
-                    'catatan' => 'Jumat Sesi 3',
-                    // 'nama_warga' => $this->faker->name(),
-                    // 'tgl_lahir' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
-                    // 'alamat' => $this->faker->address(),
-                    // 'foto' => UploadedFile::fake()->create('test4.jpg', 1024)
+
                 ]);
             $response->assertStatus(201);
     }

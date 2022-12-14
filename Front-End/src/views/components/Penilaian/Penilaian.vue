@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid py-4">
+    <div class="container-fluid py-4" v-if=" role == 'dosen'">
         <h4>Data Mahasiswa</h4>
         <span class="text-md text-primary">(Mahasiswa Seminar Proposal)</span>
         <div class="row align-items-center mt-4">
@@ -91,6 +91,13 @@
                                                     :to="{ name: 'Nilai', params: { id: valSempro.sempros_id } }"><i
                                                         class="fas fa-hashtag text-gradient-dark fa-lg"
                                                         aria-hidden="true">Nilai</i>
+                                                </router-link>
+                                            </a>
+                                            <a class="btn btn-link mb-0 px-0" href="javascript:;">
+                                                <router-link
+                                                    :to="{ name: 'RevisiNilai', params: { id: valSempro.users_id } }"><i
+                                                        class="fas fa-hashtag text-gradient-dark fa-lg"
+                                                        aria-hidden="true">Revisi</i>
                                                 </router-link>
                                             </a>
                                         </td>
@@ -317,7 +324,7 @@
         </div>
     </div>
 
-    <div class="containter-fuild py-4">
+    <div class="containter-fuild py-4" v-if=" is_admin && role == 'dosen' || is_superadmin">
         <div class="row my-4">
             <div class="col-12">
                 <div class="card my-4">
@@ -405,6 +412,8 @@ import setNavPills from "@/assets/js/nav-pills.js";
 
 export default {
     name: "Penilaian",
+  inject: ['is_admin', 'is_superadmin', 'role'],
+
     data() {
         return {
 

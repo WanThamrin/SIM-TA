@@ -23,8 +23,8 @@
                     <label for="nameInput" class="form-label"> Nama Topik Riset</label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="nama_riset" type="text" placeholder="Masukkan Nama Mata Kuliah" class="input-group border border-info rounded py-2 px-2 text-sm" name="nama_riset" :isRequired="true"
-                      v-model="Riset.nama_riset" /> 
+                    <input id="nama_riset" type="text" placeholder="Masukkan Nama Riset" class="input-group border border-info rounded py-2 px-2 text-sm" name="nama_riset" :isRequired="true"
+                      v-model="Riset.nama_riset"  /> 
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -34,7 +34,7 @@
                     </label>
                   </div>
                   <div class="col-lg-9 my-1">
-                    <input id="bidang_riset" type="text" placeholder="Masukkan bidang_riset" class="input-group border border-info rounded py-2 px-2 text-sm" name="bidang_riset"  :isRequired="true"
+                    <input id="bidang_riset" type="text" placeholder="Masukkan Bidang Riset" class="input-group border border-info rounded py-2 px-2 text-sm" name="bidang_riset"  :isRequired="true"
                       v-model="Riset.bidang_riset" />
                   </div>
                 </div>
@@ -96,9 +96,10 @@ export default {
   },
   methods: {
     getMatkul() {
+      let token = localStorage.getItem("token")
       axios.get(
-        'http://127.0.0.1:8000/api/riset/' + this.$route.params.id
-      )
+        'http://127.0.0.1:8000/api/riset/' + this.$route.params.id,
+        { headers: { "Authorization": `Bearer ${token}` } })
         .then((result) => {
           this.Riset = result.data.data
           // console.log(result.data.data)
@@ -108,10 +109,10 @@ export default {
         });
     },
     update() {
+      let token = localStorage.getItem("token")
       axios.put(
         'http://127.0.0.1:8000/api/riset/' + this.$route.params.id,
-        this.Riset
-      )
+        { headers: { "Authorization": `Bearer ${token}` } })
         .then(() => {
           this.$router.push({
             name: 'Bimbingan'

@@ -58,39 +58,6 @@ class SemhasController extends Controller
      */
     public function store(Request $request)
     {
-//         $validator = Validator::make($request->all(), [
-//             // 'nama_mhs'=>['required'],
-//             // 'nim'=>['required'],
-//             // 'niph'=>['required'],
-//             'proposal'=>['required'],
-//             'slide'=>['required'],
-//             'validasi_dospem1'=>['required'],
-//             'validasi_dospem2'=>['required']
-//         ]);
-
-//         if ($validator->fails()) {
-//             return response()->json($validator->errors(),
-//             Response::HTTP_UNPROCESSABLE_ENTITY);
-//         }
-
-//         try {
-//             $semhas = Semhas::create($request->all()+['users_id'=>auth()->id()]);;
-//             $response=[
-//                 'message' => ' Form Semhas telah dibuat',
-//                 'data'=> $semhas
-//             ];
-// +
-//         $Mahasiswa = Mahasiswa::where('users_id',auth()->id())->update(['status'=>'seminar hasil']);
-
-//             return response()->json($response, Response::HTTP_CREATED);
-
-
-//         } catch (QueryException $e) {
-//             return response()->json([
-//                 'message' => "Gagal" . $e->errorInfo
-//             ]);
-//         }
-
         $laporan = $request->file('laporan')->getClientOriginalName();
         $request->file('laporan')->move(public_path('Semhas/laporan'),$laporan);
 
@@ -266,7 +233,7 @@ class SemhasController extends Controller
         }
     }
 
-    
+
     public function updateJadwalSemhas(Request $request)
     {
         $jadwalSemhas = JadwalSemhas::findOrFail($request->id);

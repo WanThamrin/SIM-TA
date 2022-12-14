@@ -7,7 +7,7 @@
     <div class="container px-0">
       <router-link
         class="navbar-brand font-weight-bolder ms-lg-0 ms-3"
-        to="/dashboard"
+        to="/"
         v-bind="$attrs"
         :class="isBlur ? 'text-dark' : 'text-white'"
       >

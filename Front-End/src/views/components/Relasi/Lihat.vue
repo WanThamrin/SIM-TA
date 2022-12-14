@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="page-header min-height-200 border-radius-xl mt-4" style="
-       background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+      background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
          ">
       <span class="mask bg-gradient-success opacity-6"></span>
       <router-link :to="{ name: 'Relasi' }" class="btn btn-light mx-4 material-icons me-2" type="button">
@@ -14,9 +14,9 @@
             <img src="@/assets/img/user.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" />
           </div>
         </div>
-        <div class="col-auto my-auto">
+        <div class="col-auto my-auto">  
           <div class="h-100">
-            <h5 class="mb-1">{{ dosens.name }}</h5>
+            <h5 class="mb-1">{{dosens.bio.name}}</h5>
             <p class="mb-0 font-weight-normal text-sm"> Dosen Informatika </p>
           </div>
         </div>
@@ -57,37 +57,6 @@
             </div>
           </div>
           <!-- Modal -->
-          <div class="modal fade" id="Mahasiswa" tabindex="-1" aria-labelledby="Mahasiswa" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="Mahasiswa">Data Mahasiswa</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body overflow-auto">
-                  <ul class="list-group">
-                    <li v-for="(mahasiswa, index) in mahasiswas.data" :key="index"
-                      class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                      <div class="d-flex flex-column">
-                        <h6 class="mb-1 text-dark font-weight-bold text-sm">
-                          {{ mahasiswa.name }}
-                        </h6>
-                        <span class="text-xs">{{ mahasiswa.number }}</span>
-                      </div>
-                      <div ms-auto text-end>
-                        <a class="btn btn-link mb-0 px-0 ms-4" href="javascript:;" @click.prevent="">
-                          <i class="fas fa-plus me-0 fa-lg" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="card-body px-0 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">
@@ -117,7 +86,7 @@
                             alt="user1" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ relasi.name }}</h6>
+                          <h6 class="mb-0 text-sm" >{{ relasi.name }}</h6>
                           <p class="text-sm text-secondary mb-0">
                             {{ relasi.email }}
                           </p>
@@ -344,14 +313,15 @@ export default {
   name: "Lihat",
   data() {
     return {
-      dosens: {},
+      dosens: {
+        bio:{}
+      },
       relasis: {
         dospem1: {},
         dospem2: {},
         dospeng1: {},
         dospeng2: {}
-      },
-      mahasiswas: {}
+      }
     }
   },
 
@@ -361,6 +331,7 @@ export default {
       axios.get('http://127.0.0.1:8000/api/get-dosen/' + this.$route.params.id,
         { headers: { "Authorization": `Bearer ${token}` } })
         .then((result) => {
+          // console.log ('http://127.0.0.1:8000/api/get-dosen/' + this.$route.params.id)
           this.dosens = result.data.data
           console.log(this.dosens)
         }).catch((err) => {

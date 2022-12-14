@@ -21,9 +21,10 @@
         </div> -->
         <ul class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
-            <h6 class="text-sm text-uppercase text-info m-2">{{profiles.role}}</h6>
+            <h6 class="text-sm text-uppercase text-info m-2" v-if="role == 'user'"> Mahasiswa </h6>
+            <h6 class="text-sm text-uppercase text-info m-2" v-else> Dosen </h6>
             <router-link
-              :to="{ name: 'SignIn' }"
+              :to="{ name: 'Profile' }"
               class="px-0 nav-link font-weight-bold lh-1"
               :class="color ? color : 'text-body'"
             >
@@ -186,7 +187,7 @@
   </nav>
 </template>
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 // import MaterialInput from "@/components/MaterialInput.vue";
 import Breadcrumbs from "../Breadcrumbs.vue";
@@ -194,6 +195,7 @@ import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "navbar",
+  inject: ['is_admin','is_superadmin','role'],
   data() {
     return {
       profiles:{},
@@ -205,17 +207,6 @@ export default {
     this.minNav;
   },
   methods: {
-    getNama() {
-      let token = localStorage.getItem("token")
-      axios.get('http://127.0.0.1:8000/api/me',
-        { headers: { "Authorization": `Bearer ${token}` } })
-        .then((result) => {
-          this.profiles = result.data.data
-          console.log(this.profiles)
-        }).catch((err) => {
-          console.log(err.response)
-        })
-    },
     ...mapMutations(["navbarMinimize", "toggleConfigurator"]),
 
     toggleSidebar() {
@@ -223,7 +214,7 @@ export default {
     },
   },
   mounted() {
-    this.getNama()
+    // this.getNama()
   },
   components: {
     Breadcrumbs,  
