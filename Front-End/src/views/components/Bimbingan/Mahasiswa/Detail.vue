@@ -13,7 +13,7 @@
       <div class="row gx-4">
         <div class="col-auto">
           <div class="position-relative" style="width: 200px">
-            <img src="@/assets/img/bruce-mars.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" />
+            <img src="@/assets/img/user.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" />
           </div>
         </div>
         <div class="col-auto my-auto">

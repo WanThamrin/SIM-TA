@@ -96,7 +96,7 @@
                                             <a class="btn btn-link mb-0 px-0" href="javascript:;">
                                                 <router-link
                                                     :to="{ name: 'RevisiNilai', params: { id: valSempro.users_id } }"><i
-                                                        class="fas fa-hashtag text-gradient-dark fa-lg"
+                                                        class="fas fa-file m-2 text-gradient-dark fa-lg"
                                                         aria-hidden="true">Revisi</i>
                                                 </router-link>
                                             </a>

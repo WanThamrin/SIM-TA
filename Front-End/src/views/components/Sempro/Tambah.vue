@@ -149,7 +149,7 @@ export default {
             name: 'Sempro'
           })
           Swal.fire(
-            'Pendaftaran telah dilakukan',
+            'Pendaftaran telah dilakukan', 'done',
             'success')
 
         }).catch((err) => {

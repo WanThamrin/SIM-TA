@@ -470,6 +470,7 @@ export default {
     },
 
     destroy(id) {
+      if (confirm('Apakah anda yakin?'))
       axios.delete(
         'http://127.0.0.1:8000/api/info/' + id
       )
@@ -488,7 +489,7 @@ export default {
         'http://127.0.0.1:8000/api/doc-sempro/' + id
       )
         .then(() => {
-          this.DocSempros.value.splice(this.DocSempros.value.indexOf(id), 1);
+          this.DocSempros.data.splice(this.DocSempros.data.findIndex((item)=>item.id===id),1);
           this.$router.go()
           this.drop()
 
@@ -498,11 +499,12 @@ export default {
     },
 
     del(id) {
+      if (confirm('Apakah anda yakin?'))
       axios.delete(
         'http://127.0.0.1:8000/api/doc-semhas/' + id
       )
         .then(() => {
-          this.DocSemhas.value.splice(this.DocSemhas.value.indexOf(id), 1);
+          this.DocSemhas.data.splice(this.DocSemhas.data.findIndex((item)=>item.id===id),1);
           this.del()
           this.$router.go()
         }).catch((err) => {

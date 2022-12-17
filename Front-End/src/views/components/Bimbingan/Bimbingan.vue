@@ -272,7 +272,7 @@
 
                                 <tbody>
                                     <!-- v-for="(RegisTA, index) in RegisTAs.data" :key="index" -->
-                                    <tr v-for="(RegisTA, index) in RegisTAs.dospem1.user" :key="index">
+                                    <tr v-for="(RegisTA, index) in RegisTAs.dospem1" :key="index">
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
@@ -694,7 +694,7 @@ export default {
                 { headers: { "Authorization": `Bearer ${token}` } })
                 .then((result) => {
                     // this.dosens = result.data.data
-                    console.log('update dospem 1')
+                    // console.log('update dospem 1')
                     this.getTugas()
                     this.$router.go()
                     console.log(result)

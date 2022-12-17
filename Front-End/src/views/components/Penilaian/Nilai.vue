@@ -262,6 +262,8 @@
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 // import $ from 'jquery'; 
 
 // import MaterialInput from "@/components/MaterialInput.vue";
@@ -352,6 +354,9 @@ export default {
           this.$router.push({
             name: 'Penilaian'
           })
+          Swal.fire(
+            'Penilaian telah di update', 'done',
+            'success')
 
         }).catch((err) => {
           console.log(err.response.data)

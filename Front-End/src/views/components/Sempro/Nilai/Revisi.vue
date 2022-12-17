@@ -66,6 +66,8 @@
   
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2';
+
 import $ from 'jquery';
 
 // import MaterialInput from "@/components/MaterialInput.vue";
@@ -105,6 +107,9 @@ export default {
           this.$router.push({
             name: 'Nilai-Sempro'
           })
+          Swal.fire(
+            'Revisi telah di kirim', 'done',
+            'success')
 
         }).catch((err) => {
           console.log(err.response.data)

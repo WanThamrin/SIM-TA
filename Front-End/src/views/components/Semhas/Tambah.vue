@@ -173,7 +173,7 @@ export default {
             name: 'Sidang'
           })
           Swal.fire(
-            'Pendaftaran telah dilakukan',
+            'Pendaftaran telah dilakukan','done',
             'success')
 
         }).catch((err) => {
