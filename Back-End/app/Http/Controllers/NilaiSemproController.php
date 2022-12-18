@@ -169,6 +169,7 @@ class NilaiSemproController extends Controller
             $NilaiSempro = NilaiSempro::updateOrCreate(
                 [
                     "sempros_id" => $sempro->id,
+                    "dosen_id" => auth()->user()->id
                 ],
                 [
                     "nilai1" => $request->nilai1,
@@ -201,7 +202,7 @@ class NilaiSemproController extends Controller
         // $data['user'] = RegisTA::join('users','users.id','regis_t_a_s.users_id')->where("regis_t_a_s.id", $id)->get();
         $data['user'] = Sempro::with('user','TA.dosen1','TA.dosen2','TA.dosen3','TA.dosen4','user.JadwalSempro')
         ->where("id", $id)->first();
-        $data['nilai'] = NilaiSempro::whereSempros_id($data["user"]->id)->first();
+        $data['nilai'] = NilaiSempro::whereSempros_id($data["user"]->id)->where('dosen_id',auth()->user()->id)->first();
         // $NilaiSempro = NilaiSempro::findOrFail($id);
 
         $response=[
